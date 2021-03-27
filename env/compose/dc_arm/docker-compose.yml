@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  mysql:
+    image: mysql/mysql-server:8.0
+    container_name: mysql.test
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "${MYSQL_PORT_OUT}:3306"
+    volumes:
+      - "../../config/mysql/conf:/etc/mysql/conf.d"
+      - "/media/usb/mysql:/var/lib/mysql"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  mock-server:
+    image: 'leeonky/mock-server:5.4.1'
+    container_name: mock-server.test
+    ports:
+      - "${MOCK_SERVER_PORT_OUT}:1080"
+    command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
+    healthcheck:
+      test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
+      timeout: 20s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - mysql:db
+    ports:
+      - "${PHPMYADMIN_PORT_OUT}:80"

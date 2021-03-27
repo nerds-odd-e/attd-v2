@@ -1,0 +1,15 @@
+#! /bin/bash
+prj_path=$(dirname $0)
+
+cd $prj_path/compose/$(basename $0)
+
+if [ $1 == ggg ]; then
+	shift
+	times=1
+	while ! docker-compose $@
+	do
+		echo "Retry $((times++)) times..."
+	done
+else
+	docker-compose $@
+fi
