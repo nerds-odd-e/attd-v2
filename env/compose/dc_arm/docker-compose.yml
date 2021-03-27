@@ -29,11 +29,3 @@ services:
       test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
       timeout: 20s
       retries: 10
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    links:
-      - mysql:db
-    ports:
-      - "${PHPMYADMIN_PORT_OUT}:80"
