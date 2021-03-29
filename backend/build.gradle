@@ -24,9 +24,13 @@ sourceSets {
 processResources.dependsOn ':frontend:npmBuild'
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    annotationProcessor('org.projectlombok:lombok')
-    compileOnly('org.projectlombok:lombok')
-    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    implementation('org.springframework.boot:spring-boot-starter-web:2.4.4')
+    annotationProcessor('org.projectlombok:lombok:1.18.18')
+    compileOnly('org.projectlombok:lombok:1.18.18')
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:2.4.4')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.4.4')
+    testImplementation("io.cucumber:cucumber-java:6.10.2")
+    testImplementation("io.cucumber:cucumber-spring:6.10.2")
+    testImplementation("org.assertj:assertj-core:3.19.0")
+    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
 }
