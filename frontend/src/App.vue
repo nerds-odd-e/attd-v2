@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <input type="text" placeholder="userName" name="userName"/>
+    <input type="password" placeholder="password" name="password"/>
+    <input type="button" :value="buttonClicked ? 'Clicked' : 'Login'" @click="buttonClicked=true">
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data: () => {
+    return {
+      buttonClicked: false
+    }
   }
 }
 </script>

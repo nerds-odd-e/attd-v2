@@ -26,7 +26,8 @@ processResources.dependsOn ':frontend:npmBuild'
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web:2.4.4')
     annotationProcessor('org.projectlombok:lombok:1.18.18')
-    compileOnly('org.projectlombok:lombok:1.18.18')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.18')
+    compile('org.projectlombok:lombok:1.18.18')
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:2.4.4')
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.4.4')
     testImplementation("io.cucumber:cucumber-java:6.10.2")
