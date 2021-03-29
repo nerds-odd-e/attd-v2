@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,6 +23,9 @@ public class ApplicationSteps {
 
     private final WebDriver webDriver = new ChromeDriver();
 
+    @LocalServerPort
+    private int port;
+
     @假如("存在用户名为{string}和密码为{string}的用户")
     public void 存在用户名为和密码为的用户(String userName, String password) {
     }
@@ -29,7 +33,7 @@ public class ApplicationSteps {
     @SneakyThrows
     @当("以用户名为{string}和密码为{string}登录时")
     public void 以用户名为和密码为登录时(String userName, String password) {
-        webDriver.get("http://localhost:8080");
+        webDriver.get("http://localhost:" + port);
         webDriver.findElement(By.name("userName")).sendKeys(userName);
         webDriver.findElement(By.name("password")).sendKeys(password);
         webDriver.findElement(By.xpath("//*[@value='Login']")).click();

@@ -1,0 +1,14 @@
+---
+spring:
+  profiles: test
+
+server:
+  port: 10081
+
+---
+spring:
+  profiles: dev
+
+server:
+  port: 10080
+
