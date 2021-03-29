@@ -11,6 +11,9 @@ repositories {
 
 configurations {
     providedRuntime
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
 }
 
 sourceSets {
@@ -34,4 +37,15 @@ dependencies {
     testImplementation("io.cucumber:cucumber-spring:6.10.2")
     testImplementation("org.assertj:assertj-core:3.19.0")
     testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+}
+
+task cucumber() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'com.odde', 'src/test/resources']
+        }
+    }
 }
