@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @ContextConfiguration(classes = {SpringVueApplication.class}, loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @CucumberContextConfiguration
@@ -35,6 +37,7 @@ public class ApplicationSteps {
 
     @那么("登录成功")
     public void 登录成功() {
+        assertThat(webDriver.findElements(By.xpath("//*[text()='Welcome']"))).isNotEmpty();
     }
 
     @After

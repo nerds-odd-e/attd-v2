@@ -1,20 +1,13 @@
 <template>
   <div id="app">
-    <input type="text" placeholder="userName" name="userName"/>
-    <input type="password" placeholder="password" name="password"/>
-    <input type="button" :value="buttonClicked ? 'Clicked' : 'Login'" @click="buttonClicked=true">
+    <router-view/>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'app',
-  data: () => {
-    return {
-      buttonClicked: false
-    }
-  }
+  name: 'app'
 }
 </script>
 
