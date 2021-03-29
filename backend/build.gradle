@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
-
+apply plugin: "com.github.erdi.webdriver-binaries"
 
 sourceCompatibility = 8
 
@@ -39,13 +39,14 @@ dependencies {
     testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
 }
 
-task cucumber() {
+task cucumber(type: JavaExec) {
     dependsOn assemble, testClasses
-    doLast {
-        javaexec {
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'pretty', '--glue', 'com.odde', 'src/test/resources']
-        }
-    }
+    main = "io.cucumber.core.cli.Main"
+    classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+    args = ['--plugin', 'pretty', '--glue', 'com.odde', 'src/test/resources']
+}
+
+webdriverBinaries {
+    chromedriver '88.0.4324.96'
+    configureTask(cucumber)
 }
