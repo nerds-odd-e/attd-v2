@@ -44,6 +44,7 @@ task cucumber(type: JavaExec) {
     dependsOn assemble, testClasses
     main = "io.cucumber.core.cli.Main"
     classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+    environment "SPRING_PROFILES_ACTIVE", "test"
     args = ['--plugin', 'pretty', '--glue', 'com.odde', 'src/test/resources']
 }
 
