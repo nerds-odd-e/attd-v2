@@ -15,6 +15,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @ContextConfiguration(classes = {SpringVueApplication.class}, loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -41,7 +42,7 @@ public class ApplicationSteps {
 
     @那么("登录成功")
     public void 登录成功() {
-        assertThat(webDriver.findElements(By.xpath("//*[text()='Welcome']"))).isNotEmpty();
+        await().untilAsserted(() -> assertThat(webDriver.findElements(By.xpath("//*[text()='Welcome']"))).isNotEmpty());
     }
 
     @After

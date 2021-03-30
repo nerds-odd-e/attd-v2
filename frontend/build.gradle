@@ -39,7 +39,7 @@ task npmBuild(type: NpmTask) {
     dependsOn 'npmInstall'
     dependsOn 'clean'
 
-    args = ['run', 'build']
+    args = ['run', 'build', '--', '--mode', 'test']
 }
 
 task clean() {

@@ -37,6 +37,7 @@ dependencies {
     testImplementation("io.cucumber:cucumber-spring:6.10.2")
     testImplementation("org.assertj:assertj-core:3.19.0")
     testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    testImplementation "org.awaitility:awaitility:4.0.3"
 }
 
 task cucumber(type: JavaExec) {
