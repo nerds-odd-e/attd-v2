@@ -35,18 +35,19 @@ public class ApplicationSteps {
     @当("以用户名为{string}和密码为{string}登录时")
     public void 以用户名为和密码为登录时(String userName, String password) {
         webDriver.get("http://localhost:" + port);
-        webDriver.findElement(By.name("userName")).sendKeys(userName);
-        webDriver.findElement(By.name("password")).sendKeys(password);
+        webDriver.findElement(By.xpath("//*[@placeholder='userName']")).sendKeys(userName);
+        webDriver.findElement(By.xpath("//*[@placeholder='password']")).sendKeys(password);
         webDriver.findElement(By.xpath("//*[@value='Login']")).click();
     }
 
-    @那么("登录成功")
-    public void 登录成功() {
-        await().untilAsserted(() -> assertThat(webDriver.findElements(By.xpath("//*[text()='Welcome']"))).isNotEmpty());
+    @那么("{string}登录成功")
+    public void 登录成功(String userName) {
+        await().untilAsserted(() -> assertThat(webDriver.findElements(By.xpath(String.format("//*[text()='Welcome %s']", userName)))).isNotEmpty());
     }
 
     @After
     public void close() {
         webDriver.close();
     }
+
 }
