@@ -10,7 +10,11 @@
 
 export default {
   methods: {
-    login() {
+    async login() {
+      await this.$api.post('users/login', {
+        userName: 'aaa',
+        password: 'bbb'
+      })
       this.$router.push('welcome')
     }
   }
