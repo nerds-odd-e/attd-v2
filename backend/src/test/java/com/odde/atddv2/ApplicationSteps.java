@@ -1,5 +1,7 @@
 package com.odde.atddv2;
 
+import com.odde.atddv2.entity.User;
+import com.odde.atddv2.repo.UserRepo;
 import io.cucumber.java.After;
 import io.cucumber.java.zh_cn.假如;
 import io.cucumber.java.zh_cn.当;
@@ -9,6 +11,7 @@ import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -27,8 +30,12 @@ public class ApplicationSteps {
     @LocalServerPort
     private int port;
 
+    @Autowired
+    private UserRepo userRepo;
+
     @假如("存在用户名为{string}和密码为{string}的用户")
     public void 存在用户名为和密码为的用户(String userName, String password) {
+        userRepo.save(new User().setUsername(userName).setPassword(password));
     }
 
     @SneakyThrows

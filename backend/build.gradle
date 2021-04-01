@@ -32,6 +32,9 @@ dependencies {
     testAnnotationProcessor('org.projectlombok:lombok:1.18.18')
     compile('org.projectlombok:lombok:1.18.18')
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:2.4.4')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:2.4.4")
+    compile("mysql:mysql-connector-java:8.0.13")
+
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.4.4')
     testImplementation("io.cucumber:cucumber-java:6.10.2")
     testImplementation("io.cucumber:cucumber-spring:6.10.2")
