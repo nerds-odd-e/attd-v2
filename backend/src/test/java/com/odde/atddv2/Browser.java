@@ -1,9 +1,12 @@
 package com.odde.atddv2;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
@@ -18,16 +21,20 @@ public class Browser {
     @Autowired
     private WebDriver webDriver;
 
-    public void launchPath(String path) {
+    public void launchByUrl(String path) {
         webDriver.get("http://localhost:" + serverProperties.getPort() + path);
     }
 
     public void inputTextByPlaceholder(String placeholder, String text) {
-        webDriver.findElement(xpath("//*[@placeholder='" + placeholder + "']")).sendKeys(text);
+        waitElement("//*[@placeholder='" + placeholder + "']").sendKeys(text);
+    }
+
+    private WebElement waitElement(String xpathExpression) {
+        return await().until(() -> webDriver.findElement(xpath(xpathExpression)), Objects::nonNull);
     }
 
     public void clickByText(String text) {
-        webDriver.findElement(xpath("//*[@value='" + text + "']")).click();
+        waitElement("//*[@value='" + text + "']").click();
     }
 
     public void shouldHaveText(String text) {

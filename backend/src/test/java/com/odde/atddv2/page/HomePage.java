@@ -11,7 +11,7 @@ public class HomePage {
     public Browser browser;
 
     public void open() {
-        browser.launchPath("/");
+        browser.launchByUrl("/");
     }
 
     public void login(String userName, String password) {
