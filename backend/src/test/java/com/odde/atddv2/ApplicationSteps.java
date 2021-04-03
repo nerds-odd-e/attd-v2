@@ -8,7 +8,6 @@ import io.cucumber.java.zh_cn.假如;
 import io.cucumber.java.zh_cn.当;
 import io.cucumber.java.zh_cn.那么;
 import io.cucumber.spring.CucumberContextConfiguration;
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,9 +23,6 @@ public class ApplicationSteps {
 
     @Autowired
     private Browser browser;
-
-    @Autowired
-    private WebDriver webDriver;
 
     @Autowired
     private UserRepo userRepo;
