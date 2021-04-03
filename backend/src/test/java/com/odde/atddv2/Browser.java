@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,15 +30,20 @@ public class Browser {
         waitElement("//*[@placeholder='" + placeholder + "']").sendKeys(text);
     }
 
-    private WebElement waitElement(String xpathExpression) {
-        return await().until(() -> webDriver.findElement(xpath(xpathExpression)), Objects::nonNull);
-    }
-
     public void clickByText(String text) {
         waitElement("//*[@value='" + text + "']").click();
     }
 
     public void shouldHaveText(String text) {
         await().untilAsserted(() -> assertThat(webDriver.findElements(xpath("//*[text()='" + text + "']"))).isNotEmpty());
+    }
+
+    @PreDestroy
+    public void close() {
+        webDriver.close();
+    }
+
+    private WebElement waitElement(String xpathExpression) {
+        return await().until(() -> webDriver.findElement(xpath(xpathExpression)), Objects::nonNull);
     }
 }
