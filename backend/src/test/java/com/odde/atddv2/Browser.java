@@ -66,7 +66,7 @@ public class Browser {
 
     private boolean isChromeDriverBinary(Path p) {
         File file = p.toFile();
-        return file.isFile() && file.getPath().endsWith("chromedriver");
+        return file.isFile() && (file.getPath().endsWith("chromedriver") || file.getPath().endsWith("chromedriver.exe"));
     }
 
     private WebElement waitElement(String xpathExpression) {
