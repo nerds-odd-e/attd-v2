@@ -1,14 +1,12 @@
 <template lang="pug">
 .login-container
   el-form.login-form(
-    autocomplete='on',
-    label-position='left'
+    autocomplete='on'
   )
     .title-container
       h3.title 系统登录
     el-form-item
       el-input(
-        ref='username',
         v-model='userName',
         placeholder='用户名',
         type='text',
@@ -17,7 +15,6 @@
       )
     el-form-item
       el-input(
-        ref='password',
         v-model='password',
         placeholder='密码',
         type='password',
@@ -127,23 +124,6 @@ $light_gray: #ddd;
     padding: 35px 35px 15px 35px;
     margin: 120px auto;
   }
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
-    }
-  }
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: $dark_gray;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
-  }
   .title-container {
     position: relative;
     .title {
@@ -152,35 +132,6 @@ $light_gray: #ddd;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
-    }
-    .set-language {
-      color: #fff;
-      position: absolute;
-      top: 3px;
-      font-size: 18px;
-      right: 0px;
-      cursor: pointer;
-    }
-  }
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 16px;
-    color: $dark_gray;
-    cursor: pointer;
-    user-select: none;
-  }
-  .thirdparty-button {
-    position: absolute;
-    right: 35px;
-    bottom: 0;
-    display: none;
-  }
-
-  @media only screen and (max-width: 470px) {
-    .thirdparty-button {
-      display: none;
     }
   }
 }
