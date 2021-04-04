@@ -1,0 +1,8 @@
+@import './element-variables.scss';
+@import './color-ui.css';
+@import './color-ui-font.scss';
+@import './element-ui.scss';
+
+.text-prime {
+  color: $--color-primary;
+}
