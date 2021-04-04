@@ -1,10 +1,9 @@
-<template>
-  <div>
-    <input type="text" placeholder="userName" v-model="userName"/>
-    <input type="password" placeholder="password" v-model="password"/>
-    <input type="button" value="Login" @click="login">
-    <div>{{message}}</div>
-  </div>
+<template lang="pug">
+  div
+    input(type="text" placeholder="userName" v-model="userName")
+    input(type="password" placeholder="password" v-model="password")
+    input(type="button" value="Login" @click="login")
+    div {{message}}
 </template>
 
 <script>
