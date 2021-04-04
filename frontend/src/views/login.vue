@@ -10,7 +10,7 @@
       el-input(
         ref='username',
         v-model='userName',
-        placeholder='userName',
+        placeholder='用户名',
         type='text',
         tabindex='1',
         autocomplete='on'
@@ -19,7 +19,7 @@
       el-input(
         ref='password',
         v-model='password',
-        placeholder='password',
+        placeholder='密码',
         type='password',
         tabindex='2',
         autocomplete='on'
@@ -28,7 +28,7 @@
       type='primary',
       style='width: 100%; margin-bottom: 30px;',
       @click.native.prevent='login'
-    ) Login
+    ) 登录
     .text-yellow.text-bold.text-xxl {{message}}
 </template>
 

@@ -15,8 +15,8 @@ public class HomePage {
     }
 
     public void login(String userName, String password) {
-        browser.inputTextByPlaceholder("userName", userName);
-        browser.inputTextByPlaceholder("password", password);
-        browser.clickByText("Login");
+        browser.inputTextByPlaceholder("用户名", userName);
+        browser.inputTextByPlaceholder("密码", password);
+        browser.clickByText("登录");
     }
 }
