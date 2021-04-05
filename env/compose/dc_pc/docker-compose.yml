@@ -3,7 +3,7 @@ version: '3.4'
 services:
   mysql:
     image: mysql/mysql-server:8.0
-    container_name: mysql.test
+    container_name: mysql.test.atdd
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -20,7 +20,7 @@ services:
 
   mock-server:
     image: 'leeonky/mock-server:5.4.1'
-    container_name: mock-server.test
+    container_name: mock-server.test.atdd
     ports:
       - "${MOCK_SERVER_PORT_OUT}:1080"
     command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
@@ -31,7 +31,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+    container_name: phpmyadmin.test.atdd
     links:
       - mysql:db
     ports:

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Layout from '@/layout/index'
 
 Vue.use(Router)
 
@@ -11,8 +12,17 @@ export default new Router({
       component: () => import('@/views/login')
     },
     {
-      path: '/welcome',
-      component: () => import('@/views/welcome')
+      path: '/home',
+      component: Layout,
+      redirect: 'dashboard',
+      children: [
+        {
+          path: '/dashboard',
+          component: () => import('@/views/welcome'),
+          name: 'Dashboard',
+          meta: { title: 'dashboard', icon: 'dashboard', affix: true }
+        }
+      ]
     }
   ]
 })

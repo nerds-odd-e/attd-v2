@@ -44,7 +44,7 @@ export default {
       try{
         const res = await this.$api.post('users/login', this.$data)
         this.$router.push({
-          path: 'welcome',
+          path: 'home',
           query: {
             userName: res.data.userName
           }
