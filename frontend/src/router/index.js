@@ -14,11 +14,22 @@ export default new Router({
     {
       path: '/home',
       component: Layout,
-      redirect: 'dashboard',
+      redirect: 'home',
       children: [
         {
-          path: '/dashboard',
-          component: () => import('@/views/welcome')
+          path: '/home',
+          component: () => import('@/views/home')
+        }
+      ]
+    },
+    {
+      path: '/orders',
+      component: Layout,
+      redirect: 'orders',
+      children: [
+        {
+          path: '/orders',
+          component: () => import('@/views/orders')
         }
       ]
     }

@@ -23,9 +23,14 @@ export default {
   data: () => {
     return {
       menuRouters: [{
-        path: '',
+        path: 'home',
         meta: {
           title: '首页'
+        }
+      }, {
+        path: 'orders',
+        meta: {
+          title: '订单'
         }
       }]
     }
