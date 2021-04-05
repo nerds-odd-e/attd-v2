@@ -2,11 +2,11 @@
   <div v-if="!item.hidden" class="menu-wrapper">
 
     <template>
-      <app-link :to="item.path">
-        <el-menu-item :index="item.path" :class="{'submenu-title-noDropdown':true}">
+      <AppLink :to="item.path">
+        <ElMenuItem :index="item.path" :class="{'submenu-title-noDropdown':true}">
           <div> {{ item.meta.title }} </div>
-        </el-menu-item>
-      </app-link>
+        </ElMenuItem>
+      </AppLink>
     </template>
   </div>
 </template>

@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     async login() {
-      try{
+      try {
         const res = await this.$api.post('users/login', this.$data)
         await this.$router.push({
           path: 'home',
@@ -49,8 +49,8 @@ export default {
             userName: res.data.userName
           }
         })
-      }
-      catch(e){
+      } catch (e) {
+        console.error(e)
         this.message = '无效的用户名或密码'
       }
     }

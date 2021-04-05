@@ -1,7 +1,7 @@
 <template>
   <div :class="{'has-logo':false}">
-    <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
+    <ElScrollbar wrap-class="scrollbar-wrapper">
+      <ElMenu
         :collapse="false"
         :background-color="variables.menuBg"
         :unique-opened="false"
@@ -9,9 +9,9 @@
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         mode="vertical">
-        <sidebar-item v-for="route in menuRouters" :key="route.path" :item="route" />
-      </el-menu>
-    </el-scrollbar>
+        <SidebarItem v-for="route in menuRouters" :key="route.path" :item="route" />
+      </ElMenu>
+    </ElScrollbar>
   </div>
 </template>
 
@@ -19,6 +19,7 @@
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
 export default {
+  components: { SidebarItem },
   data: () => {
     return {
       menuRouters: [{
@@ -29,7 +30,6 @@ export default {
       }]
     }
   },
-  components: { SidebarItem },
   computed: {
     variables() {
       return variables

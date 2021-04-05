@@ -1,8 +1,8 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <sidebar class="sidebar-container" />
+    <Sidebar class="sidebar-container" />
     <div :class="{hasTagsView:false}" class="main-container">
-      <app-main />
+      <AppMain />
     </div>
   </div>
 </template>
