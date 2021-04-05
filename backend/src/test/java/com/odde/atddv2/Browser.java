@@ -36,7 +36,7 @@ public class Browser {
     }
 
     public void clickByText(String text) {
-        waitElement(String.format("//*[@value='%s' or text()='%s']", text, text)).click();
+        waitElement(String.format("//*[normalize-space(@value)='%s' or normalize-space(text())='%s']", text, text)).click();
     }
 
     public void shouldHaveText(String text) {
