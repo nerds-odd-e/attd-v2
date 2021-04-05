@@ -43,7 +43,7 @@ export default {
     async login() {
       try{
         const res = await this.$api.post('users/login', this.$data)
-        this.$router.push({
+        await this.$router.push({
           path: 'home',
           query: {
             userName: res.data.userName

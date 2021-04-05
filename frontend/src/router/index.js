@@ -18,9 +18,7 @@ export default new Router({
       children: [
         {
           path: '/dashboard',
-          component: () => import('@/views/welcome'),
-          name: 'Dashboard',
-          meta: { title: 'dashboard', icon: 'dashboard', affix: true }
+          component: () => import('@/views/welcome')
         }
       ]
     }
