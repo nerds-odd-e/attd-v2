@@ -13,7 +13,6 @@ services:
       - "${MYSQL_PORT_OUT}:3306"
     volumes:
       - "../../config/mysql/conf:/etc/mysql/conf.d"
-      - "/media/usb/mysql:/var/lib/mysql"
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 20s
