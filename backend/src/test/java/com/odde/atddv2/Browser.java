@@ -72,4 +72,8 @@ public class Browser {
     private WebElement waitElement(String xpathExpression) {
         return await().until(() -> webDriver.findElement(xpath(xpathExpression)), Objects::nonNull);
     }
+
+    public void shouldNotHaveText(String text) {
+        await().untilAsserted(() -> assertThat(webDriver.findElements(xpath("//*[text()='" + text + "']"))).isEmpty());
+    }
 }

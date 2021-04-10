@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.odde.atddv2.entity.Order;
 import com.odde.atddv2.entity.User;
 import com.odde.atddv2.page.HomePage;
+import com.odde.atddv2.page.OrderPage;
 import com.odde.atddv2.page.WelcomePage;
 import com.odde.atddv2.repo.OrderRepo;
 import com.odde.atddv2.repo.UserRepo;
@@ -38,6 +39,9 @@ public class ApplicationSteps {
 
     @Autowired
     private OrderRepo orderRepo;
+
+    @Autowired
+    private OrderPage orderPage;
 
     @假如("存在用户名为{string}和密码为{string}的用户")
     public void 存在用户名为和密码为的用户(String userName, String password) {
@@ -88,5 +92,11 @@ public class ApplicationSteps {
         存在用户名为和密码为的用户("j", "j");
         以用户名为和密码为登录时("j", "j");
         登录成功("j");
+    }
+
+    @当("用如下数据录入订单:")
+    public void 用如下数据录入订单(DataTable table) {
+        查询订单时();
+        orderPage.addOrder(table.asMaps().get(0));
     }
 }
