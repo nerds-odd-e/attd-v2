@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.odde.atddv2.entity.Order;
 import com.odde.atddv2.entity.User;
 import com.odde.atddv2.page.HomePage;
+import com.odde.atddv2.page.WelcomePage;
 import com.odde.atddv2.repo.OrderRepo;
 import com.odde.atddv2.repo.UserRepo;
 import io.cucumber.datatable.DataTable;
@@ -25,6 +26,9 @@ public class ApplicationSteps {
 
     @Autowired
     private HomePage homePage;
+
+    @Autowired
+    private WelcomePage welcomePage;
 
     @Autowired
     private Browser browser;
@@ -70,7 +74,7 @@ public class ApplicationSteps {
 
     @当("查询订单时")
     public void 查询订单时() {
-        browser.clickByText("订单");
+        welcomePage.goToOrders();
     }
 
     @SneakyThrows
