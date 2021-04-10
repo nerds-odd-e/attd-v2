@@ -15,16 +15,12 @@
 export default {
   data() {
     return {
-      list: [{
-        code: 'SN001',
-        productName: '衬衫',
-        recipientName: '张三',
-        recipientMobile: '13085901735',
-        recipientAddress: '上海市长宁区',
-        status: 'toBeDelivered',
-        total: 19.99
-      }]
+      list: []
     }
+  },
+  async mounted() {
+    const response = await this.$api.get('api/orders')
+    this.list = response.data
   }
 }
 </script>
