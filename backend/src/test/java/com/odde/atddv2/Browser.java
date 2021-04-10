@@ -53,6 +53,15 @@ public class Browser {
         return new ChromeDriver();
     }
 
+    public void selectTextByPlaceholder(String placeholder, String text) {
+        waitElement(String.format("//*[normalize-space(@placeholder)='%s']", placeholder)).click();
+        clickByText(text);
+    }
+
+    public void shouldNotHaveText(String text) {
+        await().untilAsserted(() -> assertThat(webDriver.findElements(xpath("//*[text()='" + text + "']"))).isEmpty());
+    }
+
     @SneakyThrows
     private String getChromeDriverBinaryPath() {
         try (Stream<Path> walkStream = Files.walk(Paths.get(System.getProperty("user.home"), ".gradle", "webdriver", "chromedriver"))) {
@@ -71,9 +80,5 @@ public class Browser {
 
     private WebElement waitElement(String xpathExpression) {
         return await().until(() -> webDriver.findElement(xpath(xpathExpression)), Objects::nonNull);
-    }
-
-    public void shouldNotHaveText(String text) {
-        await().untilAsserted(() -> assertThat(webDriver.findElements(xpath("//*[text()='" + text + "']"))).isEmpty());
     }
 }

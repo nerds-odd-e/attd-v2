@@ -14,7 +14,12 @@ public class OrderPage {
 
     public void addOrder(Map<String, String> order) {
         browser.clickByText("录入订单");
-        order.forEach(browser::inputTextByPlaceholder);
+        order.forEach((placeholder, text) -> {
+            if (!placeholder.equals("状态")) {
+                browser.inputTextByPlaceholder(placeholder, text);
+            }
+        });
+        browser.selectTextByPlaceholder("状态", order.get("状态"));
         browser.clickByText("提交");
         browser.shouldNotHaveText("提交");
     }
