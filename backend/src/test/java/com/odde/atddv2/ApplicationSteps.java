@@ -14,7 +14,6 @@ import io.cucumber.java.zh_cn.假如;
 import io.cucumber.java.zh_cn.当;
 import io.cucumber.java.zh_cn.那么;
 import io.cucumber.spring.CucumberContextConfiguration;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -81,7 +80,6 @@ public class ApplicationSteps {
         welcomePage.goToOrders();
     }
 
-    @SneakyThrows
     @那么("显示如下订单")
     public void 显示如下订单(DataTable table) {
         table.asList().forEach(browser::shouldHaveText);

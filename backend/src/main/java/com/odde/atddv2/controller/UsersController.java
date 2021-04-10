@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletResponse;
+
+import static com.odde.atddv2.config.TokenFilter.Token.makeToken;
+
 @RestController
 @RequestMapping("users")
 public class UsersController {
@@ -18,8 +22,11 @@ public class UsersController {
     private UserRepo userRepo;
 
     @PostMapping("login")
-    public User login(@RequestBody User user) {
-        return userRepo.findByUserNameAndPassword(user.getUserName(), user.getPassword())
+    public User login(@RequestBody User user, HttpServletResponse response) {
+        User loginUser = userRepo.findByUserNameAndPassword(user.getUserName(), user.getPassword())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+        response.setHeader("Token", makeToken(loginUser.getUserName()));
+        return loginUser;
     }
+
 }

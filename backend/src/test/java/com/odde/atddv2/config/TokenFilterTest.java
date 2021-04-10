@@ -1,0 +1,106 @@
+package com.odde.atddv2.config;
+
+import com.odde.atddv2.repo.UserRepo;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Base64;
+
+import static com.odde.atddv2.config.TokenFilter.Token.makeToken;
+import static org.mockito.Mockito.*;
+
+class TokenFilterTest {
+    private UserRepo userRepo = mock(UserRepo.class);
+    private TokenFilter tokenFilter = new TokenFilter(userRepo);
+    private HttpServletRequest request = mock(HttpServletRequest.class);
+    private HttpServletResponse response = mock(HttpServletResponse.class);
+    private FilterChain filterChain = mock(FilterChain.class);
+
+    @Nested
+    class Login {
+
+        @Test
+        void should_not_pass_if_not_set_token_header() {
+            restCall("/api/orders", null);
+
+            shouldNotPass();
+        }
+
+        @Test
+        void should_pass_for_non_api_call() {
+            restCall("/users/login", null);
+
+            shouldPass();
+        }
+
+        @Test
+        void should_pass_when_give_valid_token() {
+            restCall("/api/orders", existUserToken("tom"));
+
+            shouldPass();
+        }
+
+        private String existUserToken(String username) {
+            givenUserInDb(username);
+            return makeToken(username);
+        }
+
+        @Test
+        void should_not_pass_when_user_not_exist() {
+            restCall("/api/orders", makeToken("not exist user"));
+
+            shouldNotPass();
+        }
+
+        @Test
+        void should_not_pass_when_token_is_not_a_valid_base64() {
+            restCall("/api/orders", "invalid base64 prefix" + existUserToken("tom"));
+
+            shouldNotPass();
+        }
+
+        @Test
+        void should_not_pass_when_token_is_not_a_valid_json() {
+            givenUserInDb("tom");
+            restCall("/api/orders", Base64.getEncoder().encodeToString("invalid token".getBytes()));
+
+            shouldNotPass();
+        }
+
+        @Test
+        void should_not_pass_when_token_is_not_a_token_json() {
+            givenUserInDb("tom");
+            restCall("/api/orders", Base64.getEncoder().encodeToString("{}".getBytes()));
+
+            shouldNotPass();
+        }
+
+        private void givenUserInDb(String username) {
+            when(userRepo.existsByUserName(username)).thenReturn(true);
+        }
+
+        @SneakyThrows
+        private void restCall(String url, String token) {
+            when(request.getRequestURI()).thenReturn(url);
+            when(request.getHeader("Token")).thenReturn(token);
+
+            tokenFilter.doFilter(request, response, filterChain);
+        }
+
+        @SneakyThrows
+        private void shouldNotPass() {
+            verify(response).setStatus(401);
+            verify(filterChain, never()).doFilter(any(), any());
+        }
+
+        @SneakyThrows
+        private void shouldPass() {
+            verify(response, never()).setStatus(anyInt());
+            verify(filterChain).doFilter(any(), any());
+        }
+    }
+}
