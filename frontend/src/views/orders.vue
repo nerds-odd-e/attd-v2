@@ -42,12 +42,17 @@ export default {
     }
   },
   async mounted() {
-    const response = await this.$api.get('api/orders')
-    this.list = response.data
+    await this.fetchAll()
   },
   methods: {
-    addOrder() {
+    async addOrder() {
+      await this.$api.post('api/orders', this.order)
+      await this.fetchAll()
       this.showAddOrder = false
+    },
+    async fetchAll() {
+      const response = await this.$api.get('api/orders')
+      this.list = response.data
     }
   }
 }
