@@ -1,0 +1,464 @@
+@import './variable.styl'
+
+page
+  font-family -apple-system-font, Helvetica Neue, sans-serif
+  font-size 16px
+  background-color #fff
+  color $text-color-main
+  border-top 1rpx solid #eee
+
+.bg-main
+  background-color $bg-main
+.bg-prime
+  background-color $prime-color
+  color white
+.bg-second
+  background-color $second-color
+/* Used for the container with gray background color */
+.bg-light
+  background-color $bg-light
+.bg-lighter
+  background-color $bg-lighter
+.bg-tag
+  background-color $bg-tag
+.bg-danger
+  background-color $text-color-danger
+  color white
+.bg-white-border
+  background-color white
+  border 1rpx solid rgba(114,112,113,0.35)
+.bg-hint
+  background-color #FEF7EE
+
+.bg-gradual-prime
+  background-image linear-gradient(to left, $gradual-prime-from, $gradual-prime-to)
+  color white
+.bg-gradual-red
+  background-image linear-gradient(to right, $gradual-red-from, $gradual-red-to)
+  color white
+.bg-gradual-cyan
+  background-image linear-gradient(to left, $gradual-cyan-from, $gradual-cyan-to)
+  color white
+.bg-gradual-gray
+  background-image linear-gradient(to left, $gradual-gray-from, $gradual-gray-to)
+  color white
+
+/* Text area */
+.text-black
+  color #000
+.text-light
+  color $text-color-light
+.text-lighter
+  color $text-color-lighter
+.text-num
+  font-weight bold
+  // font-family STKaiti, KaiTi
+.text-tag
+  color $text-tag
+.text-main
+  color $text-color-main
+.text-prime
+  color $text-color-prime
+.text-prime-red
+  color #f03b2b
+.text-danger
+  color $text-color-danger
+.text-normal
+  font-weight normal
+.text-title
+  font-size 56rpx
+.text-justify
+  text-align justify
+.text-break
+  word-break break-all
+.text-cuts
+  display -webkit-box
+  -webkit-box-orient vertical
+  overflow hidden
+  text-overflow ellipsis
+  word-break break-all
+  -webkit-line-clamp 1
+.text-through
+  text-decoration: line-through
+.text-title
+  font-size 56rpx
+
+.text-cut-line-2
+  -webkit-line-clamp 2
+.text-cut-line-3
+  -webkit-line-clamp 3
+.text-cut-line-4
+  -webkit-line-clamp 4
+.text-cut-line-5
+  -webkit-line-clamp 5
+
+.line-prime
+  border-color $prime-color
+.line-second
+  border-color $second-color
+.line-light::after
+  border-color rgba(114,112,113,0.1) !important
+.line-m-gray
+  border-color rgba(114,112,113,0.4) !important
+.line-m-gray-light
+  border-color rgba(114,112,113,0.3) !important
+.line-m-gray-lighter
+  border-color rgba(114,112,113,0.1) !important
+.line-dark
+  border 2rpx solid #6a6a6a
+.line-red
+  border 2rpx solid #f9ded9 !important
+.solid-border
+  border 1rpx solid
+.solids-borders
+  border 8rpx solid
+.no-border
+  &:after
+    border: none
+.no-padding
+  padding 0 !important
+.no-margin
+  margin 0 !important
+.line-height-normal
+  line-height normal !important
+
+.title-emphasize-prime
+  position relative
+  &:before
+    content ''
+    position absolute
+    left -2rpx
+    top 10%
+    bottom 10%
+    width 6rpx
+    border-radius 10rpx
+    background-color #ea2a2b
+
+.title-emphasize-black
+  position relative
+  &:before
+    content ''
+    position absolute
+    left -2rpx
+    top 20%
+    bottom 20%
+    width 6rpx
+    background-color #6a6a6a
+
+.border-prime
+  border 1rpx solid $prime-color
+.round-button-prime
+  color $prime-color
+  border 1rpx solid $prime-color
+  padding 5rpx 50rpx
+  border-radius 50rpx
+
+.mask
+  background-color rgba(0, 0, 0, 0.6)
+
+.badge
+  padding 0 6rpx
+  border-radius 4rpx
+
+/* Used for the container with bottom fixed buttons */
+.shoes
+  &:after
+    content ''
+    display block
+    height 120rpx
+    background-color white
+.shoes-lg
+  &:after
+    content ''
+    display block
+    height 150rpx
+    background-color white
+.shoes-xl
+  &:after
+    content ''
+    display block
+    height 170rpx
+    background-color white
+
+.response-h
+  height 100%
+.full-height
+  height 100vh
+
+.inline
+  display inline
+.inline-block
+  display inline-block
+
+.scroll-wrapper
+  width 100%
+  overflow hidden
+  white-space nowrap
+
+.absolute
+  position absolute
+.relative
+  position relative
+.fixed
+  position fixed
+
+.absolute.lr, .fixed.lr
+  left 0
+  right 0
+.absolute.tb, .fixed.tb
+  top 0
+  bottom 0
+
+.fixed.foot
+  position fixed
+  width 100%
+  bottom 0
+  z-index 1024
+
+.opacity
+  opacity: 0.5
+.opacity-1
+  opacity: 0.1
+.opacity-2
+  opacity: 0.2
+.opacity-3
+  opacity: 0.3
+.opacity-4
+  opacity: 0.4
+.opacity-5
+  opacity: 0.5
+.opacity-6
+  opacity: 0.6
+.opacity-7
+  opacity: 0.7
+.opacity-8
+  opacity: 0.8
+.opacity-9
+  opacity: 0.9
+
+.waterfall
+  column-count 2
+.waterfall-3
+  column-count 3
+.waterfall-item
+  display inline-block
+  width 100%
+  text-align center
+  margin-bottom 20rpx
+
+.circle
+  border-radius 50%
+
+.circled
+  border-radius 50%
+  overflow hidden
+.hidden
+  display none !important
+.flow-hidden
+  overflow hidden
+
+.shadow-top
+  box-shadow -6rpx 0 10rpx 10rpx rgba(229, 229, 229, 0.4)
+.shadow-bottom
+  box-shadow 0 0 10rpx 2rpx rgba(229, 229, 229, 0.6)
+.shadow-card
+  box-shadow 0px 0px 8px 0px rgba(0,0,0,0.1)
+  // box-shadow -1px 10px 16px 0 rgba(229, 229, 229, 0.4),0 6px 20px 0 rgba(229, 229, 229, 0.6)
+
+.modal-bottom
+  border-radius 16rpx 16rpx 0 0 !important
+
+// new
+.card-shadow
+  box-shadow:0px 2px 20px 4px rgba(230,230,230,0.5)
+
+
+.tab-page
+  &:after
+    content ''
+    position fixed
+    width 100%
+    height 1rpx
+    border-bottom 1rpx solid #eee
+    bottom 0
+    left 0
+    right 0
+
+/* common width and height */
+.width-10
+  width 10rpx
+.width-20
+  width 20rpx
+.width-30
+  width 30rpx
+.width-40
+  width 40rpx
+.width-50
+  width 50rpx
+.width-60
+  width 60rpx
+.width-70
+  width 70rpx
+.width-80
+  width 80rpx
+.width-90
+  width 90rpx
+.width-100
+  width 100rpx
+.width-110
+  width 110rpx
+.width-120
+  width 120rpx
+.width-130
+  width 130rpx
+.width-140
+  width 140rpx
+.width-150
+  width 150rpx
+.width-160
+  width 160rpx
+.width-170
+  width 170rpx
+.width-180
+  width 180rpx
+.width-190
+  width 190rpx
+.width-200
+  width 200px
+.width-210
+  width 210rpx
+.width-220
+  width 220rpx
+.width-230
+  width 230rpx
+.width-240
+  width 240rpx
+.width-250
+  width 250rpx
+.width-260
+  width 260rpx
+.width-270
+  width 270rpx
+.width-280
+  width 280rpx
+.width-290
+  width 290rpx
+.width-300
+  width 300rpx
+.width-400
+  width 400rpx
+
+.height-10
+  height 10rpx
+.height-20
+  height 20rpx
+.height-30
+  height 30rpx
+.height-40
+  height 40rpx
+.height-50
+  height 50rpx
+.height-60
+  height 60rpx
+.height-70
+  height 70rpx
+.height-80
+  height 80rpx
+.height-90
+  height 90rpx
+.height-100
+  height 100rpx
+.height-110
+  height 110rpx
+.height-120
+  height 120rpx
+.height-130
+  height 130rpx
+.height-140
+  height 140rpx
+.height-150
+  height 150rpx
+.height-160
+  height 160rpx
+.height-170
+  height 170rpx
+.height-180
+  height 180rpx
+.height-190
+  height 190rpx
+.height-200
+  height 200rpx
+.height-210
+  height 210rpx
+.height-220
+  height 220rpx
+.height-230
+  height 230rpx
+.height-240
+  height 240rpx
+.height-250
+  height 250rpx
+.height-260
+  height 260rpx
+.height-270
+  height 270rpx
+.height-280
+  height 280rpx
+.height-290
+  height 290rpx
+.height-300
+  height 300rpx
+.height-400
+  height 400rpx
+
+.border-1
+  border 1rpx solid #fff
+.border-2
+  border 2rpx solid #fff
+.radius-top
+  border-top-left-radius 8rpx
+  border-top-right-radius 8rpx
+.radius-top-df
+  border-top-left-radius 12rpx
+  border-top-right-radius 12rpx
+.radius-df
+  border-radius 12rpx
+.radius-lg
+  border-radius 24rpx
+.radius-xl
+  border-radius 40rpx
+.radius-xxl
+  border-radius 100rpx
+
+.arc-bottom
+  border-radius 0 0 10% 10%
+
+.margin-lr-exs
+  margin-left 5rpx
+  margin-right 5rpx
+.margin-tb-exs
+  margin-top 5rpx
+  margin-bottom 5rpx
+.margin-exs
+  margin 5rpx
+
+.rotate-45
+  transform rotate(45deg)
+.rotate-90
+  transform rotate(90deg)
+.rotate-135
+  transform rotate(135deg)
+.rotate-180
+  transform rotate(180deg)
+.rotate-225
+  transform rotate(225deg)
+.rotate-270
+  transform rotate(270deg)
+.rotate-315
+  transform rotate(315deg)
+/* this rule will be remove */
+/* * */
+//   transition width 2s;
+//   -moz-transition width 2s;
+//   -webkit-transition width 2s;
+//   -o-transition width 2s;
