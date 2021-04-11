@@ -44,11 +44,6 @@ class TokenFilterTest {
             shouldPass();
         }
 
-        private String existUserToken(String username) {
-            givenUserInDb(username);
-            return makeToken(username);
-        }
-
         @Test
         void should_not_pass_when_user_not_exist() {
             restCall("/api/orders", makeToken("not exist user"));
@@ -79,6 +74,11 @@ class TokenFilterTest {
             shouldNotPass();
         }
 
+        private String existUserToken(String username) {
+            givenUserInDb(username);
+            return makeToken(username);
+        }
+
         private void givenUserInDb(String username) {
             when(userRepo.existsByUserName(username)).thenReturn(true);
         }
@@ -93,13 +93,13 @@ class TokenFilterTest {
 
         @SneakyThrows
         private void shouldNotPass() {
-            verify(response).setStatus(401);
+            verify(response).sendError(401);
             verify(filterChain, never()).doFilter(any(), any());
         }
 
         @SneakyThrows
         private void shouldPass() {
-            verify(response, never()).setStatus(anyInt());
+            verify(response, never()).sendError(anyInt());
             verify(filterChain).doFilter(any(), any());
         }
     }

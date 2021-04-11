@@ -5,7 +5,6 @@ import com.odde.atddv2.repo.UserRepo;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -18,7 +17,6 @@ import java.util.Base64;
 import static com.odde.atddv2.config.TokenFilter.Token.parseToken;
 
 @Component
-@Order(1)
 public class TokenFilter implements Filter {
     private final UserRepo userRepo;
 
@@ -33,7 +31,11 @@ public class TokenFilter implements Filter {
         if (!isApiCall(req) || isValidToken(req))
             chain.doFilter(request, response);
         else
-            ((HttpServletResponse) response).setStatus(401);
+            ((HttpServletResponse) response).sendError(401);
+    }
+
+    private boolean isApiCall(HttpServletRequest req) {
+        return req.getRequestURI().startsWith("/api/");
     }
 
     private boolean isValidToken(HttpServletRequest req) {
@@ -43,10 +45,6 @@ public class TokenFilter implements Filter {
         } catch (Exception ignore) {
             return false;
         }
-    }
-
-    private boolean isApiCall(HttpServletRequest req) {
-        return req.getRequestURI().startsWith("/api/");
     }
 
     @Data
