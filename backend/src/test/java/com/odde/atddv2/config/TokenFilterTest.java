@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Instant;
 import java.util.Base64;
 
 import static com.odde.atddv2.config.TokenFilter.Token.makeToken;
@@ -22,6 +23,8 @@ class TokenFilterTest {
 
     @Nested
     class Login {
+
+        public static final int EPSILON = 20;
 
         @Test
         void should_not_pass_if_not_set_token_header() {
@@ -70,6 +73,17 @@ class TokenFilterTest {
         void should_not_pass_when_token_is_not_a_token_json() {
             givenUserInDb("tom");
             restCall("/api/orders", Base64.getEncoder().encodeToString("{}".getBytes()));
+
+            shouldNotPass();
+        }
+
+        @Test
+        void should_not_pass_when_token_expired() {
+            givenUserInDb("tom");
+            String expiredToken = new TokenFilter.Token().setUser("tom")
+                    .setNow(Instant.now().plusSeconds(-TokenFilter.Token.EXPIRATION - EPSILON).getEpochSecond()).toString();
+
+            restCall("/api/orders", expiredToken);
 
             shouldNotPass();
         }

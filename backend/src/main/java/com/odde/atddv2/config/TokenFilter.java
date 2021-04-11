@@ -1,5 +1,6 @@
 package com.odde.atddv2.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.odde.atddv2.repo.UserRepo;
 import lombok.Data;
@@ -39,31 +40,42 @@ public class TokenFilter implements Filter {
     }
 
     private boolean isValidToken(HttpServletRequest req) {
-        try {
-            return req.getHeader("Token") != null
-                    && userRepo.existsByUserName(parseToken(req.getHeader("Token")).getUser());
-        } catch (Exception ignore) {
-            return false;
-        }
+        Token token = parseToken(req.getHeader("Token"));
+        return token != null && isValidUser(token) && !token.isExpired();
+    }
+
+    private boolean isValidUser(Token token) {
+        return userRepo.existsByUserName(token.getUser());
     }
 
     @Data
     @Accessors(chain = true)
     public static class Token {
+        public static final int EXPIRATION = 300;
         private String user;
         private long now = Instant.now().getEpochSecond();
 
         public static String makeToken(String userName) {
-            return new Token().setUser(userName).generate();
+            return new Token().setUser(userName).toString();
         }
 
         @SneakyThrows
-        public static Token parseToken(String token) {
-            return new ObjectMapper().readValue(Base64.getDecoder().decode(token), Token.class);
+        public static Token parseToken(String tokenString) {
+            try {
+                return new ObjectMapper().readValue(Base64.getDecoder().decode(tokenString), Token.class);
+            } catch (Exception ignore) {
+                return null;
+            }
         }
 
+        @JsonIgnore
+        public boolean isExpired() {
+            return Instant.now().getEpochSecond() - getNow() > EXPIRATION;
+        }
+
+        @Override
         @SneakyThrows
-        public String generate() {
+        public String toString() {
             return Base64.getEncoder().encodeToString(new ObjectMapper().writeValueAsBytes(this));
         }
     }
