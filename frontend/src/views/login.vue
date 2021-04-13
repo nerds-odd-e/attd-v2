@@ -43,7 +43,6 @@ export default {
     async login() {
       try {
         const res = await this.$api.post('users/login', this.$data)
-        window.localStorage.setItem('token', res.headers.token)
         await this.$router.push({
           path: 'home',
           query: {

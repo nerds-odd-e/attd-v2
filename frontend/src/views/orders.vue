@@ -46,20 +46,12 @@ export default {
   },
   methods: {
     async addOrder() {
-      await this.$api.post('api/orders', this.order, {
-        headers: {
-          token: window.localStorage.getItem('token')
-        }
-      })
+      await this.$api.post('api/orders', this.order)
       await this.fetchAll()
       this.showAddOrder = false
     },
     async fetchAll() {
-      const response = await this.$api.get('api/orders', {
-        headers: {
-          token: window.localStorage.getItem('token')
-        }
-      })
+      const response = await this.$api.get('api/orders')
       this.list = response.data
     }
   }

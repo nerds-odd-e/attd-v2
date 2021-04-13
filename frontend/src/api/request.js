@@ -10,6 +10,9 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
+    if (window.localStorage.getItem('token')) {
+      config.headers.token = window.localStorage.getItem('token')
+    }
     return config
   },
   error => {
@@ -22,6 +25,9 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   response => {
+    if (response.headers.token) {
+      window.localStorage.setItem('token', response.headers.token)
+    }
     return response
   },
   error => {
