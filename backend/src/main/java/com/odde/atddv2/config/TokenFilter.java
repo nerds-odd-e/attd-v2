@@ -16,6 +16,7 @@ import java.time.Instant;
 import java.util.Base64;
 
 import static com.odde.atddv2.config.TokenFilter.Token.parseToken;
+import static org.springframework.http.HttpMethod.OPTIONS;
 
 @Component
 public class TokenFilter implements Filter {
@@ -36,7 +37,7 @@ public class TokenFilter implements Filter {
     }
 
     private boolean isApiCall(HttpServletRequest req) {
-        return req.getRequestURI().startsWith("/api/");
+        return req.getRequestURI().startsWith("/api/") && !req.getMethod().equals(OPTIONS.name());
     }
 
     private boolean isValidToken(HttpServletRequest req) {

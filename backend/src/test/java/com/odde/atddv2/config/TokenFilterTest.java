@@ -4,6 +4,7 @@ import com.odde.atddv2.repo.UserRepo;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpMethod;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import java.util.Base64;
 
 import static com.odde.atddv2.config.TokenFilter.Token.makeToken;
 import static org.mockito.Mockito.*;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.OPTIONS;
 
 class TokenFilterTest {
     private UserRepo userRepo = mock(UserRepo.class);
@@ -27,36 +30,43 @@ class TokenFilterTest {
         public static final int EPSILON = 20;
 
         @Test
+        public void should_pass_for_options_method_api_call() {
+            restCall("/api/orders", null, OPTIONS);
+
+            shouldPass();
+        }
+
+        @Test
         void should_not_pass_if_not_set_token_header() {
-            restCall("/api/orders", null);
+            restCall("/api/orders", null, GET);
 
             shouldNotPass();
         }
 
         @Test
         void should_pass_for_non_api_call() {
-            restCall("/users/login", null);
+            restCall("/users/login", null, GET);
 
             shouldPass();
         }
 
         @Test
         void should_pass_when_give_valid_token() {
-            restCall("/api/orders", existUserToken("tom"));
+            restCall("/api/orders", existUserToken("tom"), GET);
 
             shouldPass();
         }
 
         @Test
         void should_not_pass_when_user_not_exist() {
-            restCall("/api/orders", makeToken("not exist user"));
+            restCall("/api/orders", makeToken("not exist user"), GET);
 
             shouldNotPass();
         }
 
         @Test
         void should_not_pass_when_token_is_not_a_valid_base64() {
-            restCall("/api/orders", "invalid base64 prefix" + existUserToken("tom"));
+            restCall("/api/orders", "invalid base64 prefix" + existUserToken("tom"), GET);
 
             shouldNotPass();
         }
@@ -64,7 +74,7 @@ class TokenFilterTest {
         @Test
         void should_not_pass_when_token_is_not_a_valid_json() {
             givenUserInDb("tom");
-            restCall("/api/orders", Base64.getEncoder().encodeToString("invalid token".getBytes()));
+            restCall("/api/orders", Base64.getEncoder().encodeToString("invalid token".getBytes()), GET);
 
             shouldNotPass();
         }
@@ -72,7 +82,7 @@ class TokenFilterTest {
         @Test
         void should_not_pass_when_token_is_not_a_token_json() {
             givenUserInDb("tom");
-            restCall("/api/orders", Base64.getEncoder().encodeToString("{}".getBytes()));
+            restCall("/api/orders", Base64.getEncoder().encodeToString("{}".getBytes()), GET);
 
             shouldNotPass();
         }
@@ -83,7 +93,7 @@ class TokenFilterTest {
             String expiredToken = new TokenFilter.Token().setUser("tom")
                     .setNow(Instant.now().plusSeconds(-TokenFilter.Token.EXPIRATION - EPSILON).getEpochSecond()).toString();
 
-            restCall("/api/orders", expiredToken);
+            restCall("/api/orders", expiredToken, GET);
 
             shouldNotPass();
         }
@@ -98,9 +108,10 @@ class TokenFilterTest {
         }
 
         @SneakyThrows
-        private void restCall(String url, String token) {
+        private void restCall(String url, String token, HttpMethod method) {
             when(request.getRequestURI()).thenReturn(url);
             when(request.getHeader("Token")).thenReturn(token);
+            when(request.getMethod()).thenReturn(method.name());
 
             tokenFilter.doFilter(request, response, filterChain);
         }
