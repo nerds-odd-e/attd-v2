@@ -11,4 +11,6 @@ public interface OrderRepo extends Repository<Order, Long> {
     void deleteAll();
 
     List<Order> findAll();
+
+    Order findByCode(String code);
 }
