@@ -43,6 +43,7 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.19.0")
     testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     testImplementation "org.awaitility:awaitility:4.0.3"
+    testImplementation group: 'org.skyscreamer', name: 'jsonassert', version: '1.5.0'
 }
 
 task cucumber(type: JavaExec) {
