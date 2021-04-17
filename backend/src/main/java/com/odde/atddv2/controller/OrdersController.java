@@ -1,10 +1,10 @@
 package com.odde.atddv2.controller;
 
 import com.odde.atddv2.api.BinstdApi;
-import com.odde.atddv2.api.Logistics;
 import com.odde.atddv2.entity.Order;
 import com.odde.atddv2.repo.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +19,9 @@ public class OrdersController {
     @Autowired
     BinstdApi binstdApi;
 
+    @Value("${binstd-endpoint.key}")
+    private String binstdAppKey;
+
     @GetMapping
     public List<Order> getAllOrders() {
         return orderRepo.findAll();
@@ -31,17 +34,7 @@ public class OrdersController {
 
     @GetMapping("/{code}")
     public Order getOrder(@PathVariable String code) {
-        Order order = orderRepo.findByCode(code);
-        Logistics.Result logistics = binstdApi.queryExpress("822c629b7815e01f", "auto", order.getDeliverNo()).getResult();
-        Order.OrderLogistics orderLogistics = new Order.OrderLogistics();
-        orderLogistics.setDeliverNo(logistics.getNumber())
-                .setCompanyCode(logistics.getType())
-                .setCompanyName(logistics.getTypename())
-                .setCompanyLogo(logistics.getLogo())
-                .setDetails(logistics.getList())
-                .setDeliveryStatus(logistics.getDeliverystatus() == 1 ? "在途中" : "")
-                .setIsSigned(logistics.getIssign() == 0 ? "未签收" : "");
-        order.setLogistics(orderLogistics);
-        return order;
+        return orderRepo.findByCode(code)
+                .populateLogistics(binstdApi.queryExpress(binstdAppKey, orderRepo.findByCode(code).getDeliverNo()).getResult());
     }
 }

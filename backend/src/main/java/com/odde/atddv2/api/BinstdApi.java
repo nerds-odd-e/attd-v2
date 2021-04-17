@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "binstd-api", url = "${binstd-endpoint.url}")
 public interface BinstdApi {
-    @GetMapping("/express/query")
+    @GetMapping("/express/query?type=auto")
     Logistics queryExpress(@RequestParam("appkey") String appkey,
-                           @RequestParam("type") String type,
                            @RequestParam("number") String number);
 
 }

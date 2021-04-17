@@ -13,6 +13,7 @@ import lombok.SneakyThrows;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.matchers.Times;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.transaction.Transactional;
 import java.net.URL;
@@ -28,6 +29,8 @@ public class ApiSteps {
     @Autowired
     private OrderRepo orderRepo;
     private MockServerClient mockServerClient = createMockServerClient();
+    @Value("${binstd-endpoint.key}")
+    private String binstdAppKey;
 
     @那么("返回如下订单")
     public void 返回如下订单(String json) {
@@ -57,7 +60,7 @@ public class ApiSteps {
     public void 存在快递单的物流信息如下(String deliverNo, String json) {
         mockServerClient.when(
                 request().withMethod("GET")
-                        .withQueryStringParameter("appkey", "822c629b7815e01f")
+                        .withQueryStringParameter("appkey", binstdAppKey)
                         .withQueryStringParameter("type", "auto")
                         .withQueryStringParameter("number", deliverNo)
                         .withPath("/express/query"),

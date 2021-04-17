@@ -41,6 +41,19 @@ public class Order {
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     private OrderLogistics logistics;
 
+    public Order populateLogistics(Logistics.Result logistics) {
+        OrderLogistics orderLogistics = new OrderLogistics();
+        orderLogistics.setDeliverNo(logistics.getNumber())
+                .setCompanyCode(logistics.getType())
+                .setCompanyName(logistics.getTypename())
+                .setCompanyLogo(logistics.getLogo())
+                .setDetails(logistics.getList())
+                .setDeliveryStatus(logistics.getDeliverystatus() == 1 ? "在途中" : "")
+                .setIsSigned(logistics.getIssign() == 0 ? "未签收" : "");
+        setLogistics(orderLogistics);
+        return this;
+    }
+
     public enum OrderStatus {
         toBeDelivered, delivering
     }

@@ -26,6 +26,7 @@ server:
 
 binstd-endpoint:
   url: http://mock-server.tool.net:9081
+  key: test
 
 ---
 spring:
@@ -33,6 +34,7 @@ spring:
 
 binstd-endpoint:
   url: https://api.binstd.com
+  key: 822c629b7815e01f
 
 server:
   port: 10080
