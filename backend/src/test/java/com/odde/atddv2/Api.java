@@ -16,8 +16,10 @@ import java.net.URI;
 public class Api {
     private final RestTemplate restTemplate = new RestTemplate();
     private String response, token;
+
     @Autowired
     private ServerProperties serverProperties;
+
     @Autowired
     private UserRepo userRepo;
 
