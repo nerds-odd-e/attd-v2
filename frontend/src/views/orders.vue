@@ -21,7 +21,7 @@
       el-input(v-model="order.recipientMobile", placeholder="电话")
       el-input(v-model="order.recipientAddress", placeholder="地址")
       el-select(v-model="order.status", placeholder="状态")
-        el-option(value="toBeDelivered", label="待发货")
+        el-option.height-50(value="toBeDelivered", label="待发货")
       el-button(@click="addOrder") 提交
 </template>
 
