@@ -19,8 +19,7 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH")
                 .allowedHeaders("Content-Type", "token", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "If-Modified-Since", "Accept-Language", "X-B3-TraceId", "X-B3-SpanId")
-                .exposedHeaders("Content-Type", "token", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Pagination-Total", "Pagination-Page", "Pagination-Limit", "Pagination-Sort")
-                .allowCredentials(true);
+                .exposedHeaders("Content-Type", "token", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Pagination-Total", "Pagination-Page", "Pagination-Limit", "Pagination-Sort");
     }
 
     @Bean

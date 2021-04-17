@@ -1,7 +1,4 @@
 buildscript {
-    ext {
-        springBootVersion = '2.1.1.RELEASE'
-    }
     repositories {
         mavenCentral()
         maven {
@@ -9,8 +6,9 @@ buildscript {
         }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.4.4")
         classpath "gradle.plugin.com.github.erdi.webdriver-binaries:webdriver-binaries-gradle-plugin:2.4"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
     }
 }
 

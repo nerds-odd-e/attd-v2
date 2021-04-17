@@ -24,9 +24,15 @@ spring:
 server:
   port: 10081
 
+binstd-endpoint:
+  url: http://mock-server.tool.net:9081
+
 ---
 spring:
   profiles: dev
+
+binstd-endpoint:
+  url: https://api.binstd.com
 
 server:
   port: 10080
