@@ -17,6 +17,7 @@ public class Logistics {
 
     @Getter
     @Setter
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Result {
         private String number, type, typename, logo;
         private List<Detail> list;
@@ -25,6 +26,7 @@ public class Logistics {
 
     @Getter
     @Setter
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Detail {
         private String time, status;
     }

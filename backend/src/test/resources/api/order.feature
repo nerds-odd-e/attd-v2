@@ -102,3 +102,11 @@
         }
       }
     """
+
+  场景: 订单发货
+    假如存在如下订单:
+      | code  | productName | total | recipientName | recipientMobile | recipientAddress | status        |
+      | SN001 | 电脑          | 19999 | 张三            | 13085901735     | 上海市长宁区           | toBeDelivered |
+    并且当前时间为"2000-05-10T20:00:00Z"
+    当通过API发货订单"SN001"，快递单号为"SF001"
+    那么订单"SN001"已发货，发货时间为"2000-05-10T20:00:00Z"，快递单号为"SF001"

@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class Order {
     @Transient
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     private OrderLogistics logistics;
+    private Instant deliveredAt;
 
     public Order populateLogistics(Logistics.Result logistics) {
         OrderLogistics orderLogistics = new OrderLogistics();

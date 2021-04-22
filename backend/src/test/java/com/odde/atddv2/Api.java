@@ -46,4 +46,10 @@ public class Api {
     public void responseShouldMatchJson(String json) {
         JSONAssert.assertEquals(json, response, JSONCompareMode.NON_EXTENSIBLE);
     }
+
+    public void post(String path, Object body) {
+        response = restTemplate.exchange(RequestEntity.post(makeUri("/api/" + path))
+                .header("Accept", "application/json").header("token", token)
+                .body(body), String.class).getBody();
+    }
 }
