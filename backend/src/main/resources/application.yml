@@ -16,10 +16,13 @@ spring:
       hibernate:
         default_catalog: db
         dialect: org.hibernate.dialect.MySQL5Dialect
-
 ---
 spring:
-  profiles: test
+  config:
+    activate:
+      on-profile: test
+  main:
+    allow-bean-definition-overriding: true
 
 server:
   port: 10081
@@ -33,7 +36,9 @@ binstd-endpoint:
 
 ---
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
 
 binstd-endpoint:
   url: https://api.binstd.com
@@ -41,4 +46,3 @@ binstd-endpoint:
 
 server:
   port: 10080
-

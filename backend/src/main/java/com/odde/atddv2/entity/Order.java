@@ -41,6 +41,8 @@ public class Order {
     @Transient
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     private OrderLogistics logistics;
+
+    @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     private Instant deliveredAt;
 
     public Order populateLogistics(Logistics.Result logistics) {
