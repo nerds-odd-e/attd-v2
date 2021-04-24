@@ -14,4 +14,10 @@ public class ClockFactory {
     public Clock createClock() {
         return Clock.systemUTC();
     }
+
+    @Bean
+    public TaskSwitch createTaskSwitch() {
+        return () -> {
+        };
+    }
 }

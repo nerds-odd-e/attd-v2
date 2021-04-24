@@ -16,6 +16,10 @@ spring:
       hibernate:
         default_catalog: db
         dialect: org.hibernate.dialect.MySQL5Dialect
+
+scheduled:
+  order-task-in-msec: 3600000
+
 ---
 spring:
   config:

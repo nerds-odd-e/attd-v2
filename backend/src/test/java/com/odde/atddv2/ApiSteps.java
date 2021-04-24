@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import static com.odde.atddv2.entity.Order.OrderStatus.delivering;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.when;
 
 public class ApiSteps {
@@ -93,7 +94,7 @@ public class ApiSteps {
 
     @那么("订单{string}的状态为{string}")
     public void 订单的状态为(String order, String status) {
-        assertThat(orderRepo.findByCode(order))
-                .hasFieldOrPropertyWithValue("status", OrderStatus.valueOf(status));
+        await().untilAsserted(() -> assertThat(orderRepo.findByCode(order))
+                .hasFieldOrPropertyWithValue("status", OrderStatus.valueOf(status)));
     }
 }
