@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.Clock;
+
 import static com.odde.atddv2.entity.Order.OrderStatus.done;
 
 @Component
@@ -17,13 +19,14 @@ public class OrderTask {
     @Autowired
     private OrderRepo orderRepo;
 
+    @Autowired
+    private Clock clock;
+
     @Scheduled(fixedDelayString = "${scheduled.order-task-in-msec}")
     public void completeDone() {
         taskSwitch.waitForExecute();
-        orderRepo.findAll()
-                .forEach(order -> {
-                    order.setStatus(done);
-                    orderRepo.save(order);
-                });
+        orderRepo.findAll().stream()
+                .filter(order -> order.isDone(clock))
+                .forEach(order -> orderRepo.save(order.setStatus(done)));
     }
 }

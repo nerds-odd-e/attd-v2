@@ -11,9 +11,13 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.Clock;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.odde.atddv2.entity.Order.OrderStatus.delivering;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Getter
 @Setter
@@ -58,6 +62,10 @@ public class Order {
                 .setIsSigned(logistics.getIssign() == 0 ? "未签收" : "");
         setLogistics(orderLogistics);
         return this;
+    }
+
+    public boolean isDone(Clock now) {
+        return !getDeliveredAt().isAfter(now.instant().minus(15, DAYS)) && getStatus() == delivering;
     }
 
     public enum OrderStatus {
