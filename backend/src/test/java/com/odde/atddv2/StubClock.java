@@ -2,6 +2,7 @@ package com.odde.atddv2;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import java.time.Clock;
 
@@ -11,7 +12,8 @@ import static org.mockito.Mockito.mock;
 public class StubClock {
 
     @Bean
-    public Clock createClock() {
+    @Primary
+    public Clock createStubClock() {
         return mock(Clock.class);
     }
 }

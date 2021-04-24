@@ -1,14 +1,14 @@
 package com.odde.atddv2.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import java.time.Clock;
 
 @Configuration
-@Profile("dev")
-public class ClockFactory {
+@ConditionalOnMissingBean({Clock.class, TaskSwitch.class})
+public class Factory {
 
     @Bean
     public Clock createClock() {
