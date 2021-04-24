@@ -1,10 +1,10 @@
 package com.odde.atddv2.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odde.atddv2.api.Logistics;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -15,7 +15,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Accessors(chain = true)
 @Table(name = "orders")
@@ -43,6 +44,7 @@ public class Order {
     private OrderLogistics logistics;
 
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Instant deliveredAt;
 
     public Order populateLogistics(Logistics.Result logistics) {
@@ -59,7 +61,7 @@ public class Order {
     }
 
     public enum OrderStatus {
-        toBeDelivered, delivering
+        toBeDelivered, delivering, done
     }
 
     @Getter

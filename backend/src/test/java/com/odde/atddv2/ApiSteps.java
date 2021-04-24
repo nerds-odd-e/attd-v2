@@ -2,6 +2,7 @@ package com.odde.atddv2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.odde.atddv2.entity.Order;
+import com.odde.atddv2.entity.Order.OrderStatus;
 import com.odde.atddv2.entity.OrderLine;
 import com.odde.atddv2.repo.OrderRepo;
 import io.cucumber.datatable.DataTable;
@@ -22,17 +23,15 @@ import static org.mockito.Mockito.when;
 
 public class ApiSteps {
     @Autowired
+    PausedTaskSwitch pausedTaskSwitch;
+    @Autowired
     private MockServer mockServer;
-
     @Autowired
     private Api api;
-
     @Autowired
     private OrderRepo orderRepo;
-
     @Value("${binstd-endpoint.key}")
     private String binstdAppKey;
-
     @Autowired
     private Clock clock;
 
@@ -85,5 +84,16 @@ public class ApiSteps {
                 .hasFieldOrPropertyWithValue("deliverNo", deliverNo)
                 .hasFieldOrPropertyWithValue("status", delivering)
                 .hasFieldOrPropertyWithValue("deliveredAt", Instant.parse(time));
+    }
+
+    @当("订单任务运行时")
+    public void 订单任务运行时() {
+        pausedTaskSwitch.go();
+    }
+
+    @那么("订单{string}的状态为{string}")
+    public void 订单的状态为(String order, String status) {
+        assertThat(orderRepo.findByCode(order))
+                .hasFieldOrPropertyWithValue("status", OrderStatus.valueOf(status));
     }
 }
