@@ -28,5 +28,5 @@ test:
     - export RUNNING_CODE_IP=$(hostname -i)
     - echo $RUNNING_CODE_IP
     - cd env && ./dc_pc up -d && cd ..
-    - ./gradlew test cucumber
+    - ./gradlew test cucumber --stacktrace
 
