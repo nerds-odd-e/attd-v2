@@ -17,12 +17,11 @@ stages:
 
 test:
   stage: test
-  image: docker:18.09.8
+  image: gaoermai/docker:18.09.8-openjdk11-001
   services:
     - docker:18.09.8-dind
   script:
-    - apk add --no-cache git bash build-base nss libffi-dev openssl-dev docker-compose
-    - apk --no-cache add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+    - apk add --no-cache git bash build-base nss libffi-dev openssl-dev
     - IP=$(bash env/setup_docker.sh docker)
     - echo $IP
     - cat /etc/hosts
