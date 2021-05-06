@@ -30,5 +30,5 @@ test:
     - echo $RUNNING_CODE_IP
     - cd ..
     - cd env && ./dc_pc up -d && cd ..
-    - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup
+    - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild
 
