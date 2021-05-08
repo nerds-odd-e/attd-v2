@@ -10,5 +10,5 @@ hosts_file=$(sudo docker exec web-driver cat /etc/hosts | grep -v frontend.app.n
 
 echo "$hosts_file
 ${IP} frontend.app.net
-${IP} backend.api.net" | sudo docker exec -i web-driver sudo sh -c "cat > /etc/hosts"
+${IP} backend.api.net" | docker exec -i web-driver sudo sh -c "cat > /etc/hosts"
 
