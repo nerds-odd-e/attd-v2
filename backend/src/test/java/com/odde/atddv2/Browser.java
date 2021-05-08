@@ -47,7 +47,7 @@ public class Browser {
 
     @SneakyThrows
     public WebDriver createWebDriver() {
-        DesiredCapabilities dr = DesiredCapabilities.firefox();
+        DesiredCapabilities dr = DesiredCapabilities.chrome();
         dr.setBrowserName("chrome");
         RemoteWebDriver webDriver = new RemoteWebDriver(new URL("http://web-driver.tool.net:4444"), dr);
         webDriver.manage().window().maximize();
