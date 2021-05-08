@@ -1,7 +1,6 @@
 package com.odde.atddv2;
 
 import lombok.SneakyThrows;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -50,7 +49,6 @@ public class Browser {
     public WebDriver createWebDriver() {
         DesiredCapabilities dr = DesiredCapabilities.firefox();
         dr.setBrowserName("chrome");
-        dr.setPlatform(Platform.LINUX);
         RemoteWebDriver webDriver = new RemoteWebDriver(new URL("http://web-driver.tool.net:4444"), dr);
         webDriver.manage().window().maximize();
         return webDriver;
