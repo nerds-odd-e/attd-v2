@@ -36,3 +36,11 @@ services:
       - mysql:db
     ports:
       - "${PHPMYADMIN_PORT_OUT}:80"
+
+  web-driver:
+    image: selenium/standalone-chrome:4.0.0-beta-3-20210426
+    container_name: web-driver
+    ports:
+      - 4444:4444
+      - 7900:7900
+

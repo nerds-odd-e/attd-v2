@@ -30,5 +30,6 @@ test:
     - export RUNNING_CODE_IP=$(hostname -i)
     - echo $RUNNING_CODE_IP
     - cd env && ./dc_pc up -d && cd ..
+    - bash env/setup_web.sh docker
     - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild
 
