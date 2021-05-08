@@ -31,6 +31,5 @@ test:
     - echo $RUNNING_CODE_IP
     - cd env && ./dc_pc up -d && cd ..
     - bash env/setup_web.sh $RUNNING_CODE_IP
-    - docker exec -i web-driver google-chrome
     - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild || env/dc_pc logs web-driver
 
