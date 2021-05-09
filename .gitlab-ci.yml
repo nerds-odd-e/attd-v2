@@ -17,22 +17,16 @@ stages:
 
 test:
   stage: test
-  image: gaoermai/docker:18.09.8-openjdk11-001
-  services:
-    - docker:18.09.8-dind
+  image: docker:18.09.8-dind
   script:
     - cat /etc/hosts
     - docker ps
-    - mount
-    - pwd
-    - apk add --no-cache build-base nss libffi-dev openssl-dev npm
+    - apk add --no-cache build-base nss libffi-dev openssl-dev npm openjdk11
     - cd frontend && npm install && ( npm run serve & )
     - cd ..
-    - IP=$(bash env/setup_docker.sh docker)
-    - echo $IP
-    - cat /etc/hosts
     - export RUNNING_CODE_IP=$(hostname -i)
-    - echo $RUNNING_CODE_IP
+    - bash env/setup_host.sh $RUNNING_CODE_IP
+    - cat /etc/hosts
     - env/dc_pc up -d
     - bash env/setup_web.sh $RUNNING_CODE_IP
     - docker exec -i web-driver sudo cat /etc/hosts
