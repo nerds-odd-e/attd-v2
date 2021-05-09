@@ -21,6 +21,10 @@ test:
   services:
     - docker:18.09.8-dind
   script:
+    - cat /etc/hosts
+    - docker ps
+    - mount
+    - pwd
     - apk add --no-cache build-base nss libffi-dev openssl-dev npm
     - cd frontend && npm install && ( npm run serve & )
     - cd ..
