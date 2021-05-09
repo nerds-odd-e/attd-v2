@@ -36,5 +36,5 @@ test:
     - env/dc_pc up -d
     - bash env/setup_web.sh $RUNNING_CODE_IP
     - docker exec -i web-driver sudo cat /etc/hosts
-    - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild || env/dc_pc logs web-driver
+    - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild
 
