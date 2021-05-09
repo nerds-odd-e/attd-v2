@@ -20,7 +20,7 @@ test:
   image: docker:18.09.8-dind
   script:
     - cat /etc/hosts
-    - apk add --no-cache build-base nss libffi-dev openssl-dev npm openjdk11
+    - apk add --no-cache bash build-base nss libffi-dev openssl-dev npm openjdk11
     - cd frontend && npm install && ( npm run serve & )
     - cd ..
     - export RUNNING_CODE_IP=$(hostname -i)
