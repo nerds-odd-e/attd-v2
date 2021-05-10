@@ -17,13 +17,12 @@ stages:
 
 test:
   stage: test
-  image: gaoermai/docker:18.09.8-openjdk11-001
+  image: docker:18.09.8
   services:
     - docker:18.09.8-dind
   script:
-    - BUILD_PATH=$(pwd)
-    - docker ps
-    - docker exec -i docker $BUILD_PATH/ci.sh
+    - dev-ops/dc_ci up -d
+    - dev-ops/dc_ci exec jdk ls /opt/current
     #- cat /etc/hosts
     #- docker ps
     #- mount

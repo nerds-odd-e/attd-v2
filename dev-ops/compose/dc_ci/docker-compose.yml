@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  jdk:
+    image: adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine
+    container_name: jdk.test.atdd
+    volumes:
+      - '../../../../:/opt/current'
+    command: [ 'sleep', '1000' ]

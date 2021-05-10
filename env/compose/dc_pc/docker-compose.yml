@@ -17,6 +17,10 @@ services:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 20s
       retries: 10
+    networks:
+      default:
+        aliases:
+          - ${MYSQL_VIRTUAL_HOST}
 
   mock-server:
     image: 'leeonky/mock-server:5.4.1'
