@@ -21,8 +21,9 @@ test:
   services:
     - docker:18.09.8-dind
   script:
-    - dev-ops/dc_ci up -d
-    - dev-ops/dc_ci exec jdk ls /opt/current
+    - apk add --no-cache bash
+    - bash dev-ops/dc_ci up -d
+    - bash dev-ops/dc_ci exec jdk ls /opt/current
     #- cat /etc/hosts
     #- docker ps
     #- mount
