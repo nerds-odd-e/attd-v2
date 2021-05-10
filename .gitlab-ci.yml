@@ -21,7 +21,7 @@ test:
   services:
     - docker:18.09.8-dind
   script:
-    - apk add --no-cache bash
+    - apk add --no-cache bash docker-compose
     - bash dev-ops/dc_ci up -d
     - bash dev-ops/dc_ci exec jdk ls /opt/current
     #- cat /etc/hosts
