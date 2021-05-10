@@ -22,6 +22,7 @@ test:
     - docker:18.09.8-dind
   script:
     - BUILD_PATH=$(pwd)
+    - docker ps
     - docker exec -i docker $BUILD_PATH/ci.sh
     #- cat /etc/hosts
     #- docker ps
