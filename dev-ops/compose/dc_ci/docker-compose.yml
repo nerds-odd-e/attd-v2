@@ -79,7 +79,7 @@ services:
 
 volumes:
   gradle_repo:
-    external: true
+    #external: true
   gradle_home:
-    external: true
+    #external: true
 
