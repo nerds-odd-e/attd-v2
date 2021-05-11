@@ -16,16 +16,6 @@ configurations {
     }
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDir '../frontend/build/dist'
-        }
-    }
-}
-
-processResources.dependsOn ':frontend:npmBuild'
-
 ext {
     set('springCloudVersion', "2020.0.2")
 }

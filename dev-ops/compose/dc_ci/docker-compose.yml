@@ -8,7 +8,7 @@ services:
       - '../../../../:/opt/current'
     ports:
       - 10081
-    command: [ 'sleep', '1000000' ]
+    command: [ 'tail', '-f', '/dev/null' ]
     networks:
       default:
         aliases:
@@ -20,7 +20,7 @@ services:
       - '../../../../:/opt/current'
     ports:
       - 10081
-    command: [ 'sleep', '1000000' ]
+    command: [ 'tail', '-f', '/dev/null' ]
     networks:
       default:
         aliases:

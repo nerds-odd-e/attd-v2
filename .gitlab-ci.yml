@@ -10,7 +10,7 @@ test:
     - apk add --no-cache bash docker-compose
     - bash dev-ops/dc_ci up -d
     - bash dev-ops/dc_ci exec -T nodejs npm run serve --prefix /opt/current/attd-v2/frontend &
-    - bash dev-ops/dc_ci exec -T jdk /opt/current/gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild
+    - bash dev-ops/dc_ci exec -T jdk /opt/current/attd-v2/dev-ops/gradlew test cucumber
 
     #- cat /etc/hosts
     #- docker ps
