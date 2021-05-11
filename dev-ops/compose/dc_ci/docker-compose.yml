@@ -6,6 +6,8 @@ services:
     container_name: jdk.test.atdd
     volumes:
       - '../../../../:/opt/current'
+      - 'gradle_repo:/root/.gradle'
+      - 'gradle_home:/root/gradle'
     ports:
       - 10081
     command: [ 'tail', '-f', '/dev/null' ]
@@ -19,8 +21,10 @@ services:
     volumes:
       - '../../../../:/opt/current'
     ports:
-      - 10081
+      - 8080
     command: [ 'tail', '-f', '/dev/null' ]
+    environment:
+      HOST: '0.0.0.0'
     networks:
       default:
         aliases:
@@ -72,4 +76,10 @@ services:
       default:
         aliases:
           - ${WEB_DRIVER_VIRTUAL_HOST}
+
+volumes:
+  gradle_repo:
+    external: true
+  gradle_home:
+    external: true
 

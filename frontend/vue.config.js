@@ -7,5 +7,8 @@ module.exports = {
       .use('pug-plain-loader')
       .loader('pug-plain-loader')
       .end()
+  },
+  devServer: {
+    disableHostCheck: true
   }
 }
