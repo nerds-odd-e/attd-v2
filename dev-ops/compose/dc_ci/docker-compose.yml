@@ -6,4 +6,70 @@ services:
     container_name: jdk.test.atdd
     volumes:
       - '../../../../:/opt/current'
-    command: [ 'sleep', '1000' ]
+    ports:
+      - 10081
+    command: [ 'sleep', '1000000' ]
+    networks:
+      default:
+        aliases:
+          - ${BACKEND_VIRTUAL_HOST}
+  nodejs:
+    image: node:10
+    container_name: nodejs.test.atdd
+    volumes:
+      - '../../../../:/opt/current'
+    ports:
+      - 10081
+    command: [ 'sleep', '1000000' ]
+    networks:
+      default:
+        aliases:
+          - ${FRONTEND_VIRTUAL_HOST}
+
+  mysql:
+    image: mysql/mysql-server:8.0
+    container_name: mysql.test.atdd
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306"
+    volumes:
+      - "../../config/mysql/conf:/etc/mysql/conf.d"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    networks:
+      default:
+        aliases:
+          - ${MYSQL_VIRTUAL_HOST}
+
+  mock-server:
+    image: 'leeonky/mock-server:5.4.1'
+    container_name: mock-server.test.atdd
+    ports:
+      - "1080"
+    command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
+    healthcheck:
+      test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
+      timeout: 20s
+      retries: 10
+    networks:
+      default:
+        aliases:
+          - ${MOCK_SERVER_VIRTUAL_HOST}
+
+  web-driver:
+    image: selenium/standalone-chrome:4.0.0-beta-3-20210426
+    container_name: web-driver
+    ports:
+      - 4444
+      - 7900
+    networks:
+      default:
+        aliases:
+          - ${WEB_DRIVER_VIRTUAL_HOST}
+

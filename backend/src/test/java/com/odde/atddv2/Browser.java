@@ -25,7 +25,7 @@ public class Browser {
     private ServerProperties serverProperties;
 
     public void launchByUrl(String path) {
-        webDriver.get("http://frontend.app.net:" + serverProperties.getPort() + path);
+        webDriver.get("http://frontend.app.net:8080" + path);
     }
 
     public void inputTextByPlaceholder(String placeholder, String text) {
