@@ -5,7 +5,7 @@ services:
     image: adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine
     container_name: jdk.test.atdd
     volumes:
-      - ${ROOT_VOLUME}:/opt/current
+      - ${root_volume}:${root_path}
       - 'gradle-repo:/root/.gradle'
       - 'gradle-home:/root/gradle'
     ports:
@@ -19,7 +19,7 @@ services:
     image: node:10
     container_name: nodejs.test.atdd
     volumes:
-      - ${ROOT_VOLUME}:/opt/current
+      - ${root_volume}:${root_path}
     ports:
       - '8080:8080'
     command: [ 'tail', '-f', '/dev/null' ]
@@ -79,9 +79,9 @@ services:
 
 volumes:
   gradle-repo:
-    external: ${GRADLE_REPO_VOLUME_EXTERNAL}
-    name: ${GRADLE_REPO_VOLUME}
+    external: ${gradle_repo_volume_external}
+    name: ${gradle_repo_volume}
   gradle-home:
-    external: ${GRADLE_HOME_VOLUME_EXTERNAL}
-    name: ${GRADLE_REPO_VOLUME}
+    external: ${gradle_home_volume_external}
+    name: ${gradle_repo_volume}
 

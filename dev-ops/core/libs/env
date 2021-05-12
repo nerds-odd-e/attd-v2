@@ -1,6 +1,6 @@
-. ${prj_path}/configs/main.env
+. ${dev_ops_path}/core/main.env
 
-cd ${prj_path}/dockers/$(basename $0)
+cd ${dev_ops_path}/dockers/$(basename $0)
 
 if [ "${1}" = ggg ]; then
 	shift

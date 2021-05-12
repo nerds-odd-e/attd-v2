@@ -1,0 +1,18 @@
+#! /usr/bin/env sh
+dev_ops_path=$(dirname $0)/../../
+
+. ${dev_ops_path}/core/main.env
+
+exec_env=$1
+exec_dir=$2
+
+#echo $(pwd)/${exec_dir}
+
+#echo $(pwd)/${dev_ops_path}
+
+
+echo $(pwd)/${exec_dir}
+$(cd "$(pwd)/$(dirname $0)/${dev_ops_docker_root}"; pwd)
+
+#echo ${root_path}/${exec_dir}
+

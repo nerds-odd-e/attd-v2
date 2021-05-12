@@ -1,9 +1,9 @@
 #! /usr/bin/env sh
-prj_path=$(dirname $0)
+dev_ops_path=$(dirname $0)
 
-for prj_env in $(ls "$prj_path/dockers/")
+for prj_env in $(ls "$dev_ops_path/dockers/")
 do
 	echo $prj_env:
-	"$prj_path/bin/$prj_env" $@
+	"$dev_ops_path/bin/$prj_env" $@
 done
 

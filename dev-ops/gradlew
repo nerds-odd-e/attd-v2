@@ -1,8 +1,7 @@
 #! /bin/sh
 
-prj_path=$(dirname $0)
+dev_ops_path=$(dirname $0)
 
-cd ${prj_path}/../
-pwd
+cd ${dev_ops_path}/../
 ./gradlew $@
 
