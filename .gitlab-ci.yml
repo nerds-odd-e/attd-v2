@@ -8,6 +8,7 @@ test:
     - docker:18.09.8-dind
   script:
     - apk add --no-cache docker-compose
+    - sh dev-ops/env-test config
     - sh dev-ops/env-test up -d
     - sh dev-ops/core/bin/env-exec test nodejs courses/attd-v2/frontend/ ls src
     - dev-ops/core/bin/env-exec test nodejs courses/attd-v2/frontend/ ls src
