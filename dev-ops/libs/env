@@ -1,3 +1,15 @@
-echo ">>> Include gloab env..."
-. "${prj_path}/configs/main.env"
+. ${prj_path}/configs/main.env
+
+cd ${prj_path}/dockers/$(basename $0)
+
+if [ "${1}" = ggg ]; then
+	shift
+	times=1
+	while ! docker-compose $@
+	do
+		echo "Retry $((times++)) times..."
+	done
+else
+	docker-compose $@
+fi
 

@@ -1,9 +1,0 @@
-#! /usr/bin/env sh
-prj_path="$(dirname $0)"
-
-. "${prj_path}/libs/env"
-
-echo ">>> Setup CI ENV..."
-"${prj_path}/bin/dc-test" down && \
-"${prj_path}/bin/dc-test" up -d
-

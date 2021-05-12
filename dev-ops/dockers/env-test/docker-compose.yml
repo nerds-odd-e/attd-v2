@@ -5,7 +5,7 @@ services:
     image: adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine
     container_name: jdk.test.atdd
     volumes:
-      - '../../../../../:/opt/current'
+      - ${ROOT_VOLUME}:/opt/current
       - 'gradle_repo:/root/.gradle'
       - 'gradle_home:/root/gradle'
     ports:
@@ -19,7 +19,7 @@ services:
     image: node:10
     container_name: nodejs.test.atdd
     volumes:
-      - '../../../../../:/opt/current'
+      - ${ROOT_VOLUME}:/opt/current
     ports:
       - '8080:8080'
     command: [ 'tail', '-f', '/dev/null' ]

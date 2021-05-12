@@ -1,5 +1,5 @@
 #! /usr/bin/env sh
-prj_path=$(dirname $0)/..
+prj_path=$(dirname $0)
 
 for prj_env in $(ls "$prj_path/dockers/")
 do

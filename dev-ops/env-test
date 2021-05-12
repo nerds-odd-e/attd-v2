@@ -1,0 +1,5 @@
+#! /usr/bin/env sh
+prj_path="$(dirname $0)"
+
+. "$prj_path/libs/env"
+
