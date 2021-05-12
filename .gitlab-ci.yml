@@ -10,8 +10,8 @@ test:
     - apk add --no-cache docker-compose
     - sh dev-ops/env-test config
     - sh dev-ops/env-test up -d
-    - sh dev-ops/core/bin/env-exec test nodejs courses/attd-v2/frontend/ ls src
-    - dev-ops/core/bin/env-exec test nodejs courses/attd-v2/frontend/ ls src
+    - sh dev-ops/core/bin/env-exec test nodejs frontend ls src
+    - dev-ops/core/bin/env-exec test nodejs frontend ls src
     #- apk add --no-cache bash docker-compose
     #- bash dev-ops/dc_ci up -d
     #- bash dev-ops/dc_ci exec -T nodejs npm install --prefix /opt/current/attd-v2/frontend
