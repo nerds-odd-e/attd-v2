@@ -10,10 +10,7 @@ test:
     - apk add --no-cache docker-compose
     - dev-ops/env-test config
     - dev-ops/env-test up -d
-    - dev-ops/core/bin/env-exec test nodejs frontend ls src
-    #- apk add --no-cache bash docker-compose
-    #- bash dev-ops/dc_ci up -d
-    #- bash dev-ops/dc_ci exec -T nodejs npm install --prefix /opt/current/attd-v2/frontend
-    #- bash dev-ops/dc_ci exec -T nodejs npm run serve --prefix /opt/current/attd-v2/frontend &
-    #- bash dev-ops/dc_ci exec -T jdk /opt/current/attd-v2/dev-ops/gradlew test cucumber
+    - dev-ops/core/bin/env-exec test nodejs frontend npm install
+    - dev-ops/core/bin/env-exec test nodejs frontend npm run serve
+    - dev-ops/core/bin/env-exec test jdk ./ ./gradlew cucumber
 

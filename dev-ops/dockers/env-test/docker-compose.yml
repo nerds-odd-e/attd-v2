@@ -3,7 +3,7 @@ version: '3.4'
 services:
   jdk:
     image: adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine
-    container_name: jdk.test.atdd
+    container_name: jdk.test.${PROJECT_NAME}
     volumes:
       - ${root_volume}:${root_path}
       - 'gradle-repo:/root/.gradle'
@@ -15,16 +15,15 @@ services:
       default:
         aliases:
           - ${BACKEND_VIRTUAL_HOST}
+
   nodejs:
     image: node:10
-    container_name: nodejs.test.atdd
+    container_name: nodejs.test.${PROJECT_NAME}
     volumes:
       - ${root_volume}:${root_path}
     ports:
       - '8080:8080'
     command: [ 'tail', '-f', '/dev/null' ]
-    environment:
-      HOST: '0.0.0.0'
     networks:
       default:
         aliases:
@@ -32,7 +31,7 @@ services:
 
   mysql:
     image: mysql/mysql-server:8.0
-    container_name: mysql.test.atdd
+    container_name: mysql.test.${PROJECT_NAME}
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -53,7 +52,7 @@ services:
 
   mock-server:
     image: 'leeonky/mock-server:5.4.1'
-    container_name: mock-server.test.atdd
+    container_name: mock-server.test.${PROJECT_NAME}
     ports:
       - "1080:1080"
     command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
@@ -68,7 +67,7 @@ services:
 
   web-driver:
     image: selenium/standalone-chrome:4.0.0-beta-3-20210426
-    container_name: web-driver
+    container_name: web-driver.test.${PROJECT_NAME}
     ports:
       - '4444:4444'
       - '7900:7900'
