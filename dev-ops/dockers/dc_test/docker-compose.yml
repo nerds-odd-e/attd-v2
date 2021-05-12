@@ -5,11 +5,11 @@ services:
     image: adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine
     container_name: jdk.test.atdd
     volumes:
-      - '../../../../:/opt/current'
+      - '../../../../../:/opt/current'
       - 'gradle_repo:/root/.gradle'
       - 'gradle_home:/root/gradle'
     ports:
-      - 10081
+      - '10081:10081'
     command: [ 'tail', '-f', '/dev/null' ]
     networks:
       default:
@@ -19,9 +19,9 @@ services:
     image: node:10
     container_name: nodejs.test.atdd
     volumes:
-      - '../../../../:/opt/current'
+      - '../../../../../:/opt/current'
     ports:
-      - 8080
+      - '8080:8080'
     command: [ 'tail', '-f', '/dev/null' ]
     environment:
       HOST: '0.0.0.0'
@@ -39,7 +39,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3306"
+      - "3306:3306"
     volumes:
       - "../../config/mysql/conf:/etc/mysql/conf.d"
     healthcheck:
@@ -55,7 +55,7 @@ services:
     image: 'leeonky/mock-server:5.4.1'
     container_name: mock-server.test.atdd
     ports:
-      - "1080"
+      - "1080:1080"
     command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
     healthcheck:
       test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
@@ -70,8 +70,8 @@ services:
     image: selenium/standalone-chrome:4.0.0-beta-3-20210426
     container_name: web-driver
     ports:
-      - 4444
-      - 7900
+      - '4444:4444'
+      - '7900:4444'
     networks:
       default:
         aliases:
@@ -79,7 +79,7 @@ services:
 
 volumes:
   gradle_repo:
-    #external: true
+    external: true
   gradle_home:
-    #external: true
+    external: true
 

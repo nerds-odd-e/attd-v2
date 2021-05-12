@@ -1,9 +1,8 @@
-#! /bin/bash
-prj_path=$(dirname $0)
+. ${prj_path}/configs/main.env
 
-cd $prj_path/compose/$(basename $0)
+cd ${prj_path}/dockers/$(basename $0)
 
-if [ "$1" == ggg ]; then
+if [ "${1}" = ggg ]; then
 	shift
 	times=1
 	while ! docker-compose $@
@@ -13,3 +12,4 @@ if [ "$1" == ggg ]; then
 else
 	docker-compose $@
 fi
+
