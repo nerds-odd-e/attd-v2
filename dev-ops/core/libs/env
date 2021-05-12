@@ -1,15 +1,15 @@
 . ${dev_ops_path}/core/main.env
 
-cd ${dev_ops_path}/dockers/$(basename $0)
+cd "${dev_ops_path}/dockers/$(basename $0)"
 
 if [ "${1}" = ggg ]; then
 	shift
 	times=1
-	while ! docker-compose $@
+	while ! docker-compose "$@"
 	do
 		echo "Retry $((times++)) times..."
 	done
 else
-	docker-compose $@
+	docker-compose "$@"
 fi
 
