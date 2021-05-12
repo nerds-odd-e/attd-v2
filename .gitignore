@@ -25,3 +25,6 @@ out
 /dist/
 /nbdist/
 /.nb-gradle/
+
+local.env
+
