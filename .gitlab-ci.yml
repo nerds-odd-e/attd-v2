@@ -11,6 +11,6 @@ test:
     - dev-ops/env-test config
     - dev-ops/env-test up -d
     - dev-ops/core/bin/env-exec test nodejs frontend npm install
-    - dev-ops/core/bin/env-exec test nodejs frontend npm run serve
+    - dev-ops/core/bin/env-exec test nodejs frontend npm run serve &
     - dev-ops/core/bin/env-exec test jdk ./ ./gradlew cucumber
 
