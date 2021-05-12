@@ -1,0 +1,3 @@
+echo ">>> Include gloab env..."
+. "${prj_path}/configs/main.env"
+

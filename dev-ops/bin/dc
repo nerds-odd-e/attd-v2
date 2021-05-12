@@ -1,9 +1,9 @@
-#! /bin/bash
-prj_path=$(dirname $0)/../
+#! /usr/bin/env sh
+prj_path=$(dirname $0)/..
 
 for prj_env in $(ls "$prj_path/dockers/")
 do
 	echo $prj_env:
-	"$prj_path/$prj_env" $@
+	"$prj_path/bin/$prj_env" $@
 done
 
