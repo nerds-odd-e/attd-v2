@@ -1,0 +1,11 @@
+#! /usr/bin/env sh
+dev_ops_path=$(dirname $0)/../../
+
+. ${dev_ops_path}/core/main.env
+
+exec_env=$1
+
+shift 1
+
+${dev_ops_path}/core/bin/env-exec $exec_env ${SERVIEC_JDK:-jdk} "$(dirname .)" ./gradlew "$@"
+
