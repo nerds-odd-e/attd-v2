@@ -1,5 +1,4 @@
 #! /usr/bin/env sh
-set -x
 dev_ops_path=$(dirname $0)/../../
 
 exec_env=$1
@@ -11,11 +10,11 @@ real_path() {
 	echo "$(cd "$1"; pwd)"
 }
 
-exec_dir="$(real_path "$(pwd)/$3")"
+exec_dir="$(real_path "$3")"
 
 shift 3
 
-target_path=${root_path}${exec_dir#$(real_path "$(pwd)/$(dirname $0)/${dev_ops_docker_root}")}
+target_path=${root_path}${exec_dir#$(real_path "$(dirname $0)/${dev_ops_docker_root}")}
 
 if ! tty -s >/dev/null 2>/dev/null; then
 	tty_flag="-T"
