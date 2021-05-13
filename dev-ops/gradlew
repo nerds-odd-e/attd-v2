@@ -1,7 +1,0 @@
-#! /bin/sh
-
-dev_ops_path=$(dirname $0)
-
-cd ${dev_ops_path}/../
-./gradlew $@
-

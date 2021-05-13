@@ -27,7 +27,7 @@ else
 fi
 
 if [ -f "${dev_ops_path}/env-${exec_env}" ]; then
-	$sudo_command "${dev_ops_path}/env-${exec_env}" exec $tty_flag $exec_service /opt/current/dev-ops/core/env-bin/cd-exec "$target_path" "$@"
+	$sudo_command "${dev_ops_path}/env-${exec_env}" exec $tty_flag $exec_service /opt/current/dev-ops/core/docker-bin/cd-exec "$target_path" "$@"
 else
 	echo "env-${exec_env} not exist"
 fi

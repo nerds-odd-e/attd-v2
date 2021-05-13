@@ -27,4 +27,5 @@ out
 /.nb-gradle/
 
 local.env
+dev-ops/core/e-devs/*
 
