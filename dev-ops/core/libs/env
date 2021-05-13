@@ -1,6 +1,8 @@
 . ${dev_ops_path}/core/main.env
 
-cd "${dev_ops_path}/dockers/$(basename $0)"
+bin_file=$(basename "$0")
+
+cd "${dev_ops_path}/envs/${bin_file#env-}"
 
 if [ "${1}" = ggg ]; then
 	shift
