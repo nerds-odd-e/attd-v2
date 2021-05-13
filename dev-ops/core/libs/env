@@ -4,14 +4,20 @@ bin_file=$(basename "$0")
 
 cd "${dev_ops_path}/envs/${bin_file#env-}"
 
+if command -v sudo > /dev/null 2>&1; then
+	sudo_command="sudo --preserve-env"
+else
+	sudo_command=''
+fi
+
 if [ "${1}" = ggg ]; then
 	shift
 	times=1
-	while ! docker-compose "$@"
+	while ! $sudo_command docker-compose "$@"
 	do
 		echo "Retry $((times++)) times..."
 	done
 else
-	docker-compose "$@"
+	$sudo_command docker-compose "$@"
 fi
 

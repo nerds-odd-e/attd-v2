@@ -20,14 +20,8 @@ if ! tty -s >/dev/null 2>&1; then
 	tty_flag="-T"
 fi
 
-if command -v sudo > /dev/null 2>&1; then
-	sudo_command=sudo
-else
-	sudo_command=''
-fi
-
 if [ -f "${dev_ops_path}/env-${exec_env}" ]; then
-	$sudo_command "${dev_ops_path}/env-${exec_env}" exec $tty_flag $exec_service /opt/current/dev-ops/core/docker-bin/cd-exec "$target_path" "$@"
+	"${dev_ops_path}/env-${exec_env}" exec $tty_flag $exec_service /opt/current/dev-ops/core/docker-bin/cd-exec "$target_path" "$@"
 else
 	echo "env-${exec_env} not exist"
 fi
