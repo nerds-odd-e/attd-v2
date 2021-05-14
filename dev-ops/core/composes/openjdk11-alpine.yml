@@ -1,0 +1,11 @@
+x-openjdk11-alpine: &openjdk11-alpine
+  image: adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine
+  container_name: jdk.test.${PROJECT_NAME}
+  volumes:
+    - ${root_volume}:${root_path}
+    - 'gradle-repo:/root/.gradle'
+    - 'gradle-home:/root/gradle'
+  ports:
+    - '10082'
+  command: [ 'tail', '-f', '/dev/null' ]
+

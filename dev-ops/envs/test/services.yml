@@ -1,0 +1,74 @@
+version: '3.4'
+
+services:
+  jdk:
+    <<: *openjdk11-alpine
+    ports:
+      - '10081:10081'
+    networks:
+      default:
+        aliases:
+          - ${BACKEND_VIRTUAL_HOST}
+
+  nodejs:
+    <<: *nodejs10
+    networks:
+      default:
+        aliases:
+          - ${FRONTEND_VIRTUAL_HOST}
+
+  mysql:
+    image: mysql/mysql-server:8.0
+    container_name: mysql.test.${PROJECT_NAME}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - "../../configs/containers/mysql/conf:/etc/mysql/conf.d"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    networks:
+      default:
+        aliases:
+          - ${MYSQL_VIRTUAL_HOST}
+
+  mock-server:
+    image: 'leeonky/mock-server:5.4.1'
+    container_name: mock-server.test.${PROJECT_NAME}
+    ports:
+      - "1080:1080"
+    command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
+    healthcheck:
+      test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
+      timeout: 20s
+      retries: 10
+    networks:
+      default:
+        aliases:
+          - ${MOCK_SERVER_VIRTUAL_HOST}
+
+  web-driver:
+    image: selenium/standalone-chrome:4.0.0-beta-3-20210426
+    container_name: web-driver.test.${PROJECT_NAME}
+    ports:
+      - '4444:4444'
+      - '7900:7900'
+    networks:
+      default:
+        aliases:
+          - ${WEB_DRIVER_VIRTUAL_HOST}
+
+volumes:
+  gradle-repo:
+    external: ${gradle_repo_volume_external}
+    name: ${gradle_repo_volume}
+  gradle-home:
+    external: ${gradle_home_volume_external}
+    name: ${gradle_repo_volume}
+
