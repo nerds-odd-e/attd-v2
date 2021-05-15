@@ -1,7 +1,5 @@
 . ${dev_ops_path}/core/main.env
 
-set -x
-
 bin_file=$(basename "$0")
 
 env_path="${dev_ops_path}/envs/${bin_file#env-}"
@@ -19,8 +17,6 @@ print_compose() {
 		cat "${dev_ops_path}/core/composes/$service_compose" >> "${env_path}/.tmp"
 	done
 	cat "${env_path}/services.yml" >> "${env_path}/.tmp"
-
-	cat "${env_path}/.tmp" >&2
 
 	$sudo_command docker-compose \
 		-f "${env_path}/.tmp" \
