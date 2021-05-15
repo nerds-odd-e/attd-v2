@@ -11,27 +11,23 @@ else
 fi
 
 print_compose() {
-	echo > "${env_path}/.tmp"
 	for service_compose in $(ls "${dev_ops_path}/core/composes/")
 	do
-		cat "${dev_ops_path}/core/composes/$service_compose" >> "${env_path}/.tmp"
+		if grep -q ${service_compose%.yml} "${env_path}/services.yml"; then
+			cat "${dev_ops_path}/core/composes/$service_compose"
+		fi
 	done
-	cat "${env_path}/services.yml" >> "${env_path}/.tmp"
 
-	$sudo_command docker-compose \
-		-f "${env_path}/.tmp" \
-		--env-file "${env_path}/env" \
-		config
-	rm "${env_path}/.tmp"
+	cat "${env_path}/services.yml"
 }
 
 create_compose() {
-	print_compose > "${env_path}/docker-compose.yml"
+	print_compose > "${env_path}/.docker-compose.yml"
 }
 
 check_compose() {
 	local services_result="$(print_compose)"
-	local exist_compose="$(cat "${env_path}/docker-compose.yml")"
+	local exist_compose="$(cat "${env_path}/.docker-compose.yml")"
 	if [ "$services_result" = "$exist_compose" ]; then
 		return 0
 	else
@@ -45,10 +41,11 @@ exe_docker_compose() {
 	if [ $# = 0 ]; then
 		create_compose
 	else
-		( [ -e "${env_path}/docker-compose.yml" ] || create_compose ) && \
+		( [ -e "${env_path}/.docker-compose.yml" ] || create_compose ) && \
 		check_compose && \
 		$sudo_command docker-compose \
-			-f "${env_path}/docker-compose.yml" \
+			-f "${env_path}/.docker-compose.yml" \
+			--env-file "${env_path}/env" \
 			"$@"
 	fi
 }
