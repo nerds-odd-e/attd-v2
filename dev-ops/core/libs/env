@@ -36,6 +36,7 @@ check_compose() {
 		return 0
 	else
 		echo "Docker compose file changed!" >&2
+		echo "$services_result" >&2
 		return -1
 	fi
 }
