@@ -20,6 +20,8 @@ print_compose() {
 	done
 	cat "${env_path}/services.yml" >> "${env_path}/.tmp"
 
+	cat "${env_path}/.tmp" >&2
+
 	$sudo_command docker-compose \
 		-f "${env_path}/.tmp" \
 		--env-file "${env_path}/env" \
