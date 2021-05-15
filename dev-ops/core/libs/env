@@ -1,5 +1,7 @@
 . ${dev_ops_path}/core/main.env
 
+set -x
+
 bin_file=$(basename "$0")
 
 env_path="${dev_ops_path}/envs/${bin_file#env-}"
