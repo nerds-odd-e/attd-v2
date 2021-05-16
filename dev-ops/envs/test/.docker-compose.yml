@@ -94,5 +94,3 @@ volumes:
   gradle-home:
     external: ${gradle_home_volume_external}
     name: ${gradle_repo_volume}
-  host_share:
-    external: true
