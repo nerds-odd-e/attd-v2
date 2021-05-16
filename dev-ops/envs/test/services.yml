@@ -21,27 +21,7 @@ services:
     <<: *mysql8
 
   mock-server:
-    image: 'leeonky/mock-server:5.4.1'
-    container_name: mock-server.test.${PROJECT_NAME}
-    ports:
-      - "1080:1080"
-    command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
-    healthcheck:
-      test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
-      timeout: 20s
-      retries: 10
-    networks:
-      default:
-        aliases:
-          - ${MOCK_SERVER_VIRTUAL_HOST}
+    <<: *mock-server5-4-1
 
   web-driver:
-    image: selenium/standalone-chrome:4.0.0-beta-3-20210426
-    container_name: web-driver.test.${PROJECT_NAME}
-    ports:
-      - '4444:4444'
-      - '7900:7900'
-    networks:
-      default:
-        aliases:
-          - ${WEB_DRIVER_VIRTUAL_HOST}
+    <<: *standalone-chrome4

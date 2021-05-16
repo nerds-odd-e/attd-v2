@@ -1,3 +1,17 @@
+x-mock-server: &mock-server5-4-1
+  image: 'leeonky/mock-server:5.4.1'
+  container_name: mock-server.test.${PROJECT_NAME}
+  ports:
+    - "1080:1080"
+  command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
+  healthcheck:
+    test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
+    timeout: 20s
+    retries: 10
+  networks:
+    default:
+      aliases:
+        - mock-server.tool.net
 x-mysql8: &mysql8
   image: mysql/mysql-server:8.0
   container_name: mysql.test.${PROJECT_NAME}
@@ -36,6 +50,16 @@ x-openjdk11-alpine: &openjdk11-alpine
     - 'gradle-home:/root/gradle'
   command: [ 'tail', '-f', '/dev/null' ]
 
+x-nodejs10: &standalone-chrome4
+  image: selenium/standalone-chrome:4.0.0-beta-3-20210426
+  container_name: web-driver.test.${PROJECT_NAME}
+  ports:
+    - '4444:4444'
+    - '7900:7900'
+  networks:
+    default:
+      aliases:
+        - web-driver.tool.net
 version: '3.4'
 
 services:
@@ -59,30 +83,10 @@ services:
     <<: *mysql8
 
   mock-server:
-    image: 'leeonky/mock-server:5.4.1'
-    container_name: mock-server.test.${PROJECT_NAME}
-    ports:
-      - "1080:1080"
-    command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
-    healthcheck:
-      test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
-      timeout: 20s
-      retries: 10
-    networks:
-      default:
-        aliases:
-          - ${MOCK_SERVER_VIRTUAL_HOST}
+    <<: *mock-server5-4-1
 
   web-driver:
-    image: selenium/standalone-chrome:4.0.0-beta-3-20210426
-    container_name: web-driver.test.${PROJECT_NAME}
-    ports:
-      - '4444:4444'
-      - '7900:7900'
-    networks:
-      default:
-        aliases:
-          - ${WEB_DRIVER_VIRTUAL_HOST}
+    <<: *standalone-chrome4
 volumes:
   gradle-repo:
     external: ${gradle_repo_volume_external}

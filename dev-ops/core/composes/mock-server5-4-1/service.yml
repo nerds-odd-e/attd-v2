@@ -1,0 +1,14 @@
+x-mock-server: &mock-server5-4-1
+  image: 'leeonky/mock-server:5.4.1'
+  container_name: mock-server.test.${PROJECT_NAME}
+  ports:
+    - "1080:1080"
+  command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
+  healthcheck:
+    test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
+    timeout: 20s
+    retries: 10
+  networks:
+    default:
+      aliases:
+        - mock-server.tool.net

@@ -1,0 +1,10 @@
+x-nodejs10: &standalone-chrome4
+  image: selenium/standalone-chrome:4.0.0-beta-3-20210426
+  container_name: web-driver.test.${PROJECT_NAME}
+  ports:
+    - '4444:4444'
+    - '7900:7900'
+  networks:
+    default:
+      aliases:
+        - web-driver.tool.net
