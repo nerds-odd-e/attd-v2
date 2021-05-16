@@ -9,7 +9,7 @@ x-mysql8: &mysql8
   ports:
     - "3306:3306"
   volumes:
-    - "../../configs/containers/mysql/conf:/etc/mysql/conf.d"
+    - "../../core/composes/mysql8/conf:/etc/mysql/conf.d"
   healthcheck:
     test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
     timeout: 20s
