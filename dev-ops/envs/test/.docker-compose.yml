@@ -83,7 +83,6 @@ services:
       default:
         aliases:
           - ${WEB_DRIVER_VIRTUAL_HOST}
-
 volumes:
   gradle-repo:
     external: ${gradle_repo_volume_external}

@@ -30,7 +30,7 @@ print_compose() {
 
 	if ! [ "$services_volumes" = "" ]; then
 		if ! grep -q "^volumes:" "${env_path}/services.yml"; then
-			echo "\nvolumes:"
+			echo "volumes:"
 		fi
 		echo "$services_volumes"
 	fi
