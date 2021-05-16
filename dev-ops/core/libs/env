@@ -11,14 +11,29 @@ else
 fi
 
 print_compose() {
+	local services_volumes=''
 	for service_compose in $(ls "${dev_ops_path}/core/composes/")
 	do
-		if grep -q ${service_compose%.yml} "${env_path}/services.yml"; then
-			cat "${dev_ops_path}/core/composes/$service_compose"
+		if grep -q ${service_compose} "${env_path}/services.yml"; then
+			cat "${dev_ops_path}/core/composes/$service_compose/service.yml"
+			if [ -f "${dev_ops_path}/core/composes/$service_compose/volume.yml" ]; then
+				services_volumes="$( IFS='\n' 
+				while read line
+				do
+					echo "  $line"
+				done < "${dev_ops_path}/core/composes/$service_compose/volume.yml" )"
+			fi 
 		fi
 	done
 
 	cat "${env_path}/services.yml"
+
+	if ! [ "$services_volumes" = "" ]; then
+		if ! grep -q "^volumes:" "${env_path}/services.yml"; then
+			echo "\nvolumes:"
+		fi
+		echo "$services_volumes"
+	fi
 }
 
 create_compose() {

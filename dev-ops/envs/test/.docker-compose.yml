@@ -1,3 +1,23 @@
+x-mysql8: &mysql8
+  image: mysql/mysql-server:8.0
+  container_name: mysql.test.${PROJECT_NAME}
+  environment:
+    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    MYSQL_DATABASE: ${MYSQL_DATABASE}
+    MYSQL_USER: ${MYSQL_USER}
+    MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  ports:
+    - "3306:3306"
+  volumes:
+    - "../../configs/containers/mysql/conf:/etc/mysql/conf.d"
+  healthcheck:
+    test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+    timeout: 20s
+    retries: 10
+  networks:
+    default:
+      aliases:
+        - mysql.tool.net
 x-nodejs10: &nodejs10
   image: node:10
   container_name: nodejs.test.${PROJECT_NAME}
@@ -11,11 +31,9 @@ x-openjdk11-alpine: &openjdk11-alpine
   image: adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine
   container_name: jdk.test.${PROJECT_NAME}
   volumes:
-    - ${root_volume}:${root_path}
+    - "${root_volume}:${root_path}"
     - 'gradle-repo:/root/.gradle'
     - 'gradle-home:/root/gradle'
-  ports:
-    - '10082'
   command: [ 'tail', '-f', '/dev/null' ]
 
 version: '3.4'
@@ -38,25 +56,7 @@ services:
           - ${FRONTEND_VIRTUAL_HOST}
 
   mysql:
-    image: mysql/mysql-server:8.0
-    container_name: mysql.test.${PROJECT_NAME}
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "3306:3306"
-    volumes:
-      - "../../configs/containers/mysql/conf:/etc/mysql/conf.d"
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 20s
-      retries: 10
-    networks:
-      default:
-        aliases:
-          - ${MYSQL_VIRTUAL_HOST}
+    <<: *mysql8
 
   mock-server:
     image: 'leeonky/mock-server:5.4.1'
@@ -91,4 +91,3 @@ volumes:
   gradle-home:
     external: ${gradle_home_volume_external}
     name: ${gradle_repo_volume}
-
