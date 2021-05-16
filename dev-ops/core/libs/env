@@ -4,12 +4,6 @@ bin_file=$(basename "$0")
 
 env_path="${dev_ops_path}/envs/${bin_file#env-}"
 
-if command -v sudo > /dev/null 2>&1; then
-	sudo_command="sudo --preserve-env"
-else
-	sudo_command=''
-fi
-
 print_compose() {
 	local services_volumes=''
 	for service_compose in $(ls "${dev_ops_path}/core/composes/")
@@ -58,7 +52,7 @@ exe_docker_compose() {
 	else
 		( [ -e "${env_path}/.docker-compose.yml" ] || create_compose ) && \
 		check_compose && \
-		$sudo_command docker-compose \
+		${DOCKER_SUDO_CMD} docker-compose \
 			-f "${env_path}/.docker-compose.yml" \
 			--env-file "${env_path}/env" \
 			"$@"
