@@ -20,13 +20,6 @@ print_compose() {
 		fi
 	done
 
-	if [ "${EXTERNAL_ROOT_VOLUME}" != "" ]; then
-		services_volumes="$(echo "$services_volumes
-  $EXTERNAL_ROOT_VOLUME:
-    external: true
-")"
-	fi
-
 	cat "${env_path}/services.yml"
 
 	if ! [ "$services_volumes" = "" ]; then
@@ -53,27 +46,42 @@ check_compose() {
 	fi
 }
 
-exe_docker_compose() {
+docker_compose() {
+	local override_opt=''
+	if [ -e "${env_path}/services.local-override.yml" ]; then
+		${DOCKER_SUDO_CMD} docker-compose \
+			-f "${env_path}/.docker-compose.yml" \
+			-f "${env_path}/services.local-override.yml" \
+			--env-file "${env_path}/env" \
+			"$@"
+	else
+		${DOCKER_SUDO_CMD} docker-compose \
+			-f "${env_path}/.docker-compose.yml" \
+			--env-file "${env_path}/env" \
+			"$@"
+	fi
+
+
+}
+
+execute() {
 	if [ $# = 0 ]; then
 		create_compose
 	else
 		( [ -e "${env_path}/.docker-compose.yml" ] || create_compose ) && \
 		check_compose && \
-		${DOCKER_SUDO_CMD} docker-compose \
-			-f "${env_path}/.docker-compose.yml" \
-			--env-file "${env_path}/env" \
-			"$@"
+		docker_compose "$@"
 	fi
 }
 
 if [ "${1}" = ggg ]; then
 	shift
 	times=1
-	while ! exe_docker_compose "$@"
+	while ! execute "$@"
 	do
 		echo "Retry $((times++)) times..."
 	done
 else
-	exe_docker_compose "$@"
+	execute "$@"
 fi
 

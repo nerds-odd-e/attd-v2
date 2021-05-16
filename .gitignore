@@ -28,4 +28,5 @@ out
 
 local.env
 dev-ops/core/e-devs/*
+services.local-override.yml
 
