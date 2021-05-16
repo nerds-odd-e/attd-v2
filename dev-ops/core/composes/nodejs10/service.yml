@@ -2,7 +2,7 @@ x-nodejs10: &nodejs10
   image: node:10
   container_name: nodejs.test.${PROJECT_NAME}
   volumes:
-    - ${root_volume}:${root_path}
+    - ${root_volume}:${root_point}
   ports:
     - '8080:8080'
   command: [ 'tail', '-f', '/dev/null' ]

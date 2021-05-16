@@ -20,6 +20,13 @@ print_compose() {
 		fi
 	done
 
+	if [ "${EXTERNAL_ROOT_VOLUME}" != "" ]; then
+		services_volumes="$(echo "$services_volumes
+  $EXTERNAL_ROOT_VOLUME:
+    external: true
+")"
+	fi
+
 	cat "${env_path}/services.yml"
 
 	if ! [ "$services_volumes" = "" ]; then
