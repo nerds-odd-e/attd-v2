@@ -20,7 +20,7 @@ spring:
 scheduled:
   order-task-in-msec: 3600000
 
-clock-endpoint:
+standalone-dev-endpoint:
   url: http://mock-server.tool.net:9081
 
 ---
@@ -38,6 +38,9 @@ mock-server:
 binstd-endpoint:
   url: ${mock-server.endpoint}
   key: test
+
+scheduled:
+  order-task-in-msec: 100
 
 ---
 spring:

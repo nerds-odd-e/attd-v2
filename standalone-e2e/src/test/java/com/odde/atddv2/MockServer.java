@@ -28,18 +28,22 @@ public class MockServer {
         mockServerClient.reset();
     }
 
+    public void getJson(String path, UnaryOperator<HttpRequest> params, String response) {
+        getJson(path, params, Times.unlimited(), response);
+    }
+
+    public void getJson(String path, UnaryOperator<HttpRequest> params, Times times, String response) {
+        mockServerClient.when(params.apply(request().withMethod("GET").withPath(path)), times)
+                .respond(response().withStatusCode(200)
+                        .withHeader(CONTENT_TYPE, "application/json")
+                        .withBody(response));
+    }
+
     private MockServerClient createMockServerClient(URL url) {
         return mockServerClient = new MockServerClient(url.getHost(), url.getPort()) {
             @Override
             public void close() {
             }
         };
-    }
-
-    public void getJson(String path, UnaryOperator<HttpRequest> params, String response) {
-        mockServerClient.when(params.apply(request().withMethod("GET").withPath(path)), Times.unlimited())
-                .respond(response().withStatusCode(200)
-                        .withHeader(CONTENT_TYPE, "application/json")
-                        .withBody(response));
     }
 }

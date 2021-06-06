@@ -10,6 +10,7 @@ import io.cucumber.java.zh_cn.并且;
 import io.cucumber.java.zh_cn.当;
 import io.cucumber.java.zh_cn.那么;
 import lombok.SneakyThrows;
+import org.mockserver.matchers.Times;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -54,6 +55,11 @@ public class ApiSteps {
         api.post(String.format("orders/%s/deliver", order), new HashMap<String, String>() {{
             put("deliverNo", deliverNo);
         }});
+    }
+
+    @当("订单任务运行时")
+    public void 订单任务运行时() {
+        mockServer.getJson("/task", UnaryOperator.identity(), Times.once(), "true");
     }
 
     @那么("订单{string}已发货，发货时间为{string}，快递单号为{string}")
