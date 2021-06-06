@@ -47,4 +47,4 @@ binstd-endpoint:
   key: 822c629b7815e01f
 
 server:
-  port: 10082
+  port: 10080
