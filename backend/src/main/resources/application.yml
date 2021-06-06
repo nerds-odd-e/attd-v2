@@ -20,6 +20,9 @@ spring:
 scheduled:
   order-task-in-msec: 3600000
 
+clock-endpoint:
+  url: http://mock-server.tool.net:9081
+
 ---
 spring:
   config:

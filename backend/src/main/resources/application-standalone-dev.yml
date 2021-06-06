@@ -1,0 +1,8 @@
+spring:
+  config:
+    use-legacy-processing: true
+  profiles:
+    include: test
+
+server:
+  port: 10082
