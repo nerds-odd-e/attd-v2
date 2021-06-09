@@ -67,7 +67,6 @@ public class Factory {
             public void waitForExecute() {
                 while (isNotGo()) {
                     TimeUnit.MILLISECONDS.sleep(100);
-                    System.out.println("wait for execute.");
                 }
             }
 
