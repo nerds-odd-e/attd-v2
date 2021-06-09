@@ -15,7 +15,7 @@ services:
     - published: 10081
       target: 10081
     volumes:
-    - ./:/opt/current:rw
+    - ./../../../:/opt/current:rw
     - gradle-repo:/root/.gradle:rw
     - gradle-home:/root/gradle:rw
   mock-server:
@@ -84,7 +84,7 @@ services:
     - published: 8080
       target: 8080
     volumes:
-    - ./:/opt/current:rw
+    - ./../../../:/opt/current:rw
   web-driver:
     container_name: web-driver.test.attd-v2
     image: selenium/standalone-chrome:4.0.0-beta-3-20210426
