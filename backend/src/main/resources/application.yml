@@ -21,7 +21,7 @@ scheduled:
   order-task-in-msec: 3600000
 
 standalone-dev-endpoint:
-  url: http://mock-server.tool.net:9081
+  url: http://mock-server.tool.net:1080
 
 ---
 spring:

@@ -1,6 +1,0 @@
-gradle-repo:
-  external: ${gradle_repo_volume_external}
-  name: ${gradle_repo_volume}
-gradle-home:
-  external: ${gradle_home_volume_external}
-  name: ${gradle_repo_volume}

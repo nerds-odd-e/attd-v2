@@ -1,5 +1,0 @@
-#! /usr/bin/env sh
-dev_ops_path="$(dirname $0)"
-
-. "$dev_ops_path/core/libs/env"
-

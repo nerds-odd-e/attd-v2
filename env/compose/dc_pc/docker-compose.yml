@@ -1,50 +1,108 @@
-version: '3.4'
-
 services:
-  mysql:
-    image: mysql/mysql-server:8.0
-    container_name: mysql.test.atdd
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "${MYSQL_PORT_OUT}:3306"
-    volumes:
-      - "../../config/mysql/conf:/etc/mysql/conf.d"
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 20s
-      retries: 10
+  jdk:
+    command:
+    - tail
+    - -f
+    - /dev/null
+    container_name: jdk.test.attd-v2
+    image: adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine
     networks:
       default:
         aliases:
-          - ${MYSQL_VIRTUAL_HOST}
-
+        - backend.api.net
+    working_dir: /opt/current
+    ports:
+    - published: 10081
+      target: 10081
+    volumes:
+    - /opt/share/courses/attd-v2:/opt/current:rw
+    - gradle-repo:/root/.gradle:rw
+    - gradle-home:/root/gradle:rw
   mock-server:
-    image: 'leeonky/mock-server:5.4.1'
-    container_name: mock-server.test.atdd
-    ports:
-      - "${MOCK_SERVER_PORT_OUT}:1080"
-    command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
+    command:
+    - -serverPort
+    - '1080'
+    - -logLevel
+    - INFO
+    container_name: mock-server.test.attd-v2
     healthcheck:
-      test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
-      timeout: 20s
       retries: 10
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin.test.atdd
-    links:
-      - mysql:db
+      test:
+      - CMD
+      - nc
+      - -z
+      - localhost
+      - '1080'
+      timeout: 20s
+    image: leeonky/mock-server:5.4.1
+    networks:
+      default:
+        aliases:
+        - mock-server.tool.net
     ports:
-      - "${PHPMYADMIN_PORT_OUT}:80"
-
+    - published: 1080
+      target: 1080
+  mysql:
+    container_name: mysql.test.attd-v2
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_PASSWORD: '123456'
+      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_USER: admin
+    healthcheck:
+      retries: 10
+      test:
+      - CMD
+      - mysqladmin
+      - ping
+      - -h
+      - localhost
+      timeout: 20s
+    image: mysql/mysql-server:8.0
+    networks:
+      default:
+        aliases:
+        - mysql.tool.net
+    ports:
+    - published: 3306
+      target: 3306
+    volumes:
+    - /opt/share/courses/attd-v2/dev-ops/core/composes/mysql8/conf:/etc/mysql/conf.d:rw
+  nodejs:
+    command:
+    - tail
+    - -f
+    - /dev/null
+    container_name: nodejs.test.attd-v2
+    image: node:10
+    networks:
+      default:
+        aliases:
+        - frontend.app.net
+    working_dir: /opt/current/frontend
+    ports:
+    - published: 8080
+      target: 8080
+    volumes:
+    - /opt/share/courses/attd-v2:/opt/current:rw
   web-driver:
+    container_name: web-driver.test.attd-v2
     image: selenium/standalone-chrome:4.0.0-beta-3-20210426
-    container_name: web-driver
+    networks:
+      default:
+        aliases:
+        - web-driver.tool.net
     ports:
-      - 4444:4444
-      - 7900:7900
+    - published: 4444
+      target: 4444
+    - published: 7900
+      target: 7900
+version: '3.4'
+volumes:
+  gradle-home:
+    external: false
+    name: gradle-repo
+  gradle-repo:
+    external: false
+    name: gradle-repo
 

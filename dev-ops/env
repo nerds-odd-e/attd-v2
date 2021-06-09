@@ -1,9 +1,0 @@
-#! /usr/bin/env sh
-dev_ops_path=$(dirname $0)
-
-for prj_env in $(ls "$dev_ops_path/envs/")
-do
-	echo env-$prj_env:
-	"$dev_ops_path/env-$prj_env" $@
-done
-
