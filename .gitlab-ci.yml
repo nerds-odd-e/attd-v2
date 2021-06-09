@@ -9,10 +9,8 @@ test:
   script:
     - apk add --no-cache docker-compose
     - docker-compose -f env/compose/dc_pc/docker-compose.yml up -d
-      #- docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T nodejs yarn
-      #- docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T nodejs yarn serve &
-    - docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T jdk pwd
-    - docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T jdk ls
-      #- docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T jdk ./gradlew backend:bootRun --args='--spring.profiles.active=standalone-dev' &
-      #- docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T jdk ./gradlew test cucumber
+    - docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T nodejs yarn
+    - docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T nodejs yarn serve &
+    - docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T jdk ./gradlew backend:bootRun --args='--spring.profiles.active=standalone-dev' &
+    - docker-compose -f env/compose/dc_pc/docker-compose.yml exec -T jdk ./gradlew test cucumber
 
