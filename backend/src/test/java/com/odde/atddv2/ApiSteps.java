@@ -10,6 +10,7 @@ import io.cucumber.java.zh_cn.并且;
 import io.cucumber.java.zh_cn.当;
 import io.cucumber.java.zh_cn.那么;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.transaction.Transactional;
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.when;
 
 public class ApiSteps {
     @Autowired
+    @Qualifier("completeDoneTaskSwitch")
     PausedTaskSwitch pausedTaskSwitch;
     @Autowired
     private MockServer mockServer;

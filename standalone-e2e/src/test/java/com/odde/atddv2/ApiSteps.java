@@ -59,7 +59,7 @@ public class ApiSteps {
 
     @当("订单任务运行时")
     public void 订单任务运行时() {
-        mockServer.getJson("/task", UnaryOperator.identity(), Times.once(), "true");
+        mockServer.getJson("/task", UnaryOperator.identity(), Times.exactly(2), "true");
     }
 
     @那么("订单{string}已发货，发货时间为{string}，快递单号为{string}")

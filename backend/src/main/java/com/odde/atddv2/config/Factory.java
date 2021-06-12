@@ -26,9 +26,16 @@ public class Factory {
         return Clock.systemUTC();
     }
 
-    @Bean
+    @Bean("completeDoneTaskSwitch")
     @Profile("!standalone-dev")
-    public TaskSwitch createTaskSwitch() {
+    public TaskSwitch createCompleteDoneTaskSwitch() {
+        return () -> {
+        };
+    }
+
+    @Bean("anotherTaskSwitch")
+    @Profile("!standalone-dev")
+    public TaskSwitch createAnotherTaskSwitch() {
         return () -> {
         };
     }
@@ -58,26 +65,33 @@ public class Factory {
         };
     }
 
-    @Bean
+    @Bean("completeDoneTaskSwitch")
     @Profile("standalone-dev")
     public TaskSwitch createMockServerTaskSwitch() {
-        return new TaskSwitch() {
-            @SneakyThrows
-            @Override
-            public void waitForExecute() {
-                while (isNotGo()) {
-                    TimeUnit.MILLISECONDS.sleep(100);
-                    System.out.println("wait for execute.");
-                }
-            }
+        return new MockServerTaskSwitch();
+    }
 
-            private boolean isNotGo() {
-                try {
-                    return !standaloneDevApi.isGo();
-                } catch (Throwable t) {
-                    return true;
-                }
+    @Bean("anotherTaskSwitch")
+    @Profile("standalone-dev")
+    public TaskSwitch createAnotherMockServerTaskSwitch() {
+        return new MockServerTaskSwitch();
+    }
+
+    private class MockServerTaskSwitch implements TaskSwitch {
+        @SneakyThrows
+        @Override
+        public void waitForExecute() {
+            while (isNotGo()) {
+                TimeUnit.MILLISECONDS.sleep(100);
             }
-        };
+        }
+
+        private boolean isNotGo() {
+            try {
+                return !standaloneDevApi.isGo();
+            } catch (Throwable t) {
+                return true;
+            }
+        }
     }
 }
