@@ -6,13 +6,40 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <TextView
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/editTextUsername"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginStart="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="200dp"
+            android:hint="用户名" />
+
+    <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editTextPassword"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginStart="100dp"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUsername"
+            android:layout_marginTop="84dp"
+            android:hint="密码" />
 
+    <Button
+            android:text="登录"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+            android:layout_marginTop="64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="160dp"
+            android:layout_marginStart="160dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

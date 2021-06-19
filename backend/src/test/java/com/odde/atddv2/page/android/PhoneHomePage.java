@@ -15,6 +15,8 @@ public class PhoneHomePage {
     }
 
     public void login(String username, String password) {
-
+        app.inputTextByHint("用户名", username);
+        app.inputTextById("editTextPassword", password);
+        app.clickByText("登录");
     }
 }
