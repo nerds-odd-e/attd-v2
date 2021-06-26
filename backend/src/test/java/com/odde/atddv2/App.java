@@ -10,6 +10,7 @@ import javax.annotation.PreDestroy;
 import java.net.URL;
 import java.util.Objects;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
 @Component
@@ -21,7 +22,8 @@ public class App {
     public void launch() {
         DesiredCapabilities caps = DesiredCapabilities.android();
         caps.setCapability("automationName", "UiAutomator2");
-        caps.setCapability("udid", "192.168.63.103:5555");
+        //caps.setCapability("udid", "192.168.57.101:5555");
+        caps.setCapability("udid", "7dfad4da");
         caps.setCapability("platformVersion", "11.0");
         caps.setCapability("platformName", "Android");
         caps.setCapability("app", System.getProperty("user.dir") + "/../android/app/build/outputs/apk/debug/app-debug.apk");
@@ -58,5 +60,9 @@ public class App {
 
     private AndroidElement waitElementByText(String text) {
         return await().ignoreExceptions().until(() -> driver.findElementByAndroidUIAutomator(String.format("new UiSelector().text(\"%s\")", text)), Objects::nonNull);
+    }
+
+    public void shouldHaveText(String text) {
+        await().untilAsserted(() -> assertThat(driver.findElementsByAndroidUIAutomator(String.format("new UiSelector().text(\"%s\")", text))).isNotEmpty());
     }
 }

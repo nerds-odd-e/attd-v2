@@ -17,6 +17,8 @@ spring:
         default_catalog: db
         dialect: org.hibernate.dialect.MySQL5Dialect
 
+logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
 scheduled:
   order-task-in-msec: 3600000
 
@@ -40,7 +42,7 @@ binstd-endpoint:
   key: test
 
 scheduled:
-  order-task-in-msec: 100
+  order-task-in-msec: 10000000
 
 ---
 spring:
