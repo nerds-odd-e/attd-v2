@@ -4,6 +4,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import lombok.SneakyThrows;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
@@ -18,12 +19,14 @@ public class App {
 
     private AndroidDriver<AndroidElement> driver;
 
+    @Value("${appium.udid}")
+    private String udid;
+
     @SneakyThrows
     public void launch() {
         DesiredCapabilities caps = DesiredCapabilities.android();
         caps.setCapability("automationName", "UiAutomator2");
-        //caps.setCapability("udid", "192.168.57.101:5555");
-        caps.setCapability("udid", "7dfad4da");
+        caps.setCapability("udid", udid);
         caps.setCapability("platformVersion", "11.0");
         caps.setCapability("platformName", "Android");
         caps.setCapability("app", System.getProperty("user.dir") + "/../android/app/build/outputs/apk/debug/app-debug.apk");
@@ -48,6 +51,10 @@ public class App {
         waitElementById(id).sendKeys(text);
     }
 
+    public void shouldHaveText(String text) {
+        await().untilAsserted(() -> assertThat(driver.findElementsByAndroidUIAutomator(String.format("new UiSelector().text(\"%s\")", text))).isNotEmpty());
+    }
+
     private AndroidElement waitElementByEditTextHint(String hint) {
         return await().ignoreExceptions().until(() -> driver.findElementsByAndroidUIAutomator("new UiSelector().className(\"android.widget.EditText\")")
                 .stream().filter(e -> Objects.equals(e.getText(), hint))
@@ -60,9 +67,5 @@ public class App {
 
     private AndroidElement waitElementByText(String text) {
         return await().ignoreExceptions().until(() -> driver.findElementByAndroidUIAutomator(String.format("new UiSelector().text(\"%s\")", text)), Objects::nonNull);
-    }
-
-    public void shouldHaveText(String text) {
-        await().untilAsserted(() -> assertThat(driver.findElementsByAndroidUIAutomator(String.format("new UiSelector().text(\"%s\")", text))).isNotEmpty());
     }
 }
