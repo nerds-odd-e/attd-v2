@@ -42,6 +42,7 @@ public class Order {
     private BigDecimal total;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("id")
     private List<OrderLine> lines = new ArrayList<>();
     @Transient
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)

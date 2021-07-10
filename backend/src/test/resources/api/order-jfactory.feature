@@ -52,9 +52,9 @@
     """
 
   场景: 订单详情
-    假如存在如下订单:
-      | code  | productName | total | recipientName | recipientMobile | recipientAddress | status     | deliverNo     |
-      | SN001 | 电脑          | 19999 | 张三            | 13085901735     | 上海市长宁区           | delivering | 4313751158896 |
+    假如存在"已发货的 订单":
+      | code  | deliverNo     |
+      | SN001 | 4313751158896 |
     并且存在快递单"4313751158896"的物流信息如下
     """
     {
@@ -89,12 +89,13 @@
     """
       {
         "code": "SN001",
-        "productName": "电脑",
-        "total": 19999,
-        "recipientName": "张三",
-        "recipientMobile": "13085901735",
-        "recipientAddress": "上海市长宁区",
+        "productName": "** is String",
+        "total": "** is Number",
+        "recipientName": "** is String",
+        "recipientMobile": "** is String",
+        "recipientAddress": "** is String",
         "status": "delivering",
+        "deliveredAt": "** is String",
         "lines": [],
         "logistics": {
             "deliverNo": "4313751158896",
