@@ -27,13 +27,13 @@ public class OrderFactories {
         @Trait
         public void 十五天前() {
             Clock clock = FactoryConfig.getContext().getBean(Clock.class);
-            property("deliveredAt").value(clock.instant().minus(15, ChronoUnit.DAYS));
+            property("deliveredAt").value(clock.instant().minus(16, ChronoUnit.DAYS));
         }
 
         @Trait
         public void 未到十五天() {
             Clock clock = FactoryConfig.getContext().getBean(Clock.class);
-            property("deliveredAt").value(clock.instant().minus(15, ChronoUnit.DAYS).plusSeconds(1));
+            property("deliveredAt").value(clock.instant().minus(14, ChronoUnit.DAYS));
         }
 
         @Trait

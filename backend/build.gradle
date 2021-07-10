@@ -30,7 +30,7 @@ processResources.dependsOn ':frontend:npmBuild'
 ext {
     set('springCloudVersion', "2020.0.2")
     set('jfactory', '0.1.0')
-    set('jfactoryCucumber', '0.1.1')
+    set('jfactoryCucumber', '0.1.2')
     set('jfactoryRepoJpa', '0.1.2')
     set('jsonAssertExtendComparator', '0.1.13')
 }
