@@ -1,4 +1,5 @@
 # language: zh-CN
+@android
 功能: 登录
 
   场景: 登录成功

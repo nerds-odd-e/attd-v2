@@ -19,7 +19,7 @@ public class App {
 
     private AndroidDriver<AndroidElement> driver;
 
-    @Value("${appium.udid}")
+    @Value("${appium.udid:}")
     private String udid;
 
     @SneakyThrows

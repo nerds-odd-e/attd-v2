@@ -1,4 +1,4 @@
 rootProject.name = 'spring-boot-vue-example'
 include 'backend'
 include 'frontend'
-include 'standalone-e2e'
+//include 'standalone-e2e'
