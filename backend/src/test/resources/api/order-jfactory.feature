@@ -123,12 +123,17 @@
     """
 
   场景: 订单发货
-    假如存在如下订单:
-      | code  | productName | total | recipientName | recipientMobile | recipientAddress | status        |
-      | SN001 | 电脑          | 19999 | 张三            | 13085901735     | 上海市长宁区           | toBeDelivered |
+    假如存在"未发货的 订单":
+      | code  |
+      | SN001 |
     并且当前时间为"2000-05-10T20:00:00Z"
     当通过API发货订单"SN001"，快递单号为"SF001"
-    那么订单"SN001"已发货，发货时间为"2000-05-10T20:00:00Z"，快递单号为"SF001"
+    那么"订单.code[SN001]"应为:
+    """
+      .deliveredAt + '' = '2000-05-10T20:00:00Z' and
+      .deliverNo = 'SF001' and
+      .status + '' = 'delivering'
+    """
 
   场景: 订单自动完成
     假如存在如下订单:
