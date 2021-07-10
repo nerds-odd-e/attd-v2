@@ -66,7 +66,7 @@ public class Order {
     }
 
     public boolean isDone(Clock now) {
-        return !getDeliveredAt().isAfter(now.instant().minus(15, DAYS)) && getStatus() == delivering;
+        return getStatus() == delivering && !getDeliveredAt().isAfter(now.instant().minus(15, DAYS));
     }
 
     public enum OrderStatus {
