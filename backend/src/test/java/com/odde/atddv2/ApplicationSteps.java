@@ -2,6 +2,7 @@ package com.odde.atddv2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.leeonky.jfactory.JFactory;
 import com.odde.atddv2.entity.Order;
 import com.odde.atddv2.entity.User;
 import com.odde.atddv2.page.HomePage;
@@ -26,20 +27,17 @@ import org.springframework.test.context.ContextConfiguration;
 public class ApplicationSteps {
 
     @Autowired
+    JFactory jFactory;
+    @Autowired
     private HomePage homePage;
-
     @Autowired
     private WelcomePage welcomePage;
-
     @Autowired
     private Browser browser;
-
     @Autowired
     private UserRepo userRepo;
-
     @Autowired
     private OrderRepo orderRepo;
-
     @Autowired
     private OrderPage orderPage;
 
@@ -68,6 +66,7 @@ public class ApplicationSteps {
     public void clearDB() {
         userRepo.deleteAll();
         orderRepo.deleteAll();
+        jFactory.getDataRepository().clear();
     }
 
     @假如("存在如下订单:")

@@ -42,7 +42,7 @@ binstd-endpoint:
   key: test
 
 scheduled:
-  order-task-in-msec: 10000000
+  order-task-in-msec: 10
 
 ---
 spring:

@@ -67,6 +67,8 @@ dependencies {
     testImplementation "com.github.leeonky:jfactory:${jfactory}"
     testImplementation "com.github.leeonky:jfactory-cucumber:${jfactoryCucumber}"
     testImplementation "com.github.leeonky:jfactory-repo-jpa:${jfactoryRepoJpa}"
+    testImplementation "org.reflections:reflections:0.9.12"
+    testImplementation 'com.github.leeonky:bean-util:0.2.2'
 }
 
 test {
@@ -78,7 +80,11 @@ task cucumber(type: JavaExec) {
     main = "io.cucumber.core.cli.Main"
     classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
     environment "SPRING_PROFILES_ACTIVE", "test"
-    args = ['--plugin', 'pretty', '--glue', 'com.odde', '--tags', 'not @android', 'src/test/resources']
+    args = ['--plugin', 'pretty',
+            '--glue', 'com.odde.atddv2',
+            '--glue', 'com.github.leeonky.jfactory.cucumber',
+            '--tags', 'not @android',
+            'src/test/resources']
 }
 
 webdriverBinaries {
