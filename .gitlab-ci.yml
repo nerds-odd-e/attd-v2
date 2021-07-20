@@ -24,7 +24,7 @@ test:
     - apk add --no-cache build-base nss libffi-dev openssl-dev npm
     - cd frontend && npm install && ( npm run serve & )
     - cd ..
-    - IP=$(bash env/setup_docker.sh docker)
+    - IP=$(bash env/setup_docker.sh 127.0.0.1)
     - echo $IP
     - cat /etc/hosts
     - cd env && ./dc_pc up -d && cd ..
