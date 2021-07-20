@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "ci-serve": "node --max_old_space_size=4096 node_modules/@vue/cli-service/bin/vue-cli-service serve --open --port 8080 --mode ci-serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
