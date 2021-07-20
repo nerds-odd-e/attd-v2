@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Component;
 
@@ -24,8 +25,11 @@ public class Browser {
     @Autowired
     private ServerProperties serverProperties;
 
+    @Value("${running.code.ip:host.docker.internal}")
+    private String host;
+
     public void launchByUrl(String path) {
-        webDriver.get("http://host.docker.internal:" + serverProperties.getPort() + path);
+        webDriver.get(String.format("http://%s:%d%s", host, serverProperties.getPort(), path));
     }
 
     public void inputTextByPlaceholder(String placeholder, String text) {

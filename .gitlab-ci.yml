@@ -24,9 +24,11 @@ test:
     - apk add --no-cache build-base nss libffi-dev openssl-dev npm
     - cd frontend && npm install && ( npm run serve & )
     - cd ..
-    - IP=$(bash env/setup_docker.sh 127.0.0.1)
+    - IP=$(bash env/setup_docker.sh docker)
     - echo $IP
     - cat /etc/hosts
+    - export RUNNING_CODE_IP=$(hostname -i)
+    - echo $RUNNING_CODE_IP
     - cd env && ./dc_pc up -d && cd ..
     - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild
 
