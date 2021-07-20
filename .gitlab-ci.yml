@@ -29,6 +29,7 @@ test:
     - cat /etc/hosts
     - export HOST_NAME=$(hostname -i)
     - echo $HOST_NAME
+    - echo "$HOST_NAME  api.net" >> /etc/hosts
     - export HOST_PORT=8080
     - cd env && ./dc_pc up -d && cd ..
     - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild
