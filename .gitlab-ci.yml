@@ -27,8 +27,9 @@ test:
     - IP=$(bash env/setup_docker.sh docker)
     - echo $IP
     - cat /etc/hosts
-    - export RUNNING_CODE_IP=$(hostname -i)
-    - echo $RUNNING_CODE_IP
+    - export HOST_NAME=$(hostname -i)
+    - echo $HOST_NAME
+    - export HOST_PORT=8080
     - cd env && ./dc_pc up -d && cd ..
     - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild
 

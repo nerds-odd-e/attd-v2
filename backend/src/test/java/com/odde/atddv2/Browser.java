@@ -25,11 +25,14 @@ public class Browser {
     @Autowired
     private ServerProperties serverProperties;
 
-    @Value("${running.code.ip:host.docker.internal}")
-    private String host;
+    @Value("${host.name:host.docker.internal}")
+    private String hostName;
+
+    @Value("${host.port:}")
+    private String hostPort;
 
     public void launchByUrl(String path) {
-        webDriver.get(String.format("http://%s:%d%s", host, serverProperties.getPort(), path));
+        webDriver.get(String.format("http://%s:%d%s", hostName, getPort(), path));
     }
 
     public void inputTextByPlaceholder(String placeholder, String text) {
@@ -61,6 +64,10 @@ public class Browser {
 
     public void shouldNotHaveText(String text) {
         await().untilAsserted(() -> assertThat(webDriver.findElements(xpath("//*[text()='" + text + "']"))).isEmpty());
+    }
+
+    private Integer getPort() {
+        return !hostPort.isEmpty() ? Integer.valueOf(hostPort) : serverProperties.getPort();
     }
 
     private WebElement waitElement(String xpathExpression) {
