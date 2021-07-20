@@ -43,3 +43,5 @@ services:
     ports:
       - '4444:4444'
       - '7900:7900'
+    extra_hosts:
+      - "api.net:${HOST_NAME:-127.0.0.1}"
