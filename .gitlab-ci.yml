@@ -22,9 +22,11 @@ test:
     - docker:18.09.8-dind
   script:
     - apk add --no-cache build-base nss libffi-dev openssl-dev npm
+    - cd frontend && npm install && ( npm run serve & )
+    - cd ..
     - IP=$(bash env/setup_docker.sh docker)
     - echo $IP
     - cat /etc/hosts
     - cd env && ./dc_pc up -d && cd ..
-    - ./gradlew cucumber
+    - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild
 
