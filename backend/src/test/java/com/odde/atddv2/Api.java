@@ -15,12 +15,14 @@ import java.net.URI;
 
 public class Api {
     public final static PatternComparator COMPARATOR = PatternComparator.defaultPatternComparator();
-    private final RestTemplate restTemplate = new RestTemplate();
     private String response, token;
+
     @Autowired
     private ServerProperties serverProperties;
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Before("@api-login")
     public void apiLogin() {
