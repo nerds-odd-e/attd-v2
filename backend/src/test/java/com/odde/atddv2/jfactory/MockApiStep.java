@@ -2,15 +2,13 @@ package com.odde.atddv2.jfactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.leeonky.jfactory.JFactory;
-import com.github.leeonky.jfactory.cucumber.JData;
+import com.github.leeonky.jfactory.cucumber.Table;
 import com.odde.atddv2.MockServer;
 import com.odde.atddv2.jfactory.api.LogisticsResponse;
 import io.cucumber.java.zh_cn.并且;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
-import java.util.Map;
 
 public class MockApiStep {
     @Value("${binstd-endpoint.key}")
@@ -19,15 +17,11 @@ public class MockApiStep {
     @Autowired
     private MockServer mockServer;
 
-    @Autowired
-    private JData jData;
-
     @并且("存在快递单{string}的物流信息如下:")
     @SneakyThrows
-    public void 存在快递单的物流信息如下(String deliverNo, String json) {
+    public void 存在快递单的物流信息如下(String deliverNo, Table table) {
         JFactory jFactory = new JFactory();
-        Map<String, Object>[] maps = jData.transform(json).flatSub();
-        LogisticsResponse logisticsResponse = jFactory.type(LogisticsResponse.class).properties(maps[0]).create();
+        LogisticsResponse logisticsResponse = jFactory.type(LogisticsResponse.class).properties(table.flatSub()[0]).create();
 
         mockServer.getJson("/express/query", (request) -> request.withQueryStringParameter("appkey", binstdAppKey)
                 .withQueryStringParameter("type", "auto")
