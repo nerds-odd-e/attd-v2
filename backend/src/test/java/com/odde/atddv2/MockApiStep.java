@@ -1,9 +1,8 @@
-package com.odde.atddv2.jfactory;
+package com.odde.atddv2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.leeonky.jfactory.JFactory;
 import com.github.leeonky.jfactory.cucumber.Table;
-import com.odde.atddv2.MockServer;
 import com.odde.atddv2.jfactory.api.LogisticsResponse;
 import io.cucumber.java.zh_cn.并且;
 import lombok.SneakyThrows;
