@@ -39,8 +39,8 @@ public class OrderTask {
                 .forEach(order -> orderRepo.save(order.setStatus(done)));
     }
 
-    @SneakyThrows
-    @Scheduled(fixedDelayString = "${scheduled.order-task-in-msec}")
+    //    @SneakyThrows
+//    @Scheduled(fixedDelayString = "${scheduled.order-task-in-msec}")
     public void another() {
         anotherTaskSwitch.waitForExecute();
         System.out.println("\"another task\" = " + "another task");

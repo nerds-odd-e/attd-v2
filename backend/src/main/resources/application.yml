@@ -29,7 +29,7 @@ standalone-dev-endpoint:
 spring:
   config:
     activate:
-      on-profile: test
+      on-profile: test, standalone-dev
 
 server:
   port: 10081
