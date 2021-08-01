@@ -87,5 +87,5 @@ task cucumber(type: JavaExec) {
 }
 
 bootRun {
-    environment SPRING_PROFILES_ACTIVE: environment.SPRING_PROFILES_ACTIVE ?: "dev"
+    environment SPRING_PROFILES_ACTIVE: environment.SPRING_PROFILES_ACTIVE ?: "standalone-dev"
 }
