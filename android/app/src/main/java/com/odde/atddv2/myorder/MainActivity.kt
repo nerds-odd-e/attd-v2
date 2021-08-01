@@ -41,7 +41,7 @@ class MainActivity : Activity() {
 
         val objectMapper = ObjectMapper();
         val jsonObjectRequest = com.android.volley.toolbox.JsonObjectRequest(
-            Request.Method.POST, "http://192.168.1.106:10081/users/login",
+            Request.Method.POST, "http://192.168.0.105:10081/users/login",
             JSONObject(
                 objectMapper.writeValueAsString(
                     Api.User(
@@ -55,6 +55,7 @@ class MainActivity : Activity() {
 //                Toast.makeText(this, "login", Toast.LENGTH_LONG).show();
             },
             { error ->
+                error.printStackTrace();
             }
         )
         Volley.newRequestQueue(this).add(jsonObjectRequest);
