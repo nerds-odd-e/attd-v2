@@ -1,5 +1,6 @@
 package com.odde.atddv2.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.odde.atddv2.api.BinstdApi;
 import com.odde.atddv2.entity.Order;
 import com.odde.atddv2.repo.OrderRepo;
@@ -27,6 +28,7 @@ public class OrdersController {
     private Clock clock;
 
     @GetMapping
+    @JsonView(GetAllOrders.class)
     public List<Order> getAllOrders() {
         return orderRepo.findAll();
     }

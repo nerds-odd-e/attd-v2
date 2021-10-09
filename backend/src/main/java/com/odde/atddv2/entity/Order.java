@@ -1,10 +1,8 @@
 package com.odde.atddv2.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import com.odde.atddv2.api.Logistics;
+import com.odde.atddv2.controller.GetAllOrders;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -31,14 +29,22 @@ public class Order {
     @JsonIgnore
     private long id;
 
-    private String code, productName, recipientName, recipientMobile, recipientAddress;
+    @JsonView(GetAllOrders.class)
+    private String code, productName;
+
+    private String recipientMobile, recipientAddress;
+
+    @Column(nullable = false)
+    private String recipientName;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String deliverNo;
 
     @Enumerated(EnumType.STRING)
+    @JsonView(GetAllOrders.class)
     private OrderStatus status;
 
+    @JsonView(GetAllOrders.class)
     private BigDecimal total;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
