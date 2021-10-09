@@ -49,6 +49,7 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("id")
+    @JsonIgnore
     private List<OrderLine> lines = new ArrayList<>();
     @Transient
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)

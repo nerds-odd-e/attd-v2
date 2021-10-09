@@ -40,8 +40,12 @@ public class OrdersController {
 
     @GetMapping("/{code}")
     public Order getOrder(@PathVariable String code) {
-        return orderRepo.findByCode(code)
-                .populateLogistics(binstdApi.queryExpress(binstdAppKey, orderRepo.findByCode(code).getDeliverNo()).getResult());
+        Order order = orderRepo.findByCode(code);
+        if (order.getDeliverNo() != null) {
+            return order.populateLogistics(binstdApi.queryExpress(binstdAppKey, order.getDeliverNo()).getResult());
+        } else {
+            return order;
+        }
     }
 
     @PostMapping("{code}/deliver")
@@ -51,4 +55,5 @@ public class OrdersController {
                 .setDeliveredAt(clock.instant())
                 .setStatus(Order.OrderStatus.delivering));
     }
+
 }
