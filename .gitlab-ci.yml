@@ -31,5 +31,5 @@ test:
     - cat /etc/hosts
     - export HOST_PORT=8080
     - cd env && ./dc_pc up -d && cd ..
-    - ./gradlew test cucumber -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild
+    - ./gradlew bootRun -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild &
 
