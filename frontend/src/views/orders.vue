@@ -7,9 +7,6 @@
       .flex.align-center(v-for="(order, index) in list" :key="index")
         .width-200.text-sm {{ order.code }}
         .width-200.text-sm {{ order.productName }}
-        .width-200.text-sm {{ order.recipientName }}
-        .width-200.text-sm {{ order.recipientMobile }}
-        .width-200.text-sm {{ order.recipientAddress }}
         .width-200.text-sm {{ order.status === 'toBeDelivered' ? '待发货' : '' }}
         .width-200.text-sm {{ '￥' + order.total }}
     .flex.justify-center.align-center.absolute.bg-white.flex-direction(v-if="showAddOrder" style="top:100px;z-index:10;")
