@@ -32,4 +32,7 @@ test:
     - export HOST_PORT=8080
     - cd env && ./dc_pc up -d && cd ..
     - ./gradlew bootRun -x npmSetup -x npmInstall -x nodeSetup -x :frontend:clean -x :frontend:npmBuild &
+    - git clone https://github.com/nerds-odd-e/atdd-v2-web-e2e.git
+    - cd atdd-v2-web-e2e
+    - ./gradlew cucumber
 
