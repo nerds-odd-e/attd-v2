@@ -17,19 +17,7 @@
         "code": "SN001",
         "productName": "电脑",
         "total": 19999,
-        "recipientName": "张三",
-        "recipientMobile": "13085901735",
-        "recipientAddress": "上海市长宁区",
-        "status": "toBeDelivered",
-        "lines": [{
-          "itemName": "MacBook",
-          "price": 19999,
-          "quantity": 1
-        }, {
-          "itemName": "TouchPad",
-          "price": 0,
-          "quantity": 1
-        }]
+        "status": "toBeDelivered"
       }]
     """
 
@@ -77,7 +65,6 @@
         "recipientMobile": "13085901735",
         "recipientAddress": "上海市长宁区",
         "status": "delivering",
-        "lines": [],
         "logistics": {
             "deliverNo": "4313751158896",
             "companyCode": "yunda",

@@ -9,22 +9,7 @@
       "code": "SN001",
       "productName": "电脑",
       "total": "19999",
-      "recipientName": "张三",
-      "recipientMobile": "13085901735",
-      "recipientAddress": "上海市长宁区",
-      "status": "delivering",
-      "deliveredAt": "2021-04-16T23:51:55Z",
-      "lines": [{
-        "_": "(订单项)",
-        "itemName": "MacBook",
-        "price": 19999,
-        "quantity": 1
-       }, {
-        "_": "(订单项)",
-        "itemName": "TouchPad",
-        "price": 0,
-        "quantity": 1
-       }]
+      "status": "delivering"
     }
     """
     当API查询订单时
@@ -34,20 +19,7 @@
         "code": "SN001",
         "productName": "电脑",
         "total": 19999,
-        "recipientName": "张三",
-        "recipientMobile": "13085901735",
-        "recipientAddress": "上海市长宁区",
-        "status": "delivering",
-        "deliveredAt": "2021-04-16 23:51:55",
-        "lines": [{
-          "itemName": "MacBook",
-          "price": 19999,
-          "quantity": 1
-        }, {
-          "itemName": "TouchPad",
-          "price": 0,
-          "quantity": 1
-        }]
+        "status": "delivering"
       }]
     """
 
@@ -94,7 +66,6 @@
         "recipientAddress": "** is String",
         "status": "delivering",
         "deliveredAt": "** is String",
-        "lines": [],
         "logistics": {
             "deliverNo": "4313751158896",
             "companyCode": "yunda",
