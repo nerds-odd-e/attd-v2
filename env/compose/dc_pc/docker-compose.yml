@@ -45,3 +45,14 @@ services:
       - '7900:7900'
     extra_hosts:
       - "api.net:${HOST_NAME:-127.0.0.1}"
+
+  web-driver_video:
+    image: josephyao/selenium-video-ffmpeg:v0.0.3
+    volumes:
+      - ../../videos:/videos
+    depends_on:
+      - selenium-standalone-chrome4
+    ports:
+      - "9000:9000"
+    environment:
+      - DISPLAY_CONTAINER_NAME=selenium-standalone-chrome4
