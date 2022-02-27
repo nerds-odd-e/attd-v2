@@ -43,7 +43,7 @@ connecting" with password "secret"
     * Forward port to Windows host as below
 
 ```shell
-    iptables -t nat -A PREROUTING -p tcp --dport 10081 -j DNAT --to-destination windows_host_ip:10081
+    sudo iptables -t nat -A PREROUTING -p tcp --dport 10081 -j DNAT --to-destination windows_host_ip:10081
 ```
 
 Please note that this Windows host ip will change every time when ubuntu restarts so that you need to do this after
