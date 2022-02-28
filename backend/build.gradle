@@ -80,6 +80,7 @@ task cucumber(type: JavaExec) {
     main = "io.cucumber.core.cli.Main"
     classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
     environment "SPRING_PROFILES_ACTIVE", "test"
+    jvmArgs "-Dfile.encoding=UTF-8"
     args = ['--plugin', 'pretty',
             '--glue', 'com.odde.atddv2',
             '--glue', 'com.github.leeonky.jfactory.cucumber',
