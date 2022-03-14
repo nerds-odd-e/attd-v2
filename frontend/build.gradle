@@ -1,5 +1,7 @@
 buildscript {
-
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+    }
     dependencies {
         classpath("com.moowork.gradle:gradle-node-plugin:1.2.0")
     }
