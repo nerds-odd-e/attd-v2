@@ -21,7 +21,7 @@ node {
     npmVersion = '6.13.4'
 
     // Base URL for fetching node distributions (change if you have a mirror).
-    distBaseUrl = 'https://nodejs.org/dist'
+    distBaseUrl = 'https://npmmirror.com/mirrors/node/'
 
     // If true, it will download node using above parameters.
     // If false, it will try to use globally installed node.
