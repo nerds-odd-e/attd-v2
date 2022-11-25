@@ -1,6 +1,8 @@
 package com.odde.atddv2.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.odde.atddv2.controller.GetOrder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +29,7 @@ public class Logistics {
     @Getter
     @Setter
     @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonView(GetOrder.class)
     public static class Detail {
         private String time, status;
     }

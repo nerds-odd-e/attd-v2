@@ -1,8 +1,13 @@
 package com.odde.atddv2.entity;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.odde.atddv2.api.Logistics;
+import com.odde.atddv2.controller.DeliverOrder;
 import com.odde.atddv2.controller.GetAllOrders;
+import com.odde.atddv2.controller.GetOrder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -32,12 +37,14 @@ public class Order {
     @JsonView(GetAllOrders.class)
     private String code, productName;
 
+    @JsonView(GetOrder.class)
     private String recipientMobile, recipientAddress;
 
     @Column(nullable = false)
+    @JsonView(GetOrder.class)
     private String recipientName;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonView({GetOrder.class, DeliverOrder.class})
     private String deliverNo;
 
     @Enumerated(EnumType.STRING)
@@ -53,10 +60,12 @@ public class Order {
     private List<OrderLine> lines = new ArrayList<>();
     @Transient
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+    @JsonView(GetOrder.class)
     private OrderLogistics logistics;
 
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
+    @JsonView(GetOrder.class)
     private Instant deliveredAt;
 
     public Order populateLogistics(Logistics.Result logistics) {
@@ -83,6 +92,7 @@ public class Order {
     @Getter
     @Setter
     @Accessors(chain = true)
+    @JsonView(GetOrder.class)
     public static class OrderLogistics {
         private String deliverNo, companyCode, companyName, companyLogo, deliveryStatus, isSigned;
         private List<Logistics.Detail> details;

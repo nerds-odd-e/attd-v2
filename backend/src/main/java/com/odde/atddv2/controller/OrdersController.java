@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.odde.atddv2.api.BinstdApi;
 import com.odde.atddv2.entity.Order;
 import com.odde.atddv2.repo.OrderRepo;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -34,11 +35,13 @@ public class OrdersController {
     }
 
     @PostMapping
+    @Operation(hidden = true)
     public Order addOrder(@RequestBody Order order) {
         return orderRepo.save(order);
     }
 
     @GetMapping("/{code}")
+    @JsonView(GetOrder.class)
     public Order getOrder(@PathVariable String code) {
         Order order = orderRepo.findByCode(code);
         if (order.getDeliverNo() != null) {
@@ -49,7 +52,7 @@ public class OrdersController {
     }
 
     @PostMapping("{code}/deliver")
-    public Order deliver(@PathVariable String code, @RequestBody Order order) {
+    public Order deliver(@PathVariable String code, @RequestBody @JsonView(DeliverOrder.class) Order order) {
         return orderRepo.save(orderRepo.findByCode(code)
                 .setDeliverNo(order.getDeliverNo())
                 .setDeliveredAt(clock.instant())

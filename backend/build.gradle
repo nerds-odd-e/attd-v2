@@ -51,6 +51,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("mysql:mysql-connector-java:8.0.13")
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation("io.cucumber:cucumber-java:6.10.2")
