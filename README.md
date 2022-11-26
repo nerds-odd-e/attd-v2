@@ -36,3 +36,5 @@ connecting" with password "secret"
 gradlew.bat bootRun
 ```
 
+# Architecture
+![](arch.jpg)
