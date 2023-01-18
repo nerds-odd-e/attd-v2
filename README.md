@@ -24,17 +24,22 @@ connecting" with password "secret"
 
 # Run the application
 
-# For Linux and Mac
+## For Linux and Mac
 
 ```shell
 ./gradlew bootRun
 ```
 
-# For Windows
+## For Windows
 
 ```shell
 gradlew.bat bootRun
 ```
 
+# Open the application
+
+After run the application, you can open the application at http://localhost:10081
+
 # Architecture
+
 ![](arch.jpg)
