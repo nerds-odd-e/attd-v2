@@ -4,11 +4,11 @@
     autocomplete='on'
   )
     .title-container
-      h3.title 系统登录
+      h3.title Please login
     el-form-item
       el-input(
         v-model='userName',
-        placeholder='用户名',
+        placeholder='UserName',
         type='text',
         tabindex='1',
         autocomplete='on'
@@ -16,7 +16,7 @@
     el-form-item
       el-input(
         v-model='password',
-        placeholder='密码',
+        placeholder='Password',
         type='password',
         tabindex='2',
         autocomplete='on'
@@ -25,7 +25,7 @@
       type='primary',
       style='width: 100%; margin-bottom: 30px;',
       @click.native.prevent='login'
-    ) 登录
+    ) Login
     .text-yellow.text-bold.text-xxl {{message}}
 </template>
 
@@ -51,7 +51,7 @@ export default {
         })
       } catch (e) {
         console.error(e)
-        this.message = '无效的用户名或密码'
+        this.message = 'Invalid username or password'
       }
     }
   }

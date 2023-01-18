@@ -3,23 +3,23 @@
     .flex.justify-center.align-center.flex-direction.response
       .flex.justify-center.align-center
         .padding-right-xl Orders
-        el-button(type='primary', @click='showAddOrder=true') 录入订单
+        el-button(type='primary', @click='showAddOrder=true') Add Order
       .flex.align-center(v-for="(order, index) in list" :key="index")
         .width-200.text-sm {{ order.code }}
         .width-200.text-sm {{ order.productName }}
-        .width-200.text-sm {{ order.status === 'toBeDelivered' ? '待发货' : '' }}
+        .width-200.text-sm {{ order.status === 'toBeDelivered' ? 'To be delivered' : '' }}
         .width-200.text-sm {{ '￥' + order.total }}
     .flex.justify-center.align-center.absolute.bg-white.flex-direction(v-if="showAddOrder" style="top:100px;z-index:10;")
-      div 录入界面
-      el-input(v-model="order.code", placeholder="订单号")
-      el-input(v-model="order.productName", placeholder="商品名称")
-      el-input(v-model="order.total", placeholder="金额")
-      el-input(v-model="order.recipientName", placeholder="收件人")
-      el-input(v-model="order.recipientMobile", placeholder="电话")
-      el-input(v-model="order.recipientAddress", placeholder="地址")
-      el-select(v-model="order.status", placeholder="状态")
-        el-option.height-50(value="toBeDelivered", label="待发货")
-      el-button(@click="addOrder") 提交
+      div Add Order
+      el-input(v-model="order.code", placeholder="Order number")
+      el-input(v-model="order.productName", placeholder="Product name")
+      el-input(v-model="order.total", placeholder="Total")
+      el-input(v-model="order.recipientName", placeholder="Recipient name")
+      el-input(v-model="order.recipientMobile", placeholder="Recipient mobile")
+      el-input(v-model="order.recipientAddress", placeholder="Recipient address")
+      el-select(v-model="order.status", placeholder="Status")
+        el-option.height-50(value="toBeDelivered", label="To be delivered")
+      el-button(@click="addOrder") Submit
 </template>
 
 <script>

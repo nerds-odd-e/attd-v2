@@ -75,8 +75,8 @@ public class Order {
                 .setCompanyName(logistics.getTypename())
                 .setCompanyLogo(logistics.getLogo())
                 .setDetails(logistics.getList())
-                .setDeliveryStatus(logistics.getDeliverystatus() == 1 ? "在途中" : "")
-                .setIsSigned(logistics.getIssign() == 0 ? "未签收" : "");
+                .setDeliveryStatus(logistics.getDeliverystatus() == 1 ? "On The Way" : "")
+                .setIsSigned(logistics.getIssign() == 0 ? "Unreceipted" : "");
         setLogistics(orderLogistics);
         return this;
     }
