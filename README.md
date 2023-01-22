@@ -40,6 +40,8 @@ gradlew.bat bootRun
 
 After run the application, you can open the application at http://localhost:10081
 
+And, the swagger document is available at http://localhost:10081/swagger-ui/index.html
+
 # Architecture
 
 ![](arch.jpg)
