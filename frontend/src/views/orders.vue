@@ -8,7 +8,7 @@
         .width-200.text-sm {{ order.code }}
         .width-200.text-sm {{ order.productName }}
         .width-200.text-sm {{ order.status === 'toBeDelivered' ? 'To be delivered' : '' }}
-        .width-200.text-sm {{ '￥' + order.total }}
+        .width-200.text-sm {{ '$' + order.total }}
     .flex.justify-center.align-center.absolute.bg-white.flex-direction(v-if="showAddOrder" style="top:100px;z-index:10;")
       div Add Order
       el-input(v-model="order.code", placeholder="Order number")
