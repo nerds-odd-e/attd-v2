@@ -44,7 +44,7 @@ public class Order {
     @JsonView(GetOrder.class)
     private String recipientName;
 
-    @JsonView({GetOrder.class, DeliverOrder.class})
+    @JsonView(DeliverOrder.class)
     private String deliverNo;
 
     @Enumerated(EnumType.STRING)
