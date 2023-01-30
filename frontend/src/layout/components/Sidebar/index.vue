@@ -25,12 +25,12 @@ export default {
       menuRouters: [{
         path: 'home',
         meta: {
-          title: '首页'
+          title: 'Home'
         }
       }, {
         path: 'orders',
         meta: {
-          title: '订单'
+          title: 'Order'
         }
       }]
     }
