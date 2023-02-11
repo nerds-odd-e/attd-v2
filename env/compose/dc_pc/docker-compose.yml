@@ -19,7 +19,7 @@ services:
       retries: 10
 
   mock-server:
-    image: 'leeonky/mock-server:5.4.1'
+    image: 'mockserver/mockserver:5.13.2'
     container_name: mock-server.test.atdd
     ports:
       - "${MOCK_SERVER_PORT_OUT}:1080"
