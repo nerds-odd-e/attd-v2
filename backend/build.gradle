@@ -6,9 +6,7 @@ apply plugin: "io.spring.dependency-management"
 sourceCompatibility = 8
 
 repositories {
-    maven {
-        url "http://maven.aliyun.com/nexus/content/groups/public"
-    }
+    mavenCentral()
 }
 
 configurations {
