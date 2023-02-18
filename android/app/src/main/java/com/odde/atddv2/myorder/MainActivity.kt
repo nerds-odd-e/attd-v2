@@ -40,8 +40,10 @@ class MainActivity : Activity() {
 
 
         val objectMapper = ObjectMapper();
+        val loginUrl = "http://localhost:10081/users/login"
+        println(loginUrl)
         val jsonObjectRequest = com.android.volley.toolbox.JsonObjectRequest(
-            Request.Method.POST, "http://192.168.0.105:10081/users/login",
+            Request.Method.POST, loginUrl,
             JSONObject(
                 objectMapper.writeValueAsString(
                     Api.User(

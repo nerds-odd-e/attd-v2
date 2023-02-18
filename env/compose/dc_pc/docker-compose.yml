@@ -59,3 +59,14 @@ services:
       - "9000:9000"
     environment:
       - DISPLAY_CONTAINER_NAME=selenium-standalone-chrome4
+
+  appium:
+    image: appium/appium:v1.22.3-p6
+    container_name: appium.test.atdd
+    privileged: true
+    ports:
+      - '4723:4723'
+      - '8200:8200'
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ../../../android/app/build/outputs/apk/debug/app-debug.apk:/home/androiduser/app-debug.apk
