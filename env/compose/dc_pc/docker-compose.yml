@@ -70,3 +70,4 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - ../../../android/app/build/outputs/apk/debug/app-debug.apk:/home/androiduser/app-debug.apk
+    entrypoint: [ "bash", "-c", "adb -H host.docker.internal reverse tcp:10081 tcp:10081 && /home/androidusr/appium-docker-android/start.sh" ]
