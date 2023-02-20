@@ -1,0 +1,262 @@
+kernel:
+  image: docker.io/docker/for-desktop-kernel:5.15.49-13422a825f833d125942948cf8a8688cef721ead
+  cmdline: page_poison=1 vsyscall=emulate panic=1 nospec_store_bypass_disable noibrs
+    noibpb no_stf_barrier mitigations=off
+init:
+- docker.io/linuxkit/init:8f1e6a0747acbbb4d7e24dc98f97faa8d1c6cec7
+- docker.io/linuxkit/runc:f01b88c7033180d50ae43562d72707c6881904e4
+- docker.io/linuxkit/containerd:de1b18eed76a266baa3092e5c154c84f595e56da
+- docker.io/linuxkit/ca-certificates:v0.8
+- docker.io/linuxkit/memlogd:fe4a123b619a7dfffc2ba1297dd03b4ac90e3dd7
+- docker.io/docker/desktop-host-tools:aab3420237d13584d05c6fa7b0090ca1
+- docker.io/docker/vpnkit-bridge:dfbb10298c01d7f2a46d17342cf7d36e
+- docker.io/docker/for-desktop-kernel-grpcfuse:5.15.49-e0f6f06f948f53fae09ba665e91b0cca9cc5f3c5
+- docker.io/docker/procd:32f73eea66b38e6f3fb89e2e41c05b05
+onboot:
+- name: dhcpcd
+  image: docker.io/linuxkit/dhcpcd:v0.8
+  binds:
+  - /etc/dhcpcd.conf:/dhcpcd.conf
+  command:
+  - /sbin/dhcpcd
+  - -w
+  - -f
+  - /dhcpcd.conf
+  - "-4"
+  - --nohook
+  - resolv.conf
+- name: sysfs
+  image: docker.io/linuxkit/sysfs:v0.8
+- name: sysctl
+  image: docker.io/linuxkit/sysctl:10b6637dc4c202d3be8644473dd7c92013da2cae
+  binds:
+  - /etc/sysctl.d/01-ipv4.ip_forward.conf:/etc/sysctl.d/01-ipv4.ip_forward.conf
+  - /etc/sysctl.d/02-pid_max.conf:/etc/sysctl.d/02-pid_max.conf
+  - /etc/sysctl.d/03-ephemeral-port-clash.conf:/etc/sysctl.d/03-ephemeral-port-clash.conf
+  - /etc/sysctl.d/04-inotify.conf:/etc/sysctl.d/04-inotify.conf
+  - /etc/sysctl.d/05-keys.conf:/etc/sysctl.d/05-keys.conf
+  readonly: false
+- name: format
+  image: docker.io/linuxkit/format:cf335053c7d0b4cd8cc2d136e9392ea5904a71dc
+- name: extend
+  image: docker.io/docker/extend:9321b563697c56a19bb2af2bde98961f
+- name: mount
+  image: docker.io/linuxkit/mount:a9a5f731261891bd880e108e6fa2be5bac2f63ba
+  command:
+  - /usr/bin/mountie
+  - /var/lib
+- name: metadata
+  image: docker.io/docker/metadata:3c3e17dc2f5a843c04ec41c6c87e6a42
+- name: services0
+  image: docker.io/linuxkit/ip:v0.8
+  binds:
+  - /run/config/net:/run/config/net
+  command:
+  - sh
+  - -c
+  - ip link set dev services0 up && ip address add dev services0 $(cat /run/config/net/services)
+    peer $(cat /run/config/net/services-root) && ip route add default via $(cat /run/config/net/services-root)
+    dev services0
+  net: new
+  runtime:
+    interfaces:
+    - name: services0
+      add: veth
+      peer: services1
+      createInRoot: false
+    bindNS:
+      net: /run/netns/services
+- name: services1
+  image: docker.io/linuxkit/ip:v0.8
+  binds:
+  - /run/config/net:/run/config/net
+  command:
+  - sh
+  - -c
+  - ip link set dev services1 up && ip address add dev services1 $(cat /run/config/net/services-root)
+    peer $(cat /run/config/net/services)
+- name: docker-net
+  image: docker.io/linuxkit/ip:v0.8
+  binds:
+  - /run/config/net:/run/config/net
+  command:
+  - sh
+  - -c
+  - echo hello && ip link set docker0 name eth0 && ip link set dev eth0 up && ip address
+    add dev eth0 $(cat /run/config/net/docker) peer $(cat /run/config/net/docker-root)
+    && ip route add default via $(cat /run/config/net/docker-root) dev eth0 && echo
+    done
+  net: new
+  runtime:
+    interfaces:
+    - name: docker0
+      add: veth
+      peer: docker1
+      createInRoot: false
+    bindNS:
+      net: /run/netns/docker
+- name: docker-net-root
+  image: docker.io/linuxkit/ip:v0.8
+  binds:
+  - /run/config/net:/run/config/net
+  command:
+  - sh
+  - -c
+  - ip link set dev docker1 up && ip address add dev docker1 $(cat /run/config/net/docker-root)
+    peer $(cat /run/config/net/docker)
+- name: swap
+  image: docker.io/linuxkit/swap:7f7074c05bad414af39f2374301b72bc67314715
+  binds:
+  - /var:/var
+  - /dev:/dev
+  - /run:/run
+  command:
+  - sh
+  - -c
+  - /swap.sh --path /var/lib/swap --size $(cat /run/config/swap/size)
+- name: mount-services
+  image: docker.io/docker/mount-services:b6da0cb20606aa0da358e3dd9898e262
+- name: bridge
+  image: docker.io/library/alpine:3.16
+  binds:
+  - /run/config:/run/config
+  - /var/lib:/var/lib
+  command:
+  - /bin/sh
+  - -c
+  - |
+    set -ex
+    cp /run/config/kubernetes/cni/conf/* /var/lib/cni/conf/
+  runtime:
+    mkdir:
+    - /var/lib/cni/conf
+onshutdown: []
+services: []
+files:
+- path: /etc/dhcpcd.conf
+  directory: false
+  contents: |
+    allowinterfaces eth*
+    persistent
+    # Don't want domain or search
+    option domain_name_servers
+    nodelay
+    # Do not arp to check IP
+    noarp
+    # wait for ipv4 address
+    waitip 4
+  optional: false
+- path: /etc/os-release
+  directory: false
+  contents: |
+    PRETTY_NAME="Docker Desktop"
+  optional: false
+- path: /etc/init.d/003-vpnkit-bridge
+  directory: false
+  contents: |
+    #!/bin/sh
+    mkdir -p /run/guest-services
+    mkdir -p /run/host-services
+    mkdir -p /etc
+    /usr/bin/logwrite -n vpnkit-bridge /usr/bin/vpnkit-bridge --use-kernel-cmdline guest &
+  optional: false
+  mode: "0755"
+- path: /etc/hostname
+  directory: false
+  contents: docker-desktop
+  optional: false
+- path: /etc/linuxkit.yml
+  directory: false
+  metadata: yaml
+  optional: false
+- path: /containers/services
+  directory: true
+  optional: false
+- path: /etc/sysctl.d/01-ipv4.ip_forward.conf
+  directory: false
+  contents: net.ipv4.ip_forward = 1
+  optional: false
+- path: /etc/sysctl.d/02-pid_max.conf
+  directory: false
+  contents: kernel.pid_max = 99999
+  optional: false
+- path: /etc/sysctl.d/03-ephemeral-port-clash.conf
+  directory: false
+  contents: net.ipv4.ip_local_port_range = 55000 65535
+  optional: false
+- path: /etc/sysctl.d/04-inotify.conf
+  directory: false
+  contents: |
+    fs.inotify.max_user_watches = 1048576
+    fs.inotify.max_user_instances = 8192
+  optional: false
+- path: /etc/sysctl.d/05-keys.conf
+  directory: false
+  contents: |
+    kernel.keys.maxkeys = 10000
+    kernel.keys.maxbytes = 700000
+  optional: false
+- path: /etc/sysfs.d/10-sda-timeout.conf
+  directory: false
+  contents: block/sda/device/timeout = 180
+  optional: false
+- path: /etc/kubernetes
+  directory: false
+  symlink: /var/lib/kubeadm
+  optional: false
+- path: /usr/libexec/kubernetes/kubelet-plugins
+  directory: false
+  symlink: /var/lib/kubelet-plugins
+  optional: false
+- path: /etc/cni/net.d
+  directory: true
+  optional: false
+- path: /etc/kube-images
+  directory: true
+  optional: false
+- path: /etc/containerd/config.toml
+  directory: false
+  contents: |
+    state = "/run/containerd"
+    root = "/var/lib/containerd"
+    disabled_plugins = ["cri"]
+    [grpc]
+      address = "/run/containerd/containerd.sock"
+      uid = 0
+      gid = 0
+    [debug]
+      address = "/run/containerd/debug.sock"
+      level = "info"
+    [metrics]
+      address = ""
+    [plugins.linux]
+      runtime = "runc"
+      shim_debug = true
+  optional: false
+- path: /etc/vpnkit-expose-port.json
+  directory: false
+  contents: '{"control": "/run/host-services/backend.sock"}'
+  optional: false
+- path: /etc/init.d/002-logging
+  directory: false
+  contents: |
+    #!/bin/sh
+    mkdir -p /run/guest-services
+    /usr/bin/memlogd -socket-query /run/guest-services/memlogdq.sock -daemonize
+  optional: false
+  mode: "0755"
+- path: /usr/lib/wsl
+  directory: true
+  optional: false
+- path: /etc/mdev.conf
+  directory: false
+  contents: |
+    .* 0:0 666
+  optional: false
+- path: /etc/init.d/004-procd
+  directory: false
+  contents: |
+    #!/bin/sh
+    /usr/bin/logwrite -n procd /usr/bin/procd &
+  optional: false
+  mode: "0755"

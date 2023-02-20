@@ -71,3 +71,19 @@ services:
       - /dev/bus/usb:/dev/bus/usb
       - ../../../android/app/build/outputs/apk/debug/app-debug.apk:/home/androiduser/app-debug.apk
     entrypoint: [ "bash", "-c", "adb -H host.docker.internal reverse tcp:10081 tcp:10081 && /home/androidusr/appium-docker-android/start.sh" ]
+
+  anbox:
+    #    image: ghcr.io/aind-containers/aind:v0.0.5
+    image: josephyao/anbox_for_mac
+    container_name: anbox.test.atdd
+    privileged: true
+    tty: true
+    ports:
+      - '18080:8080'
+    environment:
+      WEBMODE: 1
+    #    volumes:
+    #      - ../../anbox/ashmem_linux.ko:/lib/modules/5.15.49-linuxkit/ashmem_linux.ko:ro
+    cap_add:
+      - SYS_ADMIN
+      - SYS_MODULE
