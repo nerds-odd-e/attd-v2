@@ -82,8 +82,6 @@ services:
       - '18080:8080'
     environment:
       WEBMODE: 1
-    #    volumes:
-    #      - ../../anbox/ashmem_linux.ko:/lib/modules/5.15.49-linuxkit/ashmem_linux.ko:ro
     cap_add:
       - SYS_ADMIN
       - SYS_MODULE
