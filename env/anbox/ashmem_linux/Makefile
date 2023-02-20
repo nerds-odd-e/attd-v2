@@ -16,6 +16,3 @@ install:
 
 clean:
 	rm -rf deps.h *.o *.ko *.mod.c *.symvers *.order .*.cmd .tmp_versions
-
-ashmem_linux.ko:
-	cp -a module/ashmem_linux.ko .

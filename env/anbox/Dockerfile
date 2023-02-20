@@ -15,8 +15,10 @@ RUN apk add -U build-base git curl perl libelf
 
 # copy module sources
 WORKDIR /usr/src
-COPY module module
-RUN make -C module
+COPY ashmem_linux ashmem_linux
+RUN make -C ashmem_linux
+COPY binder_linux binder_linux
+RUN make -C binder_linux
 
 # copy output
 #FROM alpine:3.13
@@ -30,7 +32,8 @@ FROM ghcr.io/aind-containers/aind:v0.0.5
 #RUN mkdir -p /anbox
 
 #COPY module /usr/src/anbox-ashmem-1
-COPY --from=build /usr/src/module/ashmem_linux.ko /lib/modules/5.15.49-linuxkit/ashmem_linux.ko
+COPY --from=build /usr/src/ashmem_linux/ashmem_linux.ko /lib/modules/5.15.49-linuxkit/ashmem_linux.ko
+COPY --from=build /usr/src/binder_linux/binder_linux.ko /lib/modules/5.15.49-linuxkit/binder_linux.ko
 #COPY anbox.conf /anbox/anbox.conf
 #COPY 99-anbox.rules /anbox/99-anbox.rules
 #WORKDIR /anbox
@@ -44,7 +47,10 @@ COPY --from=build /usr/src/module/ashmem_linux.ko /lib/modules/5.15.49-linuxkit/
 #RUN insmod /anbox/ashmem_linux.ko && \
 RUN depmod -a && \
     modprobe ashmem_linux && \
-    lsmod | grep -e ashmem_linux
+#    echo 1 > /proc/sys/kernel/sysrq && \
+#    echo x > /proc/sysrq-trigger && \
+#    modprobe binder_linux && \
+    lsmod | grep -e ashmem_linux -e binder_linux
 #    ls -alh /dev/ashmem
 
 CMD ["/home/user/docker-2ndboot.sh"]
