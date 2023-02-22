@@ -46,6 +46,8 @@ services:
     extra_hosts:
       - "api.net:${HOST_NAME:-127.0.0.1}"
       - "host.docker.internal:host-gateway"
+    environment:
+      - VNC_NO_PASSWORD=1
 
   web-driver_video:
     image: josephyao/selenium-video-ffmpeg:v0.0.3
