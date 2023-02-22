@@ -72,5 +72,7 @@ RUN sed -i '/adb wait-for-device/a adb reverse tcp:10081 tcp:10081\n' /home/user
 # system additional commands
 COPY additional_commands.sh /home/user/additional_commands.sh
 RUN sed -i '/#!\/bin\/bash/r additional_commands.sh' /docker-entrypoint.sh
+# run vnc without password
+RUN sed -i 's/x11vnc -usepw/x11vnc/g' /home/user/docker-2ndboot.sh
 
 CMD ["/home/user/docker-2ndboot.sh"]
