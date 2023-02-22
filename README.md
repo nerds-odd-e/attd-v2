@@ -19,8 +19,8 @@ cd env/compose/dc_pc
 docker-compose up
 ```
 
-After environment started, you should be able to access the chrome for running tests at http://localhost:7900 by "
-connecting" with password "secret"
+After environment started, you should be able to access the chrome for running tests
+at http://localhost:7900/vnc_lite.html
 
 # Run the application
 
