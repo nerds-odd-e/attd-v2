@@ -20,7 +20,10 @@ docker-compose up
 ```
 
 After environment started, you should be able to access the chrome for running tests
-at http://localhost:7900/vnc_lite.html
+at http://localhost:7900/vnc_lite.html.
+
+Also, you can access the database at http://localhost:20000 with username `admin` and password `123456`. The database
+name is `db`.
 
 # Run the application
 
