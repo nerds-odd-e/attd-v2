@@ -2,7 +2,7 @@
 BUILD_REF	?= library/alpine:3.13
 
 # MODULE_REF is the output image that will contain module binary
-MODULE_REF	?= josephyao/anbox_for_mac
+MODULE_REF	?= josephyao/anbox_for_docker_desktop
 
 # KERNEL_REF is the image containing kernel sources for the Docker VM
 KERNEL_REF	?= $(shell ruby -ryaml -rjson -e 'puts YAML.load_file("linuxkit.yml").to_json' | jq -r '.kernel.image | @sh')
