@@ -1,6 +1,7 @@
 # Setup environment
 
-For Windows, if you can't install Docker Desktop due to legal or policy reason, please follow [this instruction](windows_without_docker_desktop.md) to setup environment
+For Windows, if you can't install Docker Desktop due to legal or policy reason, please
+follow [this instruction](windows_without_docker_desktop.md) to setup environment
 
 * Install docker and docker compose
 * Please add the following host names into your hosts file
@@ -18,11 +19,11 @@ cd env/compose/dc_pc
 docker-compose up
 ```
 
-After environment started, you should be able to access the chrome for running tests at http://localhost:7900. Just click the connect button.
+After environment started, you should be able to access the chrome for running tests
+at http://localhost:7900. Just click the connect button
 
-Also, you can access the database at http://localhost:20000 with username `admin` and password `123456`. The database name is `db`.
-
-Also, you can access the android emulator and appium at http://localhost:6080.
+Also, you can access the database at http://localhost:20000 with username `admin` and password `123456`. The database
+name is `db`.
 
 # Run the application
 
