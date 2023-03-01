@@ -10,6 +10,7 @@ follow [this instruction](windows_without_docker_desktop.md) to setup environmen
 127.0.0.1 mysql.tool.net
 127.0.0.1 mock-server.tool.net
 127.0.0.1 web-driver.tool.net
+127.0.0.1 host.docker.internal
 ```
 
 * Start environment for running tests
