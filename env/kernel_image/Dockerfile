@@ -21,3 +21,15 @@ RUN wget http://archive.ubuntu.com/ubuntu/pool/universe/d/dwarves-dfsg/dwarves_1
 # build kernel
 WORKDIR /lib/modules/5.15.90.1-microsoft-standard-WSL2/build
 RUN make -j $(nproc) KCONFIG_CONFIG=Microsoft/config-wsl
+
+# build modules
+WORKDIR /usr/src
+COPY ashmem_linux ashmem_linux
+RUN make -C ashmem_linux
+COPY binder_linux binder_linux
+RUN make -C binder_linux
+
+
+# install headers and modules
+#RUN make -j $(nproc) KCONFIG_CONFIG=Microsoft/config-wsl headers_install
+#RUN make -j $(nproc) KCONFIG_CONFIG=Microsoft/config-wsl modules_install
