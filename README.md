@@ -17,8 +17,10 @@ follow [this instruction](windows_without_docker_desktop.md) to setup environmen
 
 ```shell
 cd env/compose/dc_pc
-docker-compose up
+docker-compose up web
 ```
+
+If you are using arm based Mac (e.g. Macbook M1 or M2), please run `docker-compose up web-arm`
 
 After environment started, you should be able to access the chrome for running tests
 at http://localhost:7900. Just click the connect button
