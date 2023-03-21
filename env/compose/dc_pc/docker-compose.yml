@@ -79,6 +79,9 @@ services:
       - '8200:8200'
     volumes:
       - ../../../android/app/build/outputs/apk/debug/app-debug.apk:/tmp/app.apk
+      - "../../appium-mac-default-caps.json:/home/androidusr/appium-docker-android/defaultcapabilities.json"
+    environment:
+      - DEFAULT_CAPABILITIES=true
 
   anbox-mac:
     image: josephyao/anbox_for_docker_desktop:v4.16.2
