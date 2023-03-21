@@ -83,6 +83,19 @@ services:
     environment:
       - DEFAULT_CAPABILITIES=true
 
+  appium-win:
+    image: appium/appium:v1.22.3-p6
+    container_name: appium.test.atdd
+    privileged: true
+    ports:
+      - '4723:4723'
+      - '8200:8200'
+    volumes:
+      - ../../../android/app/build/outputs/apk/debug/app-debug.apk:/tmp/app.apk
+      - "../../appium-win-default-caps.json:/home/androidusr/appium-docker-android/defaultcapabilities.json"
+    environment:
+      - DEFAULT_CAPABILITIES=true
+
   anbox-mac:
     image: josephyao/anbox_for_docker_desktop:v4.16.2
     container_name: anbox.test.atdd
@@ -164,4 +177,4 @@ services:
       - mysql
       - mock-server
       - phpmyadmin
-      - appium-mac
+      - appium-win
