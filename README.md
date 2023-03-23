@@ -29,7 +29,13 @@ name is `db`.
 If you are running tests of web on arm based Mac (e.g. Macbook M1 or M2), please run `docker-compose up web-arm`
 
 If you are running tests of android on Mac, please run `docker-compose up android-mac`. After environment started, you
-should be able to access the chrome for running tests at http://localhost:18080/vnc_lite.html
+should be able to access the emulator for running tests at http://localhost:18080/vnc_lite.html
+
+If you are running tests of andriod on Linux, please run `docker-compose up android-linux`. After environment started,
+you should be able to access the emulator for running tests at http://localhost:6080
+
+If you are running tests of android on Windows, please connect your device or emulator and then
+run `docker-compose up android-win`.
 
 # Run the application
 
