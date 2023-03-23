@@ -95,6 +95,7 @@ services:
       - "../../appium-win-default-caps.json:/home/androidusr/appium-docker-android/defaultcapabilities.json"
     environment:
       - DEFAULT_CAPABILITIES=true
+    entrypoint: [ 'bash', '-c', 'adb -H host.docker.internal reverse tcp:10081 tcp:10081 && /home/androidusr/appium-docker-android/start.sh' ]
 
   anbox-mac:
     image: josephyao/anbox_for_docker_desktop:v4.16.2
