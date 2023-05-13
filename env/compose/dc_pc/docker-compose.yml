@@ -60,53 +60,53 @@ services:
     environment:
       - DISPLAY_CONTAINER_NAME=selenium-standalone-chrome4
 
-  #  appium-android:
-  #    image: budtmo/docker-android-x86-7.1.1
-  #    privileged: true
-  #    ports:
-  #      - "4723:4723"
-  #      - "6080:6080"
-  #    volumes:
-  #      - "../../../android/app/build/outputs/apk/debug:/root/tmp/app"
-  #      - "../../android_host.sh:/root/tmp/android_host.sh"
-  #        #- ./video-nexus_7.1.1:/tmp/video
-  #    extra_hosts:
-  #      - "host.docker.internal:host-gateway"
-  #    environment:
-  #      - DEVICE=Nexus 5
-  #      - APPIUM=true
-  #      - AUTO_RECORD=false
-  #    entrypoint: [ 'bash', '/root/tmp/android_host.sh' ]
-
-  appium:
-    image: appium/appium:v1.22.3-p6
-    container_name: appium.test.atdd
+  appium-android:
+    image: budtmo/docker-android-x86-7.1.1
     privileged: true
     ports:
-      - '4723:4723'
-      - '8200:8200'
+      - "4723:4723"
+      - "6080:6080"
     volumes:
-      - /dev/bus/usb:/dev/bus/usb
-      - ../../../android/app/build/outputs/apk/debug/app-debug.apk:/home/androiduser/app-debug.apk
-      - ../../../android/app/build/outputs/apk/debug/app-debug-anbox.apk:/home/androiduser/app-debug-anbox.apk
-    depends_on:
-      - anbox
-
-  anbox:
-    image: josephyao/anbox_for_docker_desktop:v4.16.2
-    container_name: anbox.test.atdd
-    privileged: true
-    tty: true
-    ports:
-      - '18080:8080'
-    expose:
-      - 5037
+      - "../../../android/app/build/outputs/apk/debug:/root/tmp/app"
+      - "../../android_host.sh:/root/tmp/android_host.sh"
+        #- ./video-nexus_7.1.1:/tmp/video
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
-      WEBMODE: 1
-    cap_add:
-      - SYS_ADMIN
-      - SYS_MODULE
-      - NET_ADMIN
-    sysctls:
-      - net.ipv4.conf.all.route_localnet=1
+      - DEVICE=Nexus 5
+      - APPIUM=true
+      - AUTO_RECORD=false
+    entrypoint: [ 'bash', '/root/tmp/android_host.sh' ]
+
+  #appium:
+    #image: appium/appium:v1.22.3-p6
+    #container_name: appium.test.atdd
+    #privileged: true
+    #ports:
+      #- '4723:4723'
+      #- '8200:8200'
+    #volumes:
+      #- /dev/bus/usb:/dev/bus/usb
+      #- ../../../android/app/build/outputs/apk/debug/app-debug.apk:/home/androiduser/app-debug.apk
+      #- ../../../android/app/build/outputs/apk/debug/app-debug-anbox.apk:/home/androiduser/app-debug-anbox.apk
+    #depends_on:
+      #- anbox
+
+  #anbox:
+    #image: josephyao/anbox_for_docker_desktop:v4.16.2
+    #container_name: anbox.test.atdd
+    #privileged: true
+    #tty: true
+    #ports:
+      #- '18080:8080'
+    #expose:
+      #- 5037
+    #environment:
+      #WEBMODE: 1
+    #cap_add:
+      #- SYS_ADMIN
+      #- SYS_MODULE
+      #- NET_ADMIN
+    #sysctls:
+      #- net.ipv4.conf.all.route_localnet=1
 
