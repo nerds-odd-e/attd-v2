@@ -97,8 +97,39 @@ services:
       - DEFAULT_CAPABILITIES=true
     entrypoint: [ 'bash', '-c', 'adb -H host.docker.internal reverse tcp:10081 tcp:10081 && /home/androidusr/appium-docker-android/start.sh' ]
 
+  appium-win-anbox:
+    image: appium/appium:v1.22.3-p6
+    container_name: appium.test.atdd
+    privileged: true
+    ports:
+      - '4723:4723'
+      - '8200:8200'
+    volumes:
+      - ../../../android/app/build/outputs/apk/debug/app-debug.apk:/tmp/app.apk
+      - "../../appium-win-anbox-default-caps.json:/home/androidusr/appium-docker-android/defaultcapabilities.json"
+    environment:
+      - DEFAULT_CAPABILITIES=true
+
   anbox-mac:
     image: josephyao/anbox_for_docker_desktop:v4.16.2
+    container_name: anbox.test.atdd
+    privileged: true
+    tty: true
+    ports:
+      - '18080:8080'
+    expose:
+      - 5037
+    environment:
+      WEBMODE: 1
+    cap_add:
+      - SYS_ADMIN
+      - SYS_MODULE
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.conf.all.route_localnet=1
+
+  anbox-win:
+    image: josephyao/anbox_for_docker_windows:v4.16.3
     container_name: anbox.test.atdd
     privileged: true
     tty: true
@@ -179,3 +210,13 @@ services:
       - mock-server
       - phpmyadmin
       - appium-win
+
+  android-win-anbox:
+    image: busybox:latest
+    container_name: android-env-win-anbox
+    depends_on:
+      - mysql
+      - mock-server
+      - phpmyadmin
+      - appium-win-anbox
+      - anbox-win
