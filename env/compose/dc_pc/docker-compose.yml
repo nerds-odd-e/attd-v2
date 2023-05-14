@@ -129,7 +129,7 @@ services:
       - net.ipv4.conf.all.route_localnet=1
 
   anbox-win:
-    image: josephyao/anbox_for_docker_windows:v4.16.3
+    image: josephyao/anbox_for_docker_desktop_windows:v4.16.3
     container_name: anbox.test.atdd
     privileged: true
     tty: true
