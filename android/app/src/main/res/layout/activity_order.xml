@@ -15,7 +15,8 @@
             android:layout_marginTop="24dp"
             android:text="Order"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="getOrders" />
 
     <TableRow
             android:layout_width="match_parent"

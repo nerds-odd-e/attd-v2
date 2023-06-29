@@ -1,5 +1,6 @@
 package com.odde.atddv2.myorder
 
+import android.R.attr.src
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +10,19 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.w3c.dom.Text
+import com.android.volley.NetworkResponse
+import com.android.volley.Response
+import com.android.volley.toolbox.HttpHeaderParser
+import com.android.volley.toolbox.Volley
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
+import org.json.JSONArray
 import java.math.BigDecimal
+import java.nio.charset.Charset
 
 
 class OrderActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
@@ -38,8 +47,38 @@ class OrderActivity : AppCompatActivity() {
                 }
             }
 
-        val itemList = findViewById(R.id.itemList) as ListView
-        itemList.adapter = CustomerListAdapter(this, android.R.layout.simple_list_item_1, arrayListOf(Order("SN001", "衬衫", "￥19.99", "待发货")))
+    }
+
+    fun getOrders(view: View) {
+        val token = this.getSharedPreferences("myPrefs", MODE_PRIVATE).getString("token", "")!!
+        val jsonObjectRequest = object : com.android.volley.toolbox.StringRequest(
+            Method.GET, "http://localhost:10081/api/orders",
+            { response ->
+                val elements = ObjectMapper().readValue<List<Map<String, Any>>>(response, object: TypeReference<List<Map<String, Any>>>(){})
+                val orders = elements.map { e ->
+                    Order(
+                        e["code"] as String,
+                        e["productName"] as String,
+                        "￥" + e["total"].toString(),
+                        if (e["status"] as String == "toBeDelivered") "待发货" else e["status"] as String
+                    )
+                }.toMutableList()
+                val itemList = findViewById<ListView>(R.id.itemList)
+                itemList.adapter = CustomerListAdapter(this, android.R.layout.simple_list_item_1, orders)
+            },
+            { error ->
+                error.printStackTrace()
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                return mutableMapOf(Pair("token", token))
+            }
+
+            override fun parseNetworkResponse(response: NetworkResponse?): Response<String> {
+                return Response.success(String(response!!.data, Charset.forName("UTF-8")), HttpHeaderParser.parseCacheHeaders(response))
+            }
+        }
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -65,8 +104,8 @@ class CustomerListAdapter(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val order = getItem(position)!!
-        var viewHolder: ViewHolder
-        var result: View
+        val viewHolder: ViewHolder
+        val result: View
 
         if (convertView == null) {
             val layoutInflater = LayoutInflater.from(context)

@@ -3,14 +3,17 @@ package com.odde.atddv2.myorder
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import com.android.volley.Request
+import com.android.volley.NetworkResponse
+import com.android.volley.Response
+import com.android.volley.toolbox.HttpHeaderParser
 import com.android.volley.toolbox.Volley
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.json.JSONObject
+
 
 class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,25 +26,43 @@ class MainActivity : Activity() {
         val password = findViewById(R.id.editTextPassword) as EditText
         val errorMessage = findViewById(R.id.errorMessage) as TextView
 
-        val objectMapper = ObjectMapper();
-        val jsonObjectRequest = com.android.volley.toolbox.JsonObjectRequest(
-            Request.Method.POST, "http://localhost:10081/users/login",
+        val objectMapper = ObjectMapper()
+        val jsonObjectRequest = object : com.android.volley.toolbox.JsonObjectRequest(
+            Method.POST, "http://localhost:10081/users/login",
             JSONObject(
                 objectMapper.writeValueAsString(
-                    Api.User(
+                    User(
                         username.text.toString(),
                         password.text.toString()
                     )
                 )
             ),
             { response ->
+                val edit = this.getSharedPreferences("myPrefs", MODE_PRIVATE).edit()
+                val saveToken = response.getJSONObject("headers").getString("Token")
+                edit.putString("token", saveToken)
+                Log.i("Token", saveToken)
+                edit.apply()
                 startActivity(Intent(this, OrderActivity::class.java))
             },
             { error ->
                 error.printStackTrace()
                 errorMessage.text = "无效的用户名或密码"
             }
-        )
+        ) {
+            override fun parseNetworkResponse(response: NetworkResponse?): Response<JSONObject> {
+                val jsonResponse = JSONObject()
+                jsonResponse.put("data", JSONObject(String(response!!.data)))
+                jsonResponse.put("headers", JSONObject((response.headers as Map<*, *>?)!!))
+
+                return Response.success(
+                    jsonResponse,
+                    HttpHeaderParser.parseCacheHeaders(response)
+                )
+            }
+        }
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 }
+
+data class User constructor(var userName: String?, var password: String?)
