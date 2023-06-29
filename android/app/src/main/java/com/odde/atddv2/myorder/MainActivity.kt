@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.Volley
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -19,25 +21,7 @@ class MainActivity : Activity() {
     fun login(view: View) {
         var username = findViewById(R.id.editTextUsername) as EditText
         var password = findViewById(R.id.editTextPassword) as EditText
-
-//        var api = Feign.builder()
-//            .encoder(JacksonEncoder())
-//            .decoder(JacksonDecoder())
-//            .target(Api::class.java, "http://192.168.1.106:10081");
-
-//        Thread {
-//            try {
-//                val user = api.login(Api.User(username.text.toString(), password.text.toString()));
-//                runOnUiThread {
-//        Toast.makeText(this, "Clicked on Button" + user.userName, Toast.LENGTH_LONG).show();
-//                }
-//            } catch (e: Exception) {
-//                runOnUiThread {
-//                    Toast.makeText(this, e.message, Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        }.start();
-
+        var errorMessage = findViewById(R.id.errorMessage) as TextView
 
         val objectMapper = ObjectMapper();
         val jsonObjectRequest = com.android.volley.toolbox.JsonObjectRequest(
@@ -52,10 +36,10 @@ class MainActivity : Activity() {
             ),
             { response ->
                 startActivity(Intent(this, OrderActivity::class.java))
-//                Toast.makeText(this, "login", Toast.LENGTH_LONG).show();
             },
             { error ->
-                error.printStackTrace();
+                error.printStackTrace()
+                errorMessage.text = "无效的用户名或密码"
             }
         )
         Volley.newRequestQueue(this).add(jsonObjectRequest);
