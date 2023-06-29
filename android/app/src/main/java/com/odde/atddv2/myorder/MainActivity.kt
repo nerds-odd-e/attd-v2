@@ -19,9 +19,9 @@ class MainActivity : Activity() {
     }
 
     fun login(view: View) {
-        var username = findViewById(R.id.editTextUsername) as EditText
-        var password = findViewById(R.id.editTextPassword) as EditText
-        var errorMessage = findViewById(R.id.errorMessage) as TextView
+        val username = findViewById(R.id.editTextUsername) as EditText
+        val password = findViewById(R.id.editTextPassword) as EditText
+        val errorMessage = findViewById(R.id.errorMessage) as TextView
 
         val objectMapper = ObjectMapper();
         val jsonObjectRequest = com.android.volley.toolbox.JsonObjectRequest(
