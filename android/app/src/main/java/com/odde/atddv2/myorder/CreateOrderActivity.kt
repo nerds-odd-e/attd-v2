@@ -72,6 +72,10 @@ class CreateOrderActivity : AppCompatActivity() {
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 
+    fun cancel(view: View) {
+        finish()
+    }
+
     private fun getStatusCode(statusText: String): String {
         return when (statusText) {
             "待发货" -> "toBeDelivered"

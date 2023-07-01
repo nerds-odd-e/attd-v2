@@ -192,15 +192,25 @@
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp">
+                    android:layout_height="wrap_content">
 
                 <Button
                         android:text="提交"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/buttonConfirm"
-                        android:layout_weight="1"
-                        android:onClick="submit" />
+                        android:layout_weight="0.3"
+                        android:onClick="submit"
+                        android:layout_margin="10dp" />
+
+                <Button
+                        android:text="取消"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buttonCancel"
+                        android:layout_weight="0.3"
+                        android:layout_margin="10dp"
+                        android:onClick="cancel" />
             </LinearLayout>
         </LinearLayout>
 
