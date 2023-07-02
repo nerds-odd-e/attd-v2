@@ -46,6 +46,7 @@ class OrderActivity : AppCompatActivity() {
                 }
             }
 
+        findViewById<TextView>(R.id.message).text = "Welcome: ${intent.getStringExtra("userName")}"
     }
 
     override fun onResume() {

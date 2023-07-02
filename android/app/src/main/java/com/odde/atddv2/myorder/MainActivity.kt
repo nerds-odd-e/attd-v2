@@ -43,7 +43,9 @@ class MainActivity : Activity() {
                 edit.putString("token", saveToken)
                 Log.i("Token", saveToken)
                 edit.apply()
-                startActivity(Intent(this, OrderActivity::class.java))
+                val intent = Intent(this, OrderActivity::class.java)
+                intent.putExtra("userName", username.text.toString())
+                startActivity(intent)
             },
             { error ->
                 error.printStackTrace()
