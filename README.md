@@ -29,7 +29,7 @@ name is `db`.
 If you are running tests of web on arm based Mac (e.g. Macbook M1 or M2), please run `docker-compose up web-arm`
 
 If you are running tests of android on Mac, please run `docker-compose up android-mac`. After environment started, you
-should be able to access the docker based emulator for running tests at http://localhost:18080/vnc_lite.html
+should be able to access the docker based emulator for running tests at http://localhost:18080/vnc_auto.html
 
 If you are running tests of andriod on Linux, please run `docker-compose up android-linux`. After environment started,
 you should be able to access the docker based emulator for running tests at http://localhost:6080
@@ -43,7 +43,7 @@ If you are running tests of android on Windows, there are two options.
     kernel=<path_of_this_code_repo>\\env\\kernel_image_for_wsl\\bzImage
     ```
     * Restart your computer and Docker Desktop
-    * Run `docker-compose up android-win-anbox`. After environment started, you should be able to access the docker based emulator for running tests at http://localhost:18080
+    * Run `docker-compose up android-win-anbox`. After environment started, you should be able to access the docker based emulator for running tests at http://localhost:18080/vnc_auto.html
 
 # Run the application
 
