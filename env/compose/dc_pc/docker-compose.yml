@@ -20,6 +20,7 @@ services:
 
   mock-server:
     image: 'mockserver/mockserver:5.13.2'
+    platform: linux/amd64
     container_name: mock-server.test.atdd
     ports:
       - "${MOCK_SERVER_PORT_OUT}:1080"
@@ -39,6 +40,7 @@ services:
 
   web-driver:
     image: selenium/standalone-chrome:4.0.0-beta-3-20210426
+    platform: linux/amd64
     container_name: web-driver.test.atdd
     ports:
       - '4444:4444'
@@ -51,6 +53,7 @@ services:
 
   web-driver-video:
     image: josephyao/selenium-video-ffmpeg:v0.0.3
+    platform: linux/amd64
     volumes:
       - ../../videos:/videos
     ports:
@@ -58,20 +61,9 @@ services:
     environment:
       - DISPLAY_CONTAINER_NAME=selenium-standalone-chrome4
 
-  web-driver-arm:
-    image: seleniarm/standalone-chromium:4.0.0-20211213
-    container_name: web-driver-arm.test.atdd
-    ports:
-      - '4444:4444'
-      - '7900:7900'
-    extra_hosts:
-      - "api.net:${HOST_NAME:-127.0.0.1}"
-      - "host.docker.internal:host-gateway"
-    environment:
-      - VNC_NO_PASSWORD=1
-
   appium-mac:
     image: appium/appium:v1.22.3-p6
+    platform: linux/amd64
     container_name: appium.test.atdd
     privileged: true
     ports:
@@ -112,6 +104,7 @@ services:
 
   anbox-mac:
     image: josephyao/anbox_for_docker_desktop:v4.20.1
+    platform: linux/amd64
     container_name: anbox.test.atdd
     privileged: true
     tty: true
@@ -171,16 +164,6 @@ services:
       - mock-server
       - phpmyadmin
       - web-driver
-      - web-driver-video
-
-  web-arm:
-    image: busybox:latest
-    container_name: web-env-arm
-    depends_on:
-      - mysql
-      - mock-server
-      - phpmyadmin
-      - web-driver-arm
       - web-driver-video
 
   android-mac:

@@ -26,8 +26,6 @@ click the connect button
 Also, you can access the database at http://localhost:20000 with username `admin` and password `123456`. The database
 name is `db`.
 
-If you are running tests of web on arm based Mac (e.g. Macbook M1 or M2), please run `docker-compose up web-arm`
-
 If you are running tests of android on Mac, please run `docker-compose up android-mac`. After environment started, you
 should be able to access the docker based emulator for running tests at http://localhost:18080/vnc_auto.html
 
