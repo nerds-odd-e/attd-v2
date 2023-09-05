@@ -3,6 +3,7 @@
 For Windows, if you can't install Docker Desktop due to legal or policy reason, please
 follow [this instruction](windows_without_docker_desktop.md) to setup environment
 
+* Install JDK 11
 * Install docker and docker compose
 * Please add the following host names into your hosts file
 
