@@ -17,7 +17,7 @@ follow [this instruction](windows_without_docker_desktop.md) to setup environmen
 
 ```shell
 cd env/compose/dc_pc
-docker-compose up web
+docker compose up web
 ```
 
 After environment started, you should be able to access the chrome for running tests at http://localhost:7900. Just
