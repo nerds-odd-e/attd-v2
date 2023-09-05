@@ -27,14 +27,14 @@ click the connect button
 Also, you can access the database at http://localhost:20000 with username `admin` and password `123456`. The database
 name is `db`.
 
-If you are running tests of android on Mac, please run `docker-compose up android-mac`. After environment started, you
+If you are running tests of android on Mac, please run `docker compose up android-mac`. After environment started, you
 should be able to access the docker based emulator for running tests at http://localhost:18080/vnc_auto.html
 
-If you are running tests of andriod on Linux, please run `docker-compose up android-linux`. After environment started,
+If you are running tests of andriod on Linux, please run `docker compose up android-linux`. After environment started,
 you should be able to access the docker based emulator for running tests at http://localhost:6080
 
 If you are running tests of android on Windows, there are two options. 
-1. Connect your device or local emulator and then run `docker-compose up android-win`.
+1. Connect your device or local emulator and then run `docker compose up android-win`.
 2. To use docker based emulator, please follow the steps below.
     * Add a wsl config file under your user home directory. The full file path should be like `C:/Users/your_user_name/.wslconfig` and the content should be like below. Please replace the `your_user_name` with your actual username.
     ```ini
@@ -42,7 +42,7 @@ If you are running tests of android on Windows, there are two options.
     kernel=<path_of_this_code_repo>\\env\\kernel_image_for_wsl\\bzImage
     ```
     * Restart your computer and Docker Desktop
-    * Run `docker-compose up android-win-anbox`. After environment started, you should be able to access the docker based emulator for running tests at http://localhost:18080/vnc_auto.html
+    * Run `docker compose up android-win-anbox`. After environment started, you should be able to access the docker based emulator for running tests at http://localhost:18080/vnc_auto.html
 
 # Run the application
 
