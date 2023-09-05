@@ -140,7 +140,7 @@ services:
       - net.ipv4.conf.all.route_localnet=1
 
   appium-android:
-    image: budtmo/docker-android-x86-7.1.1:v1.10-p7
+    image: budtmo/docker-android
     privileged: true
     ports:
       - "4723:4723"
