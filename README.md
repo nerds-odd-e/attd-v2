@@ -81,6 +81,8 @@ Run ```src/test/resource/homework.feature``` in IntelliJ IDEA and see there is a
 
 - Run the infrastructure of the web system
 
+Run docker desktop
+
 ```shell
 git clone  git@github.com:wubin28/attd-v2.git
 cd attd-v2/env/compose/dc_pc
@@ -101,6 +103,7 @@ Phpmyadmin for mysql: http://localhost:20000, admin/123456
 ```shell
 cd attd-v2
 sdk use java 11.0.20-tem
+java -version
 ./gradlew bootRun
 ```
 
