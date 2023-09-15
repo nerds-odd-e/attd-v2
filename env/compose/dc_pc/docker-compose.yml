@@ -147,14 +147,15 @@ services:
       - "6080:6080"
     volumes:
       - "../../../android/app/build/outputs/apk/debug/app-debug.apk:/tmp/app-debug.apk"
-      - "../../android_host.sh:/root/tmp/android_host.sh"
+      - "../../android_host.sh:/tmp/android_host.sh"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
       - DEVICE=Nexus 5
       - APPIUM=true
       - AUTO_RECORD=false
-    entrypoint: [ 'bash', '/root/tmp/android_host.sh' ]
+    entrypoint: [ 'bash', '/tmp/android_host.sh' ]
+    # entrypoint: [ 'tail',  '-f', '/dev/null' ]
 
   web:
     image: busybox:latest
