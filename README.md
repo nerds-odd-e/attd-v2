@@ -1,3 +1,218 @@
+# Environment Setup by Ben Wu
+
+## Ubuntu environment setup for Web end-to-end testing
+
+- install JDK 11 by sdkman
+- Install docker for Linux (not docker desktop)
+- Add the following into /etc/hosts
+
+```shell
+127.0.0.1 mysql.tool.net
+127.0.0.1 mock-server.tool.net
+127.0.0.1 web-driver.tool.net
+127.0.0.1 host.docker.internal
+```
+
+- Run the infrastructure of the web system
+
+```shell
+git clone  git@github.com:wubin28/attd-v2.git
+cd attd-v2/env/compose/dc_pc
+docker compose up web
+# you can run command "docker compose stop" to stop all 6 containers
+# you can run command "docker compose down" to remove all 6 containers
+# you can visit http://localhost:9443 with admin/admin123456789 to check the status of the 6 containers
+```
+
+- Check out the infrastructure of the web system
+
+Selenium grid: http://localhost:7900
+
+Phpmyadmin for mysql: http://localhost:20000, admin/123456
+
+- Run web application
+
+```shell
+cd attd-v2
+sdk use java 11.0.20-tem
+./gradlew bootRun
+```
+
+- Check out the web application
+
+http://localhost:10081
+
+http://localhost:10081/swagger-ui/index.html
+
+- Do exercises
+
+```shell
+git clone git@github.com:wubin28/atdd-v2-exercise.git
+```
+
+Install cucumber for java plugin in IntelliJ IDEA
+
+run all tests
+
+```shell
+# FIXIT:
+# org.openqa.selenium.WebDriverException: Connection refused (Connection refused)
+./gradlew cucumber
+```
+
+keep the infrastructure running: ```docker compose up web```
+
+keep the web running:  ```docker compose up web```
+
+Run ```src/test/resource/homework.feature``` in IntelliJ IDEA and see there is a page displayed quickly on selenium grid page
+
+## Mac environment setup for Web end-to-end testing
+
+- install JDK 11 by sdkman
+- Install docker desktop for Mac
+- Add the following into /etc/hosts
+
+```shell
+127.0.0.1 mysql.tool.net
+127.0.0.1 mock-server.tool.net
+127.0.0.1 web-driver.tool.net
+127.0.0.1 host.docker.internal
+```
+
+- Run the infrastructure of the web system
+
+```shell
+git clone  git@github.com:wubin28/attd-v2.git
+cd attd-v2/env/compose/dc_pc
+docker compose up web
+# you can run command ?docker compose stop? to stop all 6 containers
+# you can run command ?docker compose down? to remove all 6 containers
+# you can visit http://localhost:9443 with admin/admin123456789 to check the status of the 6 containers
+```
+
+- Check out the infrastructure of the web system
+
+Selenium grid: http://localhost:7900
+
+Phpmyadmin for mysql: http://localhost:20000, admin/123456
+
+- Run web application
+
+```shell
+cd attd-v2
+sdk use java 11.0.20-tem
+./gradlew bootRun
+```
+
+- Check out the web application
+
+http://localhost:10081
+
+http://localhost:10081/swagger-ui/index.html
+
+- Do exercises
+
+```shell
+git clone git@github.com:wubin28/atdd-v2-exercise.git
+```
+
+Install cucumber for java plugin in IntelliJ IDEA
+
+run all tests
+
+```shell
+# FIXIT: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+./gradlew cucumber
+```
+
+keep the infrastructure running: ```docker compose up web```
+
+keep the web running:  ```docker compose up web```
+
+```shell
+# FIXIT: Could not create connection to database server. Attempted reconnect 3 times.
+```
+
+Run ```src/test/resource/homework.feature``` in IntelliJ IDEA and see there is a page displayed quickly on selenium grid page
+
+## Windows 10 environment setup for Web end-to-end testing
+
+- install JDK 11 by Jabba or chocolatey
+- Install wsl2
+- Install docker desktop for windows 10
+- Add the following into c:\Windows\System32\drivers\etc\hosts
+
+```shell
+127.0.0.1 mysql.tool.net
+127.0.0.1 mock-server.tool.net
+127.0.0.1 web-driver.tool.net
+127.0.0.1 host.docker.internal
+```
+
+- Run the infrastructure of the web system
+
+```shell
+git clone  git@github.com:wubin28/attd-v2.git
+cd attd-v2/env/compose/dc_pc
+docker compose up web
+# you can run command ?docker compose stop? to stop all 6 containers
+# you can run command ?docker compose down? to remove all 6 containers
+# you can visit http://localhost:9443 with admin/admin123456789 to check the status of the 6 containers
+```
+
+- Check out the infrastructure of the web system
+
+Selenium grid: http://localhost:7900
+
+Phpmyadmin for mysql: http://localhost:20000, admin/123456
+
+- Run web application
+
+Run PowerShell 7 as Admin
+
+```shell
+jabba ls
+jabba use openjdk@1.11.0-2
+~/SetProxies.ps1
+cd attd-v2
+./gradlew bootRun
+```
+
+- Check out the web application
+
+http://localhost:10081
+
+http://localhost:10081/swagger-ui/index.html
+
+- Do exercises
+
+```shell
+git clone git@github.com:wubin28/atdd-v2-exercise.git
+```
+
+Install cucumber for java plugin in IntelliJ IDEA
+
+run all tests
+
+In PowerShell 7
+
+```shell
+jabba ls
+jabba use openjdk@1.11.0-2
+~/SetProxies.ps1
+cd atdd-v2-exercise
+# FIXIT: > Task :compileTestJava FAILED
+./gradlew cucumber
+```
+
+keep the infrastructure running: ```docker compose up web```
+
+keep the web running:  ```docker compose up web```
+
+Run ```src/test/resource/homework.feature``` in IntelliJ IDEA and see there is a page displayed quickly on selenium grid page
+
+---
+
 # Setup environment
 
 For Windows, if you can't install Docker Desktop due to legal or policy reason, please
