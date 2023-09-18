@@ -55,8 +55,8 @@ Install cucumber for java plugin in IntelliJ IDEA
 run all tests
 
 ```shell
-# FIXIT:
-# org.openqa.selenium.WebDriverException: Connection refused (Connection refused)
+// To fix the java version issue in intellij idea on Ubuntu
+sdk default java 11.0.20-tem
 ./gradlew cucumber
 ```
 
