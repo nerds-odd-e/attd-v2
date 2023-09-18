@@ -21,7 +21,7 @@ cd attd-v2/env/compose/dc_pc
 docker compose up web
 # you can run command "docker compose stop" to stop all 6 containers
 # you can run command "docker compose down" to remove all 6 containers
-# you can visit http://localhost:9443 with admin/admin123456789 to check the status of the 6 containers
+# you can visit https://localhost:9443 with admin/admin123456789 to check the status of the 6 containers
 ```
 
 - Check out the infrastructure of the web system
