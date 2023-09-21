@@ -39,8 +39,8 @@ services:
       - "${PHPMYADMIN_PORT_OUT}:80"
 
   web-driver:
-    image: selenium/standalone-chrome:4.0.0-beta-3-20210426
-    platform: linux/amd64
+    image: seleniarm/standalone-chromium:4.10
+    # platform: linux/amd64
     container_name: web-driver.test.atdd
     ports:
       - '4444:4444'
