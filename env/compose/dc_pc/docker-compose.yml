@@ -72,7 +72,7 @@ services:
     environment:
       - DISPLAY_CONTAINER_NAME=selenium-standalone-chrome4
 
-  appium-mac:
+  appium-mac-anbox:
     image: appium/appium:v1.22.3-p6
     platform: linux/amd64
     container_name: appium.test.atdd
@@ -86,7 +86,7 @@ services:
     environment:
       - DEFAULT_CAPABILITIES=true
 
-  appium-win:
+  appium:
     image: appium/appium:v1.22.3-p6
     container_name: appium.test.atdd
     privileged: true
@@ -150,7 +150,7 @@ services:
     sysctls:
       - net.ipv4.conf.all.route_localnet=1
 
-  appium-android:
+  appium-android-linux:
     image: budtmo/docker-android-x86-7.1.1:v1.10-p7
     privileged: true
     ports:
@@ -194,7 +194,7 @@ services:
       - mysql
       - mock-server
       - phpmyadmin
-      - appium-mac
+      - appium-mac-anbox
       - anbox-mac
 
   android-linux:
@@ -204,16 +204,16 @@ services:
       - mysql
       - mock-server
       - phpmyadmin
-      - appium-android
+      - appium-android-linux
 
-  android-win:
+  android:
     image: busybox:latest
-    container_name: android-env-win
+    container_name: android-env
     depends_on:
       - mysql
       - mock-server
       - phpmyadmin
-      - appium-win
+      - appium
 
   android-win-anbox:
     image: busybox:latest
