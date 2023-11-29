@@ -15,10 +15,21 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.json.JSONObject
 
 
-class MainActivity : Activity() {
+open class MainActivity : Activity() {
+    lateinit var listener: JacocoInstrumentation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(InstrumentActivity.TAG, "onDestroy()")
+        super.finish()
+        if (listener != null) {
+            listener.onActivityEnd()
+        }
     }
 
     fun login(view: View) {
