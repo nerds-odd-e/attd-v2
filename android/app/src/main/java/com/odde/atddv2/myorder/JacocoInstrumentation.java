@@ -80,10 +80,11 @@ public class JacocoInstrumentation  extends Instrumentation implements Instrumen
         }
     }
     private void generateCoverageReport() {
-        Log.d(TAG, "generateCoverageReport():" + getCoverageFilePath());
         OutputStream out = null;
         try {
-            out = new FileOutputStream(getCoverageFilePath(), false);
+            String coverageFilePath = getContext().getFilesDir().getPath() + "/coverage_" + System.currentTimeMillis() + ".ec";
+            Log.d(TAG, "generateCoverageReport():" + coverageFilePath);
+            out = new FileOutputStream(coverageFilePath, false);
             Object agent = Class.forName("org.jacoco.agent.rt.RT")
                     .getMethod("getAgent")
                     .invoke(null);

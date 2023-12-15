@@ -87,7 +87,7 @@ task jacocoTestReport(type: JacocoReport) {
             ])
     sourceDirectories.from = files(coverageSourceDirs)
     // NOTE: Put your ec file here
-    executionData.from = files("/Users/josephyao/Downloads/coverage.ec")
+    executionData.from = file("/Users/josephyao/Downloads/coverageData").listFiles()
 
     doFirst {
         new File("$buildDir/intermediates/app_classes/").eachFileRecurse { file ->
