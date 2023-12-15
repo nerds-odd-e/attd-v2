@@ -71,7 +71,16 @@ configurations.all{
     }
 }
 
+task pullCoverageFiles(type: Exec) {
+    File dir = project.file('coverageData')
+    if (dir.exists()) {
+        dir.deleteDir()
+    }
+    commandLine 'adb', 'pull', '/data/user/0/com.odde.atddv2.myorder/files/coverageData', project.projectDir.getPath()
+}
+
 task jacocoTestReport(type: JacocoReport) {
+    dependsOn pullCoverageFiles
     group = "Reporting"
     description = "Generate Jacoco coverage reports after running tests."
     reports {
@@ -87,7 +96,7 @@ task jacocoTestReport(type: JacocoReport) {
             ])
     sourceDirectories.from = files(coverageSourceDirs)
     // NOTE: Put your ec file here
-    executionData.from = file("/Users/josephyao/Downloads/coverageData").listFiles()
+    executionData.from = fileTree(dir: "$project.projectDir/coverageData")
 
     doFirst {
         new File("$buildDir/intermediates/app_classes/").eachFileRecurse { file ->

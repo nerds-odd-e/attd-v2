@@ -30,6 +30,8 @@ public class JacocoInstrumentation  extends Instrumentation implements Instrumen
         super.onCreate(arguments);
         // bad notation, better use NAME+TimeSeed because you might generate more than 1 corage file
         DEFAULT_COVERAGE_FILE_PATH = getContext().getFilesDir().getPath().toString() + "/coverage.ec";
+        File coverageDataDir = new File(getContext().getFilesDir().getPath() + "/coverageData");
+        coverageDataDir.mkdir();
         Log.d(TAG, "DEFAULT_COVERAGE_FILE_PATH:" + DEFAULT_COVERAGE_FILE_PATH);
         File file = new File(DEFAULT_COVERAGE_FILE_PATH);
         if(!file.exists()){
@@ -82,7 +84,7 @@ public class JacocoInstrumentation  extends Instrumentation implements Instrumen
     private void generateCoverageReport() {
         OutputStream out = null;
         try {
-            String coverageFilePath = getContext().getFilesDir().getPath() + "/coverage_" + System.currentTimeMillis() + ".ec";
+            String coverageFilePath = getContext().getFilesDir().getPath() + "/coverageData/coverage_" + System.currentTimeMillis() + ".ec";
             Log.d(TAG, "generateCoverageReport():" + coverageFilePath);
             out = new FileOutputStream(coverageFilePath, false);
             Object agent = Class.forName("org.jacoco.agent.rt.RT")
