@@ -23,15 +23,6 @@ open class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(InstrumentActivity.TAG, "onDestroy()")
-        super.finish()
-        if (listener != null) {
-            listener.onActivityEnd()
-        }
-    }
-
     fun login(view: View) {
         val username = findViewById(R.id.editTextUsername) as EditText
         val password = findViewById(R.id.editTextPassword) as EditText
@@ -78,4 +69,4 @@ open class MainActivity : Activity() {
     }
 }
 
-data class User constructor(var userName: String?, var password: String?)
+data class User(var userName: String?, var password: String?)
