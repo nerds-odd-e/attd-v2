@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.json.JSONObject
 
 
-open class MainActivity : Activity() {
+class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

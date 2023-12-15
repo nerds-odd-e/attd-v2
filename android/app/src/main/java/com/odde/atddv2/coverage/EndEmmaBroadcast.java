@@ -1,9 +1,10 @@
-package com.odde.atddv2.myorder;
+package com.odde.atddv2.coverage;
 
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 // adb shell am broadcast -a com.example.pkg.END_EMMA
 public class EndEmmaBroadcast extends BroadcastReceiver {
@@ -14,6 +15,7 @@ public class EndEmmaBroadcast extends BroadcastReceiver {
     }
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d("jacoco", "On Receive");
         if(this.activityListener!=null){
             activityListener.onActivityEnd();
         }

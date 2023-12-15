@@ -76,7 +76,6 @@ task pullCoverageFiles(type: Exec) {
     if (dir.exists()) {
         dir.deleteDir()
     }
-    commandLine 'adb', 'root'
     commandLine 'adb', 'pull', '/data/user/0/com.odde.atddv2.myorder/files/coverageData', project.projectDir.getPath()
 }
 

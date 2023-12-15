@@ -1,4 +1,4 @@
-package com.odde.atddv2.myorder;
+package com.odde.atddv2.coverage;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+
+import com.odde.atddv2.myorder.MainActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
