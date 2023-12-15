@@ -19,13 +19,14 @@ public class EndEmmaBroadcast extends BroadcastReceiver {
     }
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("jacoco", "onReceive()");
-        generateCoverageReport();
-//        Log.d("jacoco", "listener:" + activityListener);
-//        if(this.activityListener!=null){
-//            Log.d("jacoco", "listener is not null");
-//            activityListener.onActivityEnd();
-//        }
+        Log.d("jacoco", "onReceive(): " + this);
+//        JacocoInstrumentation.generateCoverageReport();
+//        generateCoverageReport();
+        Log.d("jacoco", "listener:" + activityListener);
+        if(this.activityListener!=null){
+            Log.d("jacoco", "listener is not null");
+            activityListener.onActivityEnd();
+        }
         // once coverage is dumped, the processes is ended.
 //        Process.killProcess(Process.myPid());
     }

@@ -10,7 +10,6 @@
     </instrumentation>
 
     <application
-            android:name="com.odde.atddv2.myorder.MyOrderApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -30,9 +29,9 @@
             </intent-filter>
         </activity>
         <!-- adb shell am broadcast -a com.example.pkg.END_EMMA -->
-        <receiver android:name=".EndEmmaBroadcast" android:exported="true">
+        <receiver android:name=".EndEmmaBroadcast">
             <intent-filter>
-                <action android:name="com.odde.atddv2.END_EMMA" />
+                <action android:name="com.odde.atddv2.myorder.END_EMMA" />
             </intent-filter>
         </receiver>
 

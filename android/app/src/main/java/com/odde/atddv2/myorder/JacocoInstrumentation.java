@@ -20,7 +20,7 @@ public class JacocoInstrumentation  extends Instrumentation implements Instrumen
     private Intent mIntent;
     private static final boolean LOGD = true;
     private boolean mCoverage = true;
-    private String mCoverageFilePath;
+    private static String mCoverageFilePath;
 
     public JacocoInstrumentation() {
     }
@@ -64,12 +64,12 @@ public class JacocoInstrumentation  extends Instrumentation implements Instrumen
         MainActivity activity = (MainActivity) startActivitySync(mIntent);
         Log.d(TAG, "after startActivitySync()");
         EndEmmaBroadcast broadcast = new EndEmmaBroadcast();
-        Log.d(TAG, "after new EndEmmaBroadcast()");
+        Log.d(TAG, "after new EndEmmaBroadcast(): " + broadcast);
         activity.setListener(this);
         Log.d(TAG, "after activity.setListener(this)");
         broadcast.setInstrumentActivityListener(this);
         Log.d(TAG, "after broadcast.setInstrumentActivityListener(this)");
-        activity.registerReceiver(broadcast, new IntentFilter("com.odde.atddv2.END_EMMA"));
+        activity.registerReceiver(broadcast, new IntentFilter("com.odde.atddv2.myorder.END_EMMA"));
         Log.d(TAG, "after activity.registerReceiver(broadcast, new IntentFilter(\"com.odde.atddv2.END_EMMA\"))");
     }
     private String getCoverageFilePath() {
