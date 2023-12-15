@@ -79,21 +79,32 @@ task pullCoverageFiles(type: Exec) {
     commandLine 'adb', 'pull', '/data/user/0/com.odde.atddv2.myorder/files/coverageData', project.projectDir.getPath()
 }
 
+task unzipJar(type: Copy) {
+    from zipTree('./build/intermediates/app_classes/debug/classes.jar')
+    into './build/intermediates/app_classes/debug/classes'
+    dependsOn "assembleDebugAndroidTest"
+}
+
 task jacocoTestReport(type: JacocoReport) {
-    dependsOn pullCoverageFiles
+    dependsOn "assembleDebugAndroidTest", pullCoverageFiles, unzipJar
     group = "Reporting"
     description = "Generate Jacoco coverage reports after running tests."
     reports {
         xml.enabled = true
         html.enabled = true
     }
-    classDirectories.from = fileTree(
-            dir: './build/intermediates/app_classes/debug',
-            excludes: ['**/R*.class',
+    classDirectories.from = files(fileTree(
+            dir: './build/intermediates/app_classes/debug/classes',
+            excludes: [
+                       '**/R*.class',
                        '**/*$InjectAdapter.class',
                        '**/*$ModuleAdapter.class',
-                       '**/*$ViewInjector*.class'
-            ])
+                       '**/*$ViewInjector*.class',
+                    '**/EndEmmaBroadcast.class',
+                    '**/JacocoInstrumentation.class',
+                    '**/InstrumentActivity.class',
+                    '**/BuildConfig.class',
+            ]))
     sourceDirectories.from = files(coverageSourceDirs)
     // NOTE: Put your ec file here
     executionData.from = fileTree(dir: "$project.projectDir/coverageData")

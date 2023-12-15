@@ -95,4 +95,4 @@ class CreateOrderActivity : AppCompatActivity() {
     }
 }
 
-class CreateOrder(var code: String, var productName: String, var total: BigDecimal, var recipientName: String, var recipientMobile: String, var recipientAddress: String, var status: String)
+class CreateOrder(val code: String, val productName: String, val total: BigDecimal, val recipientName: String, val recipientMobile: String, val recipientAddress: String, val status: String)
