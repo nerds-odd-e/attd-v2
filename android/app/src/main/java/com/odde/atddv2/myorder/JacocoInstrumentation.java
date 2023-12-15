@@ -35,7 +35,6 @@ public class JacocoInstrumentation  extends Instrumentation implements Instrumen
         // Register broadcast receiver and start InstrumentActivity
         MainActivity activity = (MainActivity) startActivitySync(mIntent);
         EndEmmaBroadcast broadcast = new EndEmmaBroadcast();
-        activity.setListener(this);
         broadcast.setInstrumentActivityListener(this);
         activity.registerReceiver(broadcast, new IntentFilter("com.odde.atddv2.myorder.END_EMMA"));
     }

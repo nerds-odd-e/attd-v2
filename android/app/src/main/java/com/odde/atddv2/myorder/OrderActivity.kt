@@ -111,7 +111,7 @@ class OrderActivity : AppCompatActivity() {
     }
 }
 
-class Order(var code: String, var productName: String, var total: String, var status: String)
+class Order(val code: String, val productName: String, val total: String, val status: String)
 
 class CustomerListAdapter(
     context: Context,
@@ -119,7 +119,7 @@ class CustomerListAdapter(
     orders: MutableList<Order>
 ) : ArrayAdapter<Order>(context, resource, orders) {
 
-    private class ViewHolder(var code: TextView, var productName: TextView, var total: TextView, var status: TextView)
+    private class ViewHolder(val code: TextView, val productName: TextView, val total: TextView, val status: TextView)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val order = getItem(position)!!

@@ -16,7 +16,6 @@ import org.json.JSONObject
 
 
 open class MainActivity : Activity() {
-    lateinit var listener: JacocoInstrumentation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,4 +68,4 @@ open class MainActivity : Activity() {
     }
 }
 
-data class User(var userName: String?, var password: String?)
+data class User(val userName: String?, val password: String?)
