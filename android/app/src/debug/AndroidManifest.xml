@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="com.odde.atddv2.myorder">
+
+    <instrumentation
+            android:name="com.odde.atddv2.coverage.JacocoInstrumentation"
+            android:targetPackage="com.odde.atddv2.myorder" >
+    </instrumentation>
+
+    <application>
+        <!-- adb shell am broadcast -a com.example.pkg.END_EMMA -->
+        <receiver android:name="com.odde.atddv2.coverage.EndEmmaBroadcast">
+            <intent-filter>
+                <action android:name="com.odde.atddv2.myorder.END_EMMA" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

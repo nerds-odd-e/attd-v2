@@ -4,11 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <instrumentation
-            android:name="com.odde.atddv2.coverage.JacocoInstrumentation"
-            android:targetPackage="com.odde.atddv2.myorder" >
-    </instrumentation>
-
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -28,12 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- adb shell am broadcast -a com.example.pkg.END_EMMA -->
-        <receiver android:name="com.odde.atddv2.coverage.EndEmmaBroadcast">
-            <intent-filter>
-                <action android:name="com.odde.atddv2.myorder.END_EMMA" />
-            </intent-filter>
-        </receiver>
 
     </application>
 
