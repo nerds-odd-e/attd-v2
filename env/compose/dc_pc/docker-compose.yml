@@ -98,6 +98,8 @@ services:
       - "../../appium-win-default-caps.json:/home/androidusr/appium-docker-android/defaultcapabilities.json"
     environment:
       - DEFAULT_CAPABILITIES=true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     entrypoint: [ 'bash', '-c', 'adb -H host.docker.internal reverse tcp:10081 tcp:10081 && /home/androidusr/appium-docker-android/start.sh' ]
 
   appium-win-anbox:
