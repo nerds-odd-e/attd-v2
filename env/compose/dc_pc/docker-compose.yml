@@ -49,6 +49,7 @@ services:
       - "host.docker.internal:host-gateway"
     environment:
       - VNC_NO_PASSWORD=1
+    shm_size: 1G
 
   web-driver-arm:
     image: seleniarm/standalone-chromium:4.10
