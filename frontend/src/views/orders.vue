@@ -4,11 +4,16 @@
       .flex.justify-center.align-center
         .padding-right-xl Orders
         el-button(type='primary', @click='showAddOrder=true') 录入订单
-      .flex.align-center(v-for="(order, index) in list" :key="index")
-        .width-200.text-sm {{ order.code }}
-        .width-200.text-sm {{ order.productName }}
-        .width-200.text-sm {{ order.status === 'toBeDelivered' ? '待发货' : '' }}
-        .width-200.text-sm {{ '￥' + order.total }}
+      el-table(:data='list')
+        el-table-column(prop='code', label= 'code')
+        el-table-column(prop='productName', label= 'product')
+        el-table-column(label= 'status')
+          template(slot-scope="scope")
+            | {{ scope.row.status === 'toBeDelivered' ? '待发货' : '' }}
+        el-table-column(label= 'total')
+          template(slot-scope="scope")
+            | {{ '￥' + scope.row.total }}
+
     .flex.justify-center.align-center.absolute.bg-white.flex-direction(v-if="showAddOrder" style="top:100px;z-index:10;")
       div 录入界面
       el-input(v-model="order.code", placeholder="订单号")
