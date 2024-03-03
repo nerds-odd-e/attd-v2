@@ -18,6 +18,16 @@ services:
       timeout: 20s
       retries: 10
 
+  redis:
+    image: redis:7.2.4-alpine
+    container_name: redis.test.atdd
+    ports:
+      - '6379:6379'
+    networks:
+      default:
+        aliases:
+          - redis.tool.net
+
   mock-server:
     image: 'mockserver/mockserver:5.13.2'
     platform: linux/amd64
@@ -175,6 +185,7 @@ services:
     container_name: web-env-x86
     depends_on:
       - mysql
+      - redis
       - mock-server
       - phpmyadmin
       - web-driver
@@ -185,6 +196,7 @@ services:
     container_name: web-env-arm
     depends_on:
       - mysql
+      - redis
       - mock-server
       - phpmyadmin
       - web-driver-arm
@@ -195,6 +207,7 @@ services:
     container_name: android-env-mac
     depends_on:
       - mysql
+      - redis
       - mock-server
       - phpmyadmin
       - appium-mac-anbox
@@ -205,6 +218,7 @@ services:
     container_name: android-env-linux
     depends_on:
       - mysql
+      - redis
       - mock-server
       - phpmyadmin
       - appium-android-linux
@@ -214,6 +228,7 @@ services:
     container_name: android-env
     depends_on:
       - mysql
+      - redis
       - mock-server
       - phpmyadmin
       - appium
@@ -223,6 +238,7 @@ services:
     container_name: android-env-win-anbox
     depends_on:
       - mysql
+      - redis
       - mock-server
       - phpmyadmin
       - appium-win-anbox
