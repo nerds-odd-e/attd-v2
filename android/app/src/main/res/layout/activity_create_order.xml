@@ -23,7 +23,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="订单号"
+                        android:text="Order No"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView7"
@@ -38,7 +38,7 @@
                         android:id="@+id/editTextCode"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="订单号" />
+                        android:hint="Order No" />
             </LinearLayout>
 
             <LinearLayout
@@ -48,7 +48,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="商品名称"
+                        android:text="Product Name"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView8"
@@ -63,7 +63,7 @@
                         android:id="@+id/editTextProductName"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="商品名称" />
+                        android:hint="Product Name" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,7 +73,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="金额"
+                        android:text="Amount"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView9"
@@ -88,7 +88,7 @@
                         android:id="@+id/editTextTotal"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="金额" />
+                        android:hint="Amount" />
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +98,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="收件人"
+                        android:text="Recepient"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView10"
@@ -113,7 +113,7 @@
                         android:id="@+id/editTextRecipientName"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="收件人" />
+                        android:hint="Recepient" />
             </LinearLayout>
 
             <LinearLayout
@@ -123,7 +123,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="电话"
+                        android:text="Phone"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView11"
@@ -138,7 +138,7 @@
                         android:id="@+id/editTextRecipientPhone"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="电话" />
+                        android:hint="Phone" />
             </LinearLayout>
 
             <LinearLayout
@@ -148,7 +148,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="地址"
+                        android:text="Address"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView12"
@@ -163,7 +163,7 @@
                         android:id="@+id/editTextRecipientAddress"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="地址" />
+                        android:hint="Address" />
             </LinearLayout>
 
             <LinearLayout
@@ -173,7 +173,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="状态"
+                        android:text="Status"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView13"
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content">
 
                 <Button
-                        android:text="提交"
+                        android:text="Submit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/buttonConfirm"
@@ -204,7 +204,7 @@
                         android:layout_margin="10dp" />
 
                 <Button
-                        android:text="取消"
+                        android:text="Cancel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/buttonCancel"

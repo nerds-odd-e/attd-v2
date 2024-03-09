@@ -50,7 +50,7 @@ class MainActivity : Activity() {
             },
             { error ->
                 error.printStackTrace()
-                errorMessage.text = "无效的用户名或密码"
+                errorMessage.text = "invalid username or password"
             }
         ) {
             override fun parseNetworkResponse(response: NetworkResponse?): Response<JSONObject> {

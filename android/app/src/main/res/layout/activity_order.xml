@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/button2"
-                android:text="录入订单"
+                android:text="Add Order"
                 android:layout_weight="0.5"
                 android:onClick="createOrder" />
 
@@ -47,7 +47,7 @@
             android:id="@+id/tableRow">
 
         <TextView
-                android:text="订单号"
+                android:text="Order No"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView2"
@@ -57,11 +57,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3"
-                android:text="商品名称"
+                android:text="Product Name"
                 android:layout_weight="0.25" />
 
         <TextView
-                android:text="金额"
+                android:text="Amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView4"
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView5"
-                android:text="状态"
+                android:text="Status"
                 android:layout_weight="0.25" />
 
     </TableRow>

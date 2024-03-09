@@ -15,7 +15,7 @@
             android:layout_marginLeft="100dp"
             android:layout_marginTop="200dp"
             android:ems="10"
-            android:hint="用户名"
+            android:hint="Username"
             android:inputType="text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,7 @@
             android:layout_marginLeft="100dp"
             android:layout_marginTop="84dp"
             android:ems="10"
-            android:hint="密码"
+            android:hint="Password"
             android:inputType="textPassword"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
@@ -41,7 +41,7 @@
             android:layout_marginLeft="160dp"
             android:layout_marginTop="88dp"
             android:onClick="login"
-            android:text="登录"
+            android:text="Login"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
