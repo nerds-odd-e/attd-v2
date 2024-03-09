@@ -1,23 +1,32 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'jacoco'
 }
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    jacoco {
+        version = '0.8.7'
+    }
+
     defaultConfig {
-        applicationId "com.odde.atddv2.myorder"
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdkVersion 18
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
 
     buildTypes {
+        debug{
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -40,9 +49,71 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.android.volley:volley:1.2.0'
-    implementation 'io.github.openfeign:feign-okhttp:11.2'
-    implementation 'io.github.openfeign:feign-jackson:11.2'
+//    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.0'
+}
+
+def coverageSourceDirs = [
+        './src/main/java'
+]
+
+configurations.all{
+    resolutionStrategy {
+        eachDependency { details ->
+            if ('org.jacoco' == details.requested.group) {
+                details.useVersion "0.8.7"
+            }
+        }
+    }
+}
+
+task pullCoverageFiles(type: Exec) {
+    File dir = project.file('coverageData')
+    if (dir.exists()) {
+        dir.deleteDir()
+    }
+    commandLine 'adb', 'pull', '/data/user/0/com.odde.atddv2.myorder/files/coverageData', project.projectDir.getPath()
+}
+
+task unzipJar(type: Copy) {
+    from zipTree('./build/intermediates/app_classes/debug/classes.jar')
+    into './build/intermediates/app_classes/debug/classes'
+    dependsOn "assembleDebugAndroidTest"
+}
+
+task jacocoTestReport(type: JacocoReport) {
+    dependsOn "assembleDebugAndroidTest", pullCoverageFiles, unzipJar
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    classDirectories.from = files(fileTree(
+            dir: './build/intermediates/app_classes/debug/classes',
+            excludes: [
+                       '**/R*.class',
+                       '**/*$InjectAdapter.class',
+                       '**/*$ModuleAdapter.class',
+                       '**/*$ViewInjector*.class',
+                    '**/EndEmmaBroadcast.class',
+                    '**/JacocoInstrumentation.class',
+                    '**/InstrumentActivity.class',
+                    '**/BuildConfig.class',
+            ]))
+    sourceDirectories.from = files(coverageSourceDirs)
+    // NOTE: Put your ec file here
+    executionData.from = fileTree(dir: "$project.projectDir/coverageData")
+
+    doFirst {
+        new File("$buildDir/intermediates/app_classes/").eachFileRecurse { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
+        }
+    }
 }

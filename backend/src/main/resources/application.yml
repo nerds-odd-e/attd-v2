@@ -16,6 +16,8 @@ spring:
       hibernate:
         default_catalog: db
         dialect: org.hibernate.dialect.MySQL5Dialect
+  redis:
+    host: redis.tool.net
 
 logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
 

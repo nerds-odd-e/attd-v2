@@ -12,7 +12,10 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.MyOrder"
             android:usesCleartextTraffic="true">
-        <activity android:name=".OrderActivity"></activity>
+        <activity
+                android:name=".CreateOrderActivity"
+                android:exported="false" />
+        <activity android:name=".OrderActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -63,6 +63,12 @@ public class Order {
     @JsonView(GetOrder.class)
     private OrderLogistics logistics;
 
+
+    @Transient
+    @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+    @JsonView(GetOrder.class)
+    private OrderTransaction transaction;
+
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     @JsonView(GetOrder.class)
@@ -96,5 +102,16 @@ public class Order {
     public static class OrderLogistics {
         private String deliverNo, companyCode, companyName, companyLogo, deliveryStatus, isSigned;
         private List<Logistics.Detail> details;
+    }
+
+    @Getter
+    @Setter
+    @Accessors(chain = true)
+    @JsonView(GetOrder.class)
+    public static class OrderTransaction {
+        @JsonIgnore
+        private String orderCode;
+        private String paidAt;
+        private BigDecimal amount;
     }
 }

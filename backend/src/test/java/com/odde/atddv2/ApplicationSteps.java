@@ -19,6 +19,7 @@ import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 
 @ContextConfiguration(classes = {SpringVueApplication.class}, loader = SpringBootContextLoader.class)
@@ -40,6 +41,9 @@ public class ApplicationSteps {
     private OrderRepo orderRepo;
     @Autowired
     private OrderPage orderPage;
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     @假如("存在用户名为{string}和密码为{string}的用户")
     public void 存在用户名为和密码为的用户(String userName, String password) {
@@ -67,6 +71,7 @@ public class ApplicationSteps {
         userRepo.deleteAll();
         orderRepo.deleteAll();
         jFactory.getDataRepository().clear();
+        redisTemplate.getConnectionFactory().getConnection().flushAll();
     }
 
     @假如("存在如下订单:")

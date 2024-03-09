@@ -3,6 +3,7 @@
 For Windows, if you can't install Docker Desktop due to legal or policy reason, please
 follow [this instruction](windows_without_docker_desktop.md) to setup environment
 
+* Install JDK 11
 * Install docker and docker compose
 * Please add the following host names into your hosts file
 
@@ -13,18 +14,20 @@ follow [this instruction](windows_without_docker_desktop.md) to setup environmen
 127.0.0.1 host.docker.internal
 ```
 
-* Start environment for running tests
+* Start environment for running tests of web (x86)
 
 ```shell
 cd env/compose/dc_pc
-docker-compose up
+docker compose up web
 ```
 
-After environment started, you should be able to access the chrome for running tests
-at http://localhost:7900. Just click the connect button
+After environment started, you should be able to access the chrome for running tests at http://localhost:7900. Just click the connect button
 
-Also, you can access the database at http://localhost:20000 with username `admin` and password `123456`. The database
-name is `db`.
+Also, you can access the database at http://localhost:20000 with username `admin` and password `123456`. The database name is `db`.
+
+If you are running tests of web on Mac M1 or M2 (arm64), please run `docker compose up web-arm`. After environment started, you should be able to access the chrome for running tests at http://localhost:7900. Just click the connect button
+
+If you are running tests of android, please connect your device or local emulator and then run `docker compose up android`.
 
 # Run the application
 

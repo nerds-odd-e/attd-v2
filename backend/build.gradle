@@ -47,6 +47,7 @@ dependencies {
     compile('org.projectlombok:lombok:1.18.18')
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
     compile("mysql:mysql-connector-java:8.0.13")
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
@@ -58,7 +59,7 @@ dependencies {
     testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     testImplementation "org.awaitility:awaitility:4.0.3"
     testImplementation group: 'org.skyscreamer', name: 'jsonassert', version: '1.5.0'
-    testImplementation group: 'org.mock-server', name: 'mockserver-client-java', version: '5.4.1'
+    testImplementation group: 'org.mock-server', name: 'mockserver-client-java', version: '5.13.2'
     testImplementation(platform('org.junit:junit-bom:5.7.1'))
     testImplementation('org.junit.jupiter:junit-jupiter')
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.9.0'
