@@ -50,7 +50,7 @@ class MainActivity : Activity() {
             },
             { error ->
                 error.printStackTrace()
-                errorMessage.text = "invalid username or password"
+                errorMessage.text = "Invalid username or password"
             }
         ) {
             override fun parseNetworkResponse(response: NetworkResponse?): Response<JSONObject> {
