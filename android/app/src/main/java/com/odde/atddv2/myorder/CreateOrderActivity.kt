@@ -42,7 +42,7 @@ class CreateOrderActivity : AppCompatActivity() {
             }
 
         val statusDropdown = findViewById<Spinner>(R.id.spinner)
-        statusDropdown.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, arrayOf("Please select status", "ToBeDelivered", "Delivering"))
+        statusDropdown.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, arrayOf("Please select status", "To be delivered", "Delivering"))
     }
 
     fun submit(view: View) {
@@ -78,7 +78,7 @@ class CreateOrderActivity : AppCompatActivity() {
 
     private fun getStatusCode(statusText: String): String {
         return when (statusText) {
-            "ToBeDelivered" -> "toBeDelivered"
+            "To be delivered" -> "toBeDelivered"
             "Delivering" -> "delivering"
             else -> ""
         }

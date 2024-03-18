@@ -47,7 +47,7 @@
             android:id="@+id/tableRow">
 
         <TextView
-                android:text="Order No"
+                android:text="Order number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView2"
@@ -57,11 +57,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3"
-                android:text="Product Name"
+                android:text="Product name"
                 android:layout_weight="0.25" />
 
         <TextView
-                android:text="Amount"
+                android:text="Total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView4"

@@ -70,8 +70,8 @@ class OrderActivity : AppCompatActivity() {
                     Order(
                         e["code"] as String,
                         e["productName"] as String,
-                        "￥" + e["total"].toString(),
-                        if (e["status"] as String == "toBeDelivered") "ToBeDelivered" else e["status"] as String
+                        "$" + String.format("%.0f", e["total"]),
+                        if (e["status"] as String == "toBeDelivered") "To be delivered" else e["status"] as String
                     )
                 }.toMutableList()
                 val itemList = findViewById<ListView>(R.id.itemList)

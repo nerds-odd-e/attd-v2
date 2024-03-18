@@ -23,7 +23,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="Order No"
+                        android:text="Order number"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView7"
@@ -38,7 +38,7 @@
                         android:id="@+id/editTextCode"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="Order No" />
+                        android:hint="Order number" />
             </LinearLayout>
 
             <LinearLayout
@@ -48,7 +48,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="Product Name"
+                        android:text="Product name"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView8"
@@ -63,7 +63,7 @@
                         android:id="@+id/editTextProductName"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="Product Name" />
+                        android:hint="Product name" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,7 +73,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="Amount"
+                        android:text="Total"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView9"
@@ -88,7 +88,7 @@
                         android:id="@+id/editTextTotal"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="Amount" />
+                        android:hint="Total" />
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +98,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="Recepient"
+                        android:text="Recipient name"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView10"
@@ -113,7 +113,7 @@
                         android:id="@+id/editTextRecipientName"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="Recepient" />
+                        android:hint="Recipient name" />
             </LinearLayout>
 
             <LinearLayout
@@ -123,7 +123,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="Phone"
+                        android:text="Recipient mobile"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView11"
@@ -138,7 +138,7 @@
                         android:id="@+id/editTextRecipientPhone"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="Phone" />
+                        android:hint="Recipient mobile" />
             </LinearLayout>
 
             <LinearLayout
@@ -148,7 +148,7 @@
                     android:layout_margin="10dp">
 
                 <TextView
-                        android:text="Address"
+                        android:text="Recipient address"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView12"
@@ -163,7 +163,7 @@
                         android:id="@+id/editTextRecipientAddress"
                         android:layout_weight="0.8"
                         android:layout_gravity="center"
-                        android:hint="Address" />
+                        android:hint="Recipient address" />
             </LinearLayout>
 
             <LinearLayout
