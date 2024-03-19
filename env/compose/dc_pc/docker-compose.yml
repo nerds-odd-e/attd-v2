@@ -188,7 +188,7 @@ services:
       - redis
       - mock-server
       - phpmyadmin
-      - web-driver
+      - web-driver-arm
       - web-driver-video
 
   web-arm:
