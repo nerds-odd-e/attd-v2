@@ -25,8 +25,6 @@ After environment started, you should be able to access the chrome for running t
 
 Also, you can access the database at http://localhost:20000 with username `admin` and password `123456`. The database name is `db`.
 
-If you are running tests of web on Mac M1 or M2 (arm64), please run `docker compose up web-arm`. After environment started, you should be able to access the chrome for running tests at http://localhost:7900. Just click the connect button
-
 If you are running tests of android, please connect your device or local emulator and then run `docker compose up android`.
 
 # Run the application
