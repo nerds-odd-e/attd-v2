@@ -43,13 +43,14 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin.test.atdd
+    platform: linux/amd64
     links:
       - mysql:db
     ports:
       - "${PHPMYADMIN_PORT_OUT}:80"
 
   web-driver:
-    image: selenium/standalone-chrome:4.0.0-beta-3-20210426
+    image: seleniarm/standalone-chromium:4.10
     container_name: web-driver.test.atdd
     ports:
       - '4444:4444'
@@ -61,18 +62,6 @@ services:
       - VNC_NO_PASSWORD=1
     shm_size: 1G
 
-  web-driver-arm:
-    image: seleniarm/standalone-chromium:4.10
-    container_name: web-driver.test.atdd
-    ports:
-      - '4444:4444'
-      - '7900:7900'
-    extra_hosts:
-      - "api.net:${HOST_NAME:-127.0.0.1}"
-      - "host.docker.internal:host-gateway"
-    environment:
-      - VNC_NO_PASSWORD=1
-
   web-driver-video:
     image: josephyao/selenium-video-ffmpeg:v0.0.3
     platform: linux/amd64
@@ -82,20 +71,6 @@ services:
       - "9000:9000"
     environment:
       - DISPLAY_CONTAINER_NAME=selenium-standalone-chrome4
-
-  appium-mac-anbox:
-    image: appium/appium:v1.22.3-p6
-    platform: linux/amd64
-    container_name: appium.test.atdd
-    privileged: true
-    ports:
-      - '4723:4723'
-      - '8200:8200'
-    volumes:
-      - ../../../android/app/build/outputs/apk/debug/app-debug.apk:/tmp/app.apk
-      - "../../appium-mac-default-caps.json:/home/androidusr/appium-docker-android/defaultcapabilities.json"
-    environment:
-      - DEFAULT_CAPABILITIES=true
 
   appium:
     image: appium/appium:v1.22.3-p6
@@ -113,73 +88,6 @@ services:
       - "host.docker.internal:host-gateway"
     entrypoint: [ 'bash', '-c', 'adb -H host.docker.internal reverse tcp:10081 tcp:10081 && /home/androidusr/appium-docker-android/start.sh' ]
 
-  appium-win-anbox:
-    image: appium/appium:v1.22.3-p6
-    container_name: appium.test.atdd
-    privileged: true
-    ports:
-      - '4723:4723'
-      - '8200:8200'
-    volumes:
-      - ../../../android/app/build/outputs/apk/debug/app-debug.apk:/tmp/app.apk
-      - "../../appium-win-anbox-default-caps.json:/home/androidusr/appium-docker-android/defaultcapabilities.json"
-    environment:
-      - DEFAULT_CAPABILITIES=true
-
-  anbox-mac:
-    image: josephyao/anbox_for_docker_desktop:v4.20.1
-    platform: linux/amd64
-    container_name: anbox.test.atdd
-    privileged: true
-    tty: true
-    ports:
-      - '18080:8080'
-    expose:
-      - 5037
-    environment:
-      WEBMODE: 1
-    cap_add:
-      - SYS_ADMIN
-      - SYS_MODULE
-      - NET_ADMIN
-    sysctls:
-      - net.ipv4.conf.all.route_localnet=1
-
-  anbox-win:
-    image: josephyao/anbox_for_docker_desktop_windows:v4.16.3
-    container_name: anbox.test.atdd
-    privileged: true
-    tty: true
-    ports:
-      - '18080:8080'
-    expose:
-      - 5037
-    environment:
-      WEBMODE: 1
-    cap_add:
-      - SYS_ADMIN
-      - SYS_MODULE
-      - NET_ADMIN
-    sysctls:
-      - net.ipv4.conf.all.route_localnet=1
-
-  appium-android-linux:
-    image: budtmo/docker-android-x86-7.1.1:v1.10-p7
-    privileged: true
-    ports:
-      - "4723:4723"
-      - "6080:6080"
-    volumes:
-      - "../../../android/app/build/outputs/apk/debug/app-debug.apk:/tmp/app-debug.apk"
-      - "../../android_host.sh:/root/tmp/android_host.sh"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    environment:
-      - DEVICE=Nexus 5
-      - APPIUM=true
-      - AUTO_RECORD=false
-    entrypoint: [ 'bash', '/root/tmp/android_host.sh' ]
-
   web:
     image: busybox:latest
     container_name: web-env-x86
@@ -188,40 +96,8 @@ services:
       - redis
       - mock-server
       - phpmyadmin
-      - web-driver-arm
+      - web-driver
       - web-driver-video
-
-  web-arm:
-    image: busybox:latest
-    container_name: web-env-arm
-    depends_on:
-      - mysql
-      - redis
-      - mock-server
-      - phpmyadmin
-      - web-driver-arm
-      - web-driver-video
-
-  android-mac:
-    image: busybox:latest
-    container_name: android-env-mac
-    depends_on:
-      - mysql
-      - redis
-      - mock-server
-      - phpmyadmin
-      - appium-mac-anbox
-      - anbox-mac
-
-  android-linux:
-    image: busybox:latest
-    container_name: android-env-linux
-    depends_on:
-      - mysql
-      - redis
-      - mock-server
-      - phpmyadmin
-      - appium-android-linux
 
   android:
     image: busybox:latest
@@ -232,14 +108,3 @@ services:
       - mock-server
       - phpmyadmin
       - appium
-
-  android-win-anbox:
-    image: busybox:latest
-    container_name: android-env-win-anbox
-    depends_on:
-      - mysql
-      - redis
-      - mock-server
-      - phpmyadmin
-      - appium-win-anbox
-      - anbox-win
