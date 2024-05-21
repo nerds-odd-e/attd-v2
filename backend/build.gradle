@@ -3,11 +3,10 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 apply plugin: "io.spring.dependency-management"
 
-sourceCompatibility = 8
-
 repositories {
     maven {
         url "http://maven.aliyun.com/nexus/content/groups/public"
+        allowInsecureProtocol true
     }
 }
 
@@ -44,13 +43,13 @@ dependencyManagement {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
-    annotationProcessor('org.projectlombok:lombok:1.18.18')
-    testAnnotationProcessor('org.projectlombok:lombok:1.18.18')
-    compile('org.projectlombok:lombok:1.18.18')
+    annotationProcessor('org.projectlombok:lombok:1.18.32')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.32')
+    implementation('org.projectlombok:lombok:1.18.32')
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-data-redis")
-    compile("mysql:mysql-connector-java:8.0.13")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("mysql:mysql-connector-java:8.0.13")
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
 
