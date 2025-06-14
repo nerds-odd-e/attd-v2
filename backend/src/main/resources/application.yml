@@ -58,3 +58,22 @@ binstd-endpoint:
 
 server:
   port: 10082
+
+---
+spring:
+  config:
+    activate:
+      on-profile: logistics-api
+
+server:
+  port: 10081
+
+mock-server:
+  endpoint: http://mock-server.tool.net:9081
+
+scheduled:
+  order-task-in-msec: 10
+
+binstd-endpoint:
+  url: http://localhost:10083/api
+  key: test
