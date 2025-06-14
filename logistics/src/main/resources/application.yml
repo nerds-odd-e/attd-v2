@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongodb.tool.net:27017/local
+
+server:
+  port: 10083
