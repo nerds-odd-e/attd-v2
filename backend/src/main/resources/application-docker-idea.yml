@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    url: jdbc:mysql://mysql.tool.net:3306/db?autoReconnect=true&createDatabaseIfNotExist=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: admin
+    password: 123456
+    testOnBorrow: true
+    testOnReturn: true
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    timeBetweenEvictionRunsMillis: 3600000
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        default_catalog: db
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  redis:
+    host: redis.tool.net
+
+logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
+scheduled:
+  order-task-in-msec: 3600000
+
+standalone-dev-endpoint:
+  url: http://mock-server.tool.net:1080
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test, standalone-dev
+
+server:
+  port: 10081
+
+mock-server:
+  endpoint: http://mock-server.tool.net:1080
+
+binstd-endpoint:
+  url: ${mock-server.endpoint}
+  key: test
+
+scheduled:
+  order-task-in-msec: 10
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+binstd-endpoint:
+  url: https://api.binstd.com
+  key: 822c629b7815e01f
+
+server:
+  port: 10082

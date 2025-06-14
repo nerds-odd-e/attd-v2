@@ -17,6 +17,10 @@ services:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 20s
       retries: 10
+    networks:
+      default:
+        aliases:
+          - mysql.tool.net
 
   redis:
     image: redis:7.2.4-alpine
@@ -39,6 +43,10 @@ services:
       test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
       timeout: 20s
       retries: 10
+    networks:
+      default:
+        aliases:
+          - mock-server.tool.net
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -61,6 +69,10 @@ services:
     environment:
       - VNC_NO_PASSWORD=1
     shm_size: 1G
+    networks:
+      default:
+        aliases:
+          - web-driver.tool.net
 
   web-driver-video:
     image: josephyao/selenium-video-ffmpeg:v0.0.3
@@ -71,6 +83,10 @@ services:
       - "9000:9000"
     environment:
       - DISPLAY_CONTAINER_NAME=selenium-standalone-chrome4
+    networks:
+      default:
+        aliases:
+          - web-driver-video.tool.net
 
   appium:
     image: appium/appium:v1.22.3-p6
@@ -88,6 +104,31 @@ services:
       - "host.docker.internal:host-gateway"
     entrypoint: [ 'bash', '-c', 'adb -H host.docker.internal reverse tcp:10081 tcp:10081 && /home/androidusr/appium-docker-android/start.sh' ]
 
+  mongodb:
+    image: mongo:8.0.10
+    container_name: mongodb.test.atdd
+    ports:
+      - '27017:27017'
+    networks:
+      default:
+        aliases:
+          - mongodb.tool.net
+
+  mongo-express:
+    image: mongo-express:1.0.2-20-alpine3.19
+    container_name: mongo-express.test.atdd
+    ports:
+      - '8081:8081'
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb.tool.net
+      ME_CONFIG_MONGODB_PORT: 27017
+    depends_on:
+      - mongodb
+    networks:
+      default:
+        aliases:
+          - mongo-express.tool.net
+
   web:
     image: busybox:latest
     container_name: web-env-x86
@@ -98,6 +139,8 @@ services:
       - phpmyadmin
       - web-driver
       - web-driver-video
+      - mongodb
+      - mongo-express
 
   android:
     image: busybox:latest
@@ -108,3 +151,5 @@ services:
       - mock-server
       - phpmyadmin
       - appium
+      - mongodb
+      - mongo-express

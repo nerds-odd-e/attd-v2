@@ -35,7 +35,7 @@ task npmBuild(type: NpmTask) {
     dependsOn 'clean'
 
 //    args = ['run', 'build', '--', '--mode', project.gradle.startParameter.taskNames.contains('bootRun') ? 'development' : 'test']
-    args = ['run', 'build', '--', '--mode', System.env.SPRING_PROFILES_ACTIVE != null ? 'development' : 'test']
+    args = ['run', 'build', '--', '--mode', System.env.FRONTEND_PROFILES_ACTIVE != null ? 'development' : 'test']
 }
 
 task clean() {
