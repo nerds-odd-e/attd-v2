@@ -9,8 +9,10 @@ follow [this instruction](windows_without_docker_desktop.md) to setup environmen
 
 ```ini
 127.0.0.1 mysql.tool.net
+127.0.0.1 mongodb.tool.net
 127.0.0.1 mock-server.tool.net
 127.0.0.1 web-driver.tool.net
+127.0.0.1 web-driver-video.tool.net
 127.0.0.1 host.docker.internal
 ```
 
@@ -37,7 +39,7 @@ If you are running tests of android, please connect your device or local emulato
 
 ## For Windows
 
-```shell
+```powershell
 gradlew.bat bootRun
 ```
 
@@ -46,6 +48,27 @@ gradlew.bat bootRun
 After run the application, you can open the application at http://localhost:10081
 
 And, the swagger document is available at http://localhost:10081/swagger-ui/index.html
+
+# Run the logistics service and application with that service
+
+## For Linux and Mac
+
+```shell
+cd logistics
+./gradlew bootRun
+cd ..
+SPRING_PROFILES_ACTIVE=standalone-dev,logistics-api ./gradlew bootRun
+```
+
+## For Windows
+
+```powershell
+cd logistics
+gradlew.bat bootRun
+cd ..
+$env:SPRING_PROFILES_ACTIVE="standalone-dev,logistics-api"
+gradlew.bat bootRun
+```
 
 # Architecture
 
