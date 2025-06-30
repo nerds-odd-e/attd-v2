@@ -6,7 +6,8 @@
     "ci-serve": "node --max_old_space_size=4096 node_modules/@vue/cli-service/bin/vue-cli-service serve --open --port 8080 --mode ci-serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build:test": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build --mode test"
   },
   "dependencies": {
     "vue": "^2.6.12",
