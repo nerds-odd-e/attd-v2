@@ -41,7 +41,7 @@ If you are running tests of android, please connect your device or local emulato
 ## For Windows
 
 ```powershell
-gradlew.bat bootRun
+./gradlew.bat bootRun
 ```
 
 # Open the application
