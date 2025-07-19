@@ -5,6 +5,7 @@ follow [this instruction](windows_without_docker_desktop.md) to setup environmen
 
 * Install JDK 17
 * Install docker and docker compose
+  * Please use https://dockerproxy.net as the docker registry mirror if you have problem with pulling images from Docker Hub
 * Please add the following host names into your hosts file
 
 ```ini
