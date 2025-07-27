@@ -15,6 +15,7 @@ follow [this instruction](windows_without_docker_desktop.md) to setup environmen
 127.0.0.1 web-driver.tool.net
 127.0.0.1 web-driver-video.tool.net
 127.0.0.1 host.docker.internal
+127.0.0.1 redis.tool.net
 ```
 
 * Start environment for running tests of web (x86)
