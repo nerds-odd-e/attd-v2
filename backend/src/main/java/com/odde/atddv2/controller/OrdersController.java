@@ -3,6 +3,7 @@ package com.odde.atddv2.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.odde.atddv2.api.BinstdApi;
 import com.odde.atddv2.entity.Order;
+import com.odde.atddv2.entity.OrderLine;
 import com.odde.atddv2.repo.OrderRepo;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,12 @@ public class OrdersController {
         } else {
             return order;
         }
+    }
+
+
+    @GetMapping("/{code}/lines")
+    public List<OrderLine> getOrderLines(@PathVariable String code) {
+        return orderRepo.findByCode(code).getLines();
     }
 
     @PostMapping("{code}/deliver")
